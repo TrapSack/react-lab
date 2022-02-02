@@ -1,0 +1,50 @@
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  color: $footerTextColor;
+  font-size: 20px;
+  height: 80px;
+  background: $footerBackgroundColor;
+  font-weight: 500;
+
+  &__companies-logo-container {
+    display: flex;
+    margin-left: 300px;
+    height: 100%;
+    align-items: center;
+  }
+
+  &__company-logo {
+    display: flex;
+    height: 60%;
+    margin: 10px;
+    font-size: 0;
+  }
+}
+
+#nintendo {
+  background: url("../../assets/img/nintendo-logo.png");
+  background-size: cover;
+  width: 90px;
+}
+
+#ubisoft {
+  background: url("../../assets/img/Ubisoft-logo.png");
+  background-size: cover;
+  width: 60px;
+}
+
+#activision-blizzard {
+  background: url("../../assets/img/activision-blizzard-logo.png");
+  background-size: cover;
+  width: 230px;
+}
+
+#ea-games {
+  background: url("../../assets/img/ea-logo.png");
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+}
