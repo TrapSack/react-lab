@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .footer {
   display: flex;
   flex-direction: row;
@@ -21,6 +23,11 @@
     height: 60%;
     margin: 10px;
     font-size: 0;
+
+    &:hover {
+      filter: color.invert(1);
+      transition: 0.2s ease-in;
+    }
   }
 }
 
@@ -33,7 +40,7 @@
 #ubisoft {
   background: url("../../assets/img/Ubisoft-logo.png");
   background-size: cover;
-  width: 60px;
+  width: 80px;
 }
 
 #activision-blizzard {

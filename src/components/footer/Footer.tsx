@@ -1,9 +1,12 @@
 import "./footer.scss";
 
 export default function Footer() {
+  // function handleClick() {
+  //   throw new Error("Error");
+  // }
   return (
     <footer className="footer">
-      Incredible convenient
+      <span>Incredible convenient</span>
       <div className="footer__companies-logo-container">
         <a href="https://www.nintendo.ru/" className="footer__company-logo" aria-label="nintendo" id="nintendo">
           Nintendo
