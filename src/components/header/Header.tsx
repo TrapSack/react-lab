@@ -1,4 +1,4 @@
-import NavLinks from "./NavLinks";
+import NavLinks from "./navLinks";
 import "./header.scss";
 
 export default function Header() {
