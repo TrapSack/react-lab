@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { products, about, home } from "../public/links";
+import { products, about, home } from "../../helpers/links";
 
 export default function NavLinks() {
   return (
