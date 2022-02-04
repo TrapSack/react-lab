@@ -37,12 +37,12 @@ export default class App extends Component<unknown, IState> {
     if (this.state.error.isError) return <div>Error</div>;
     return (
       // <ErrorBoundary>
-      <div>
+      <>
         <Header />
         {/* {this.state.error.isError && <ErrorBoundary />} */}
         <Outlet />
         <Footer />
-      </div>
+      </>
       // </ErrorBoundary>
     );
   }
