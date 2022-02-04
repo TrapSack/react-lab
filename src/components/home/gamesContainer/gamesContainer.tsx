@@ -18,10 +18,9 @@ export default function GamesContainer(props: IGamesContainer): JSX.Element {
       description={game.description}
     />
   ));
-
   return (
     <div className="home__games-container">
-      {gameComponentArray.length > 0 ? gameComponentArray : <NoMatchesParagraph />}{" "}
+      {gameComponentArray.length > 0 ? gameComponentArray : <NoMatchesParagraph />}
     </div>
   );
 }

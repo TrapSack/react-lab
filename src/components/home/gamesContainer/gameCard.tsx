@@ -31,13 +31,11 @@ export default function GameCard(props: IGame) {
           alt=""
           className="game-card__stars"
         />
-      </div>
-      <div className={descriptionShow}>
-        {props.description}{" "}
         <button type="button" className="game-card__add-to-cart-btn">
-          Add to card
+          BUY
         </button>
       </div>
+      <div className={descriptionShow}>{props.description}</div>
     </div>
   );
 }

@@ -24,7 +24,7 @@
     background-color: $homeContainersBackground;
     // justify-content: space-around;
   }
-  &__platforms{
+  &__platforms {
     display: flex;
     align-items: center;
     margin-top: 50px;
@@ -54,10 +54,8 @@
     color: white;
     font-weight: 600;
     font-size: 23px;
-
   }
   &__title-text {
-
   }
   &:hover {
     background-color: $hoverLinkColor;
@@ -68,7 +66,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 350px;
+  border-radius: 20px;
+  height: 380px;
   width: 230px;
   margin: 20px 20px;
   background: $headerColor;
@@ -90,11 +89,15 @@
   }
   &__cover {
     height: 75%;
+    object-fit: cover;
     width: 100%;
+    border-radius: 20px 20px 0 0;
   }
   &__rating {
-    margin-top: 10px;
+    display: flex;
+    align-items: center;
     width: 100%;
+    height: 15%;
   }
   &__stars {
     margin-left: 8px;
@@ -102,11 +105,14 @@
   }
   &__add-to-cart-btn {
     height: 40px;
-    width: 120px;
+    width: 40px;
     margin: 50px auto;
+    position: sticky;
     background: rgb(22, 121, 9);
-    background: linear-gradient(0deg, rgba(22, 121, 9, 1) 23%, rgba(91, 172, 91, 1) 100%);
-    border: 2px solid black;
+    background:rgb(67, 187, 52), url('https://uxwing.com/wp-content/themes/uxwing/download/19-e-commerce-currency-shopping/shopping-cart.png') no-repeat;
+    border: none;
+    background-position: center;
+    background-size: 20px 20px;
     border-radius: 10px;
     color: white;
     font-weight: 500;
@@ -119,18 +125,26 @@
   }
 
   &__description {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
     font-size: 16px;
     font-weight: 500;
     color: $footerTextColor;
-    display: flex;
-    flex-direction: column;
+    border-radius: 20px 20px 0 0;
     position: absolute;
     opacity: 0;
     visibility: hidden;
     width: 100%;
-    height: 300px;
+    text-align: center;
+    height: 75%;
     background: rgb(43, 43, 43);
+    overflow-y: auto;
     // transition-property: "display";
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   .active {
     visibility: visible;

@@ -6,6 +6,8 @@ import { IGame } from "./gamesContainer/interfaces";
 import GamesContainer from "./gamesContainer/gamesContainer";
 import Platforms from "./platformsContainer/platforms";
 
+// let isCooldown = true;
+
 export default function Home() {
   const [gamesArr, setGamesArr] = useState<IGame[]>([]);
   const [searchState, setSearchState] = useState<string>("");

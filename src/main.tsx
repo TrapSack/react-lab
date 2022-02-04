@@ -12,7 +12,9 @@ ReactDOM.render(
     <Routes>
       <Route path={home} element={<App />}>
         <Route path={home} element={<Home />} />
-        <Route path={products} element={<Products />} />
+        <Route path={products} element={<Products />}>
+          <Route path=":platFormId" element={<Products />} />
+        </Route>
         <Route path={about} element={<About />} />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
