@@ -24,7 +24,7 @@
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   },
   {
-    "id": "0zkVEBdiDblzsOgildG7j",
+    "id": "0zkVEBdiDsdfsdblzsOgildG7j",
     "name": "Fortnite",
     "rating": 5,
     "price": 4.99,
@@ -43,7 +43,7 @@
     "id": "0zkVEBdffiDblz3223sOgildG7j",
     "name": "Dota 2",
     "rating": 5,
-    "price": 4.99,
+    "price": 0.01,
     "cover": "https://store.my.games/hotbox/showcase/game/picture/de863d3e-23c0-4c07-a120-fc808dbee21b.jpg",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   }

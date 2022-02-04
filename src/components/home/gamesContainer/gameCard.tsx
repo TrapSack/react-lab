@@ -1,14 +1,29 @@
-export default function GameCard() {
+import { useState } from "react";
+import { IGame } from "./interfaces";
+
+export default function GameCard(props: IGame) {
+  const [descriptionShow, setDescriptionShow] = useState<string>(() => "game-card__description");
+
+  function setShowDescription() {
+    setDescriptionShow("game-card__description active");
+  }
+  function setHideDescription() {
+    setDescriptionShow("game-card__description");
+  }
+
   return (
-    <div className="game-card">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/ru/3/33/Overwatch_Origins_Edition_PC_cover.jpg"
-        alt="overwatch"
-        className="game-card__cover"
-      />
+    <div
+      className="game-card"
+      // onClick={() => {
+      //   alert("CLICKED");
+      // }}
+      onMouseEnter={setShowDescription}
+      onMouseLeave={setHideDescription}
+    >
+      <img src={props.cover} alt="overwatch" className="game-card__cover" />
       <div className="game-card__info">
-        <span className="game-card__title">OverWatch</span>
-        <span className="game-card__price">Price 24.99</span>
+        <span className="game-card__title">{props.name}</span>
+        <span className="game-card__price">Price {props.price}$</span>
       </div>
       <div className="game-card__rating">
         <img
@@ -16,6 +31,12 @@ export default function GameCard() {
           alt=""
           className="game-card__stars"
         />
+      </div>
+      <div className={descriptionShow}>
+        {props.description}{" "}
+        <button type="button" className="game-card__add-to-cart-btn">
+          Add to card
+        </button>
       </div>
     </div>
   );
