@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   &__game-search {
     margin-top: 100px;
     height: 50px;
@@ -13,6 +14,7 @@
     border: 2px solid rgb(131, 131, 131);
     border-radius: 20px;
   }
+
   &__games-container {
     margin: 80px 0;
     display: flex;
@@ -24,6 +26,7 @@
     background-color: $homeContainersBackground;
     // justify-content: space-around;
   }
+
   &__platforms {
     display: flex;
     align-items: center;
@@ -33,6 +36,7 @@
     background: $homeContainersBackground;
   }
 }
+
 .platform-link {
   display: flex;
   flex-direction: column;
@@ -45,23 +49,26 @@
   text-decoration: none;
   border: 2px solid $purple;
   margin: 0 20px;
+
   &__logo {
     height: 55%;
+    /* stylelint-disable-next-line scss/no-global-function-names */
     filter: invert(1);
   }
+
   &__title {
     margin-top: 50px;
     color: white;
     font-weight: 600;
     font-size: 23px;
   }
-  &__title-text {
-  }
+
   &:hover {
     background-color: $hoverLinkColor;
     transition: background-color 0.1s linear;
   }
 }
+
 .game-card {
   display: flex;
   flex-direction: column;
@@ -72,6 +79,7 @@
   margin: 20px 20px;
   background: $headerColor;
   box-shadow: 0 0 30px 5px $brightgreen;
+
   &__info {
     color: white;
     display: flex;
@@ -79,6 +87,7 @@
     justify-content: space-around;
     font-size: 18px;
   }
+
   &__title,
   &__price {
     display: flex;
@@ -87,29 +96,34 @@
     width: 50%;
     margin-top: 10px;
   }
+
   &__cover {
     height: 75%;
     object-fit: cover;
     width: 100%;
     border-radius: 20px 20px 0 0;
   }
+
   &__rating {
     display: flex;
     align-items: center;
     width: 100%;
     height: 15%;
   }
+
   &__stars {
     margin-left: 8px;
     height: 40px;
   }
+
   &__add-to-cart-btn {
     height: 40px;
     width: 40px;
     margin: 50px auto;
-    position: sticky;
     background: rgb(22, 121, 9);
-    background:rgb(67, 187, 52), url('https://uxwing.com/wp-content/themes/uxwing/download/19-e-commerce-currency-shopping/shopping-cart.png') no-repeat;
+    background: rgb(67, 187, 52),
+      url("https://uxwing.com/wp-content/themes/uxwing/download/19-e-commerce-currency-shopping/shopping-cart.png")
+        no-repeat;
     border: none;
     background-position: center;
     background-size: 20px 20px;
@@ -146,6 +160,7 @@
       display: none;
     }
   }
+
   .active {
     visibility: visible;
     opacity: 1;

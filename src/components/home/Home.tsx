@@ -1,20 +1,21 @@
 import "./home.scss";
 import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
+import Loader from "../../elements/loader";
 import debounce from "../../helpers/useDebounce";
 import { IGame } from "./gamesContainer/interfaces";
 import GamesContainer from "./gamesContainer/gamesContainer";
 import Platforms from "./platformsContainer/platforms";
 
-// let isCooldown = true;
-
 export default function Home() {
   const [gamesArr, setGamesArr] = useState<IGame[]>([]);
   const [searchState, setSearchState] = useState<string>("");
+  const [showLoader, setShowLoader] = useState<boolean>(false);
   function doSearchToApi() {
     console.log(searchState);
     axios.get(`/api/search/${searchState}`).then((res) => {
       setGamesArr(res.data);
+      setShowLoader(false);
     });
   }
   const debouncedSearch = debounce(doSearchToApi, 300);
@@ -27,6 +28,7 @@ export default function Home() {
     });
   }, []);
   function toggleChange(e: ChangeEvent<HTMLInputElement>) {
+    setShowLoader(true);
     setSearchState(e.target.value);
   }
   return (
@@ -40,7 +42,7 @@ export default function Home() {
         value={searchState}
       />
       <Platforms />
-      <GamesContainer gamesArr={gamesArr} />
+      {showLoader ? <Loader /> : <GamesContainer gamesArr={gamesArr} />}
     </div>
   );
 }
