@@ -4,6 +4,7 @@
     "name": "OverWatch",
     "rating": 5,
     "price": 23.99,
+    "releaseDate":"2016-05-02",
     "cover": "https://upload.wikimedia.org/wikipedia/ru/3/33/Overwatch_Origins_Edition_PC_cover.jpg",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   },
@@ -12,6 +13,7 @@
     "name": "Minecraft",
     "rating": 5,
     "price": 24.99,
+    "releaseDate": "2014-03-11",
     "cover": "https://image.api.playstation.com/vulcan/img/cfn/11307x4B5WLoVoIUtdewG4uJ_YuDRTwBxQy0qP8ylgazLLc01PBxbsFG1pGOWmqhZsxnNkrU3GXbdXIowBAstzlrhtQ4LCI4.png",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responsesExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responsesExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   },
@@ -20,6 +22,7 @@
     "name": "Terraria",
     "rating": 5,
     "price": 4.99,
+    "releaseDate": "2014-03-11",
     "cover": "https://s3.gaming-cdn.com/images/products/932/orig/game-steam-terraria-cover.jpg",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   },
@@ -28,6 +31,7 @@
     "name": "Fortnite",
     "rating": 5,
     "price": 4.99,
+    "releaseDate": "2016-02-07",
     "cover": "https://cdn1.epicgames.com/offer/fn/19BR_KeyArt_EGS_Launcher_Blade_1200x1600_1200x1600-b49da2ae039bd0adb44171318c91787b",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   },
@@ -36,6 +40,7 @@
     "name": "League of Legends",
     "rating": 5,
     "price": 4.99,
+    "releaseDate": "2014-03-11",
     "cover": "https://www.global-esports.news/wp-content/uploads/2022/01/League-of-Legends-2022.jpg",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   },
@@ -44,6 +49,7 @@
     "name": "Dota 2",
     "rating": 5,
     "price": 0.01,
+    "releaseDate": "2022-02-05",
     "cover": "https://store.my.games/hotbox/showcase/game/picture/de863d3e-23c0-4c07-a120-fc808dbee21b.jpg",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   }

@@ -29,7 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 60px;
     width: 100px;
     color: white;
     text-decoration: none;
@@ -45,5 +45,23 @@
       background: $hoverLinkColor;
       transition: 0.2s ease-in;
     }
+  }
+
+  &__dropdown {
+    // position: absolute;
+    background: $headerColor;
+  }
+
+  &__dropdown-container {
+    // height: 100px;
+    background: $headerColor;
+  }
+
+  &__dropdown-indicator {
+    /* stylelint-disable-next-line scss/no-global-function-names */
+    filter: invert(1);
+    margin-top: 5px;
+    height: 15px;
+    transition: all 0.7s ease-out;
   }
 }

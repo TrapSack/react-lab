@@ -8,9 +8,9 @@ import GamesContainer from "./gamesContainer/gamesContainer";
 import Platforms from "./platformsContainer/platforms";
 
 export default function Home() {
-  const [gamesArr, setGamesArr] = useState<IGame[]>([]);
   const [searchState, setSearchState] = useState<string>("");
   const [showLoader, setShowLoader] = useState<boolean>(false);
+  const [gamesArr, setGamesArr] = useState<IGame[]>([]);
   function doSearchToApi() {
     console.log(searchState);
     axios.get(`/api/search/${searchState}`).then((res) => {
@@ -22,11 +22,7 @@ export default function Home() {
   useEffect(() => {
     debouncedSearch();
   }, [searchState]);
-  useEffect(() => {
-    axios.get("/api/search/").then((res) => {
-      setGamesArr(res.data);
-    });
-  }, []);
+  // console.log("gamesArr :>> ", gamesArr);
   function toggleChange(e: ChangeEvent<HTMLInputElement>) {
     setShowLoader(true);
     setSearchState(e.target.value);
