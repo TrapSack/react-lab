@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, ErrorInfo } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
@@ -26,24 +26,20 @@ export default class App extends Component<unknown, IState> {
     };
   }
 
-  componentDidCatch() {
-    console.error("Error");
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     const navigate = useNavigate();
-    console.log("WORK");
+    console.log(error, errorInfo);
     navigate("/", { replace: true });
   }
 
   render() {
     if (this.state.error.isError) return <div>Error</div>;
     return (
-      // <ErrorBoundary>
       <>
         <Header />
-        {/* {this.state.error.isError && <ErrorBoundary />} */}
         <Outlet />
         <Footer />
       </>
-      // </ErrorBoundary>
     );
   }
 }

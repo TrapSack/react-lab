@@ -20,7 +20,7 @@ export default function GameCard(props: IGame) {
       onMouseEnter={setShowDescription}
       onMouseLeave={setHideDescription}
     >
-      <img src={props.cover} alt="overwatch" className="game-card__cover" />
+      <img src={props.cover} alt={props.name} className="game-card__cover" />
       <div className="game-card__info">
         <span className="game-card__title">{props.name}</span>
         <span className="game-card__price">Price {props.price}$</span>

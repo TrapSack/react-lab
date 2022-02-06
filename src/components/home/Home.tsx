@@ -12,17 +12,22 @@ export default function Home() {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [gamesArr, setGamesArr] = useState<IGame[]>([]);
   function doSearchToApi() {
-    console.log(searchState);
-    axios.get(`/api/search/${searchState}`).then((res) => {
-      setGamesArr(res.data);
-      setShowLoader(false);
-    });
+    if (!searchState.trim()) {
+      axios.get(`/api/getTopProducts`).then((res) => {
+        setGamesArr(res.data);
+        setShowLoader(false);
+      });
+    } else {
+      axios.get(`/api/search/${searchState}`).then((res) => {
+        setGamesArr(res.data);
+        setShowLoader(false);
+      });
+    }
   }
   const debouncedSearch = debounce(doSearchToApi, 300);
   useEffect(() => {
     debouncedSearch();
   }, [searchState]);
-  // console.log("gamesArr :>> ", gamesArr);
   function toggleChange(e: ChangeEvent<HTMLInputElement>) {
     setShowLoader(true);
     setSearchState(e.target.value);
@@ -37,8 +42,10 @@ export default function Home() {
         onChange={toggleChange}
         value={searchState}
       />
+      {showLoader && <Loader />}
+      {/* <Loader /> */}
       <Platforms />
-      {showLoader ? <Loader /> : <GamesContainer gamesArr={gamesArr} />}
+      {showLoader ? "" : <GamesContainer gamesArr={gamesArr} />}
     </div>
   );
 }
