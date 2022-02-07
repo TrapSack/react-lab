@@ -1,13 +1,17 @@
-import NavLinks from "./navLinks";
 import "./header.scss";
+import NavLinks from "./navLinks";
+import UserLinks from "./userLinks";
 
 export default function Header() {
   return (
     <header className="header">
       <a href="/" className="header__logo">
-        My Games Market
+        <span> My Games Market</span>
       </a>
-      <NavLinks />
+      <div className="header__links-container">
+        <NavLinks />
+        <UserLinks />
+      </div>
     </header>
   );
 }

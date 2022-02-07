@@ -12,7 +12,7 @@ export default function Home() {
   const [showLoader, setShowLoader] = useState<boolean>(false);
   const [gamesArr, setGamesArr] = useState<IGame[]>([]);
   function doSearchToApi() {
-    if (!searchState.trim()) {
+    if (searchState === "") {
       axios.get(`/api/getTopProducts`).then((res) => {
         setGamesArr(res.data);
         setShowLoader(false);

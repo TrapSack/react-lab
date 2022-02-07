@@ -1,6 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
 import games from "./src/api/games.json";
+import users from "./src/api/users.json";
+
+interface IUser {
+  login: string;
+  password: string;
+}
 
 interface IGame {
   id: string;
@@ -41,6 +47,14 @@ export default webpackMockServer.add((app, helper) => {
       return 0;
     });
     res.json(resultArr.slice(0, 3));
+  });
+  app.get(`/api/getUsers/*`, (_req, res) => {
+    const userName = _req.path.split("/")[3];
+    if (userName === "") {
+      res.json(users);
+    } else {
+      res.json(users.find((user) => user.login.toLowerCase() === userName.toLowerCase())?.login);
+    }
   });
   app.post("/testPostMock", (req, res) => {
     res.json({ body: req.body || null, success: true });
