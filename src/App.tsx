@@ -1,6 +1,6 @@
-import { Component } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import Header from "./components/header/header";
+import { Component, ErrorInfo } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import Header from "./components/header/Header";
 import Footer from "./components/footer/footer";
 
 interface IError {
@@ -26,24 +26,19 @@ export default class App extends Component<unknown, IState> {
     };
   }
 
-  componentDidCatch() {
-    console.error("Error");
-    const navigate = useNavigate();
-    console.log("WORK");
-    navigate("/", { replace: true });
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.log(error, errorInfo);
+    return <Navigate to="/" />;
   }
 
   render() {
     if (this.state.error.isError) return <div>Error</div>;
     return (
-      // <ErrorBoundary>
-      <div>
+      <>
         <Header />
-        {/* {this.state.error.isError && <ErrorBoundary />} */}
         <Outlet />
         <Footer />
-      </div>
-      // </ErrorBoundary>
+      </>
     );
   }
 }

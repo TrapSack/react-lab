@@ -1,14 +1,20 @@
+import { useState } from "react";
 import NavLinks from "./navLinks";
 import "./header.scss";
 
 export default function Header() {
-  setTimeout(() => {
-    throw new Error("I crashed");
-  }, 2000);
+  const [state, setState] = useState("Hello");
+  function handleClick() {
+    setState(null);
+  }
   return (
     <header className="header">
       <a href="/" className="header__logo">
+        <button type="button" onClick={handleClick}>
+          Test
+        </button>
         My Games Market
+        {state.length}
       </a>
       <NavLinks />
     </header>

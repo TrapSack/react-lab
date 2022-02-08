@@ -1,9 +1,6 @@
 import "./footer.scss";
 
 export default function Footer() {
-  // function handleClick() {
-  //   throw new Error("Error");
-  // }
   return (
     <footer className="footer">
       <span>Incredible convenient</span>
