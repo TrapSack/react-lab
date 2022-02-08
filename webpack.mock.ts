@@ -51,10 +51,22 @@ export default webpackMockServer.add((app, helper) => {
   app.get(`/api/getUser/*`, (_req, res) => {
     const userName = _req.path.split("/")[3];
     if (userName === "") {
-      res.json(users);
+      res.json(undefined);
     } else {
       res.json(users.find((user) => user.login.toLowerCase() === userName.toLowerCase())?.login);
     }
+  });
+  app.get(`/api/authorizeUser/*/*`, (_req, res) => {
+    const [userName, userPass] = _req.path.split("/").slice(3, 5);
+    let confirmAuthorization = false;
+    users.forEach((user) => {
+      if (user.login.toLowerCase() === userName.toLowerCase()) {
+        if (user.password === userPass) {
+          confirmAuthorization = true;
+        }
+      }
+    });
+    res.json(confirmAuthorization);
   });
   app.post("/testPostMock", (req, res) => {
     res.json({ body: req.body || null, success: true });

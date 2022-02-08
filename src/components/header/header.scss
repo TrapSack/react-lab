@@ -74,9 +74,9 @@
 }
 
 .modal {
-   &__login-form {
-    height: 100%;
-    width: 100%;
+   &__form {
+    display: flex;
+    flex-direction: column;
   }
   &__title-wrapper {
     align-items: center;
@@ -124,7 +124,12 @@
   &__form-option {
     display: flex;
     align-items: center;
-    margin: 10px 0;
+    margin: 5px 0;
     justify-content: space-between;
+  }
+  &__input-error {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(153, 43, 43);
   }
 }

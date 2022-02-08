@@ -1,8 +1,8 @@
 import "./header.scss";
 import NavLinks from "./navLinks";
-// import UserLinks from "./userLinks";
+import UserLinks from "./userLinks";
 
-export default function Header() {
+export default function Header(currentUser: { login: string }) {
   return (
     <header className="header">
       <a href="/" className="header__logo">
@@ -10,7 +10,7 @@ export default function Header() {
       </a>
       <div className="header__links-container">
         <NavLinks />
-        {/* <UserLinks /> */}
+        <UserLinks />
       </div>
     </header>
   );

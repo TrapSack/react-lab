@@ -1,11 +1,20 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import axios from "axios";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { ITempUser } from "./interfaces";
+import { valiDatePassword } from "./validators";
+import debounce from "../../helpers/useDebounce";
 
 interface IFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  currentUser: { login: string };
 }
 
 export default function RegisterForm(props: IFormProps) {
+  const [error, setError] = useState({
+    loginInputError: "",
+    PasswordInputError: "",
+    PasswordRepeatError: "",
+  });
   const [tempUser, setTempUser] = useState<ITempUser>(() => ({
     login: "",
     password: "",
@@ -13,17 +22,56 @@ export default function RegisterForm(props: IFormProps) {
   }));
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(tempUser);
+    let checkOnSubmit = tempUser.login.length > 0;
+    Object.keys(error).forEach((err: string) => {
+      if (error[err] === "") return err; // ERROR? ?? ? ? ? ?? ? ? ? https://stackoverflow.com/questions/55012174/why-doesnt-object-keys-return-a-keyof-type-in-typescript/55012175#55012175
+      checkOnSubmit = false;
+      return err;
+    });
+    if (checkOnSubmit) {
+      console.log("submitted!!");
+    } else {
+      console.log("NOT SUBMITTED  ");
+    }
   }
+  function validateUserLogin() {
+    axios.get(`api/getUser/${tempUser.login}`).then((res) => {
+      setError((prev) => ({
+        ...prev,
+        loginInputError: tempUser.login === res.data && tempUser.login.length !== 0 ? "User Already exists" : "",
+      }));
+    });
+  }
+  const debouncedValidate = debounce(validateUserLogin, 300);
+  useEffect(() => {
+    debouncedValidate();
+  }, [tempUser.login]);
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
+    switch (name) {
+      case "password":
+        setError((prev) => ({
+          ...prev,
+          PasswordInputError:
+            valiDatePassword(value) || value.length === 0 ? "" : "Password length should be more than 6 sybmols",
+        }));
+        break;
+      case "confirmPassword":
+        setError((prev) => ({
+          ...prev,
+          PasswordRepeatError: value === tempUser.password ? "" : "Passwords don`t match",
+        }));
+        break;
+      default:
+        break;
+    }
     setTempUser((prev) => ({
       ...prev,
       [name]: value,
     }));
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="modal__form">
       <div className="modal__title-wrapper">
         <span className="modal__title">Register</span>
         <button
@@ -47,6 +95,7 @@ export default function RegisterForm(props: IFormProps) {
           value={tempUser.login}
         />
       </label>
+      <span className="modal__input-error">{error.loginInputError}</span>
       <label htmlFor="password" className="modal__form-option">
         Password
         <input
@@ -58,6 +107,7 @@ export default function RegisterForm(props: IFormProps) {
           value={tempUser.password}
         />
       </label>
+      <span className="modal__input-error">{error.PasswordInputError}</span>
       <label htmlFor="password" className="modal__form-option">
         Confirm
         <input
@@ -69,6 +119,7 @@ export default function RegisterForm(props: IFormProps) {
           value={tempUser.confirmPassword}
         />
       </label>
+      <span className="modal__input-error">{error.PasswordRepeatError}</span>
       <button type="submit" className="modal__submit">
         Register
       </button>

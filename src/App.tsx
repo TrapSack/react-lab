@@ -8,6 +8,9 @@ interface IError {
 }
 interface IState {
   error: IError;
+  currentUser: {
+    login: string;
+  };
 }
 
 export default class App extends Component<unknown, IState> {
@@ -15,6 +18,7 @@ export default class App extends Component<unknown, IState> {
     super(props);
     this.state = {
       error: { isError: false },
+      currentUser: { login: "" },
     };
   }
 
