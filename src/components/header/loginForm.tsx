@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { ITempUser } from "./interfaces";
+import { valiDatePassword, validateUserLogin } from "./validators";
 
 interface IFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,6 +21,18 @@ export default function loginForm(props: IFormProps) {
   }
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
+    // if (name === "login") {
+    //   validateUserLogin(value).then((res) => {
+    //     if (value === res) {
+    //       error.loginInputError = "User already exists";
+    //     } else {
+    //       error.loginInputError = "";
+    //     }
+    //   });
+    // }
+    if (name === "password") {
+      
+    }
     setTempUser((prev) => ({
       ...prev,
       [name]: value,
@@ -56,6 +69,7 @@ export default function loginForm(props: IFormProps) {
           onChange={handleChange}
         />
       </label>
+      <span className="input-error">{error.loginInputError}</span>
       <label htmlFor="password" className="modal__form-option">
         Password
         <input
@@ -67,6 +81,7 @@ export default function loginForm(props: IFormProps) {
           value={tempUser.password}
         />
       </label>
+      <span className="input-error">{error.PasswordInputError}</span>
       <button type="submit" className="modal__submit">
         Login
       </button>

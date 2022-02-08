@@ -48,7 +48,7 @@ export default webpackMockServer.add((app, helper) => {
     });
     res.json(resultArr.slice(0, 3));
   });
-  app.get(`/api/getUsers/*`, (_req, res) => {
+  app.get(`/api/getUser/*`, (_req, res) => {
     const userName = _req.path.split("/")[3];
     if (userName === "") {
       res.json(users);
