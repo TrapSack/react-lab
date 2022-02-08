@@ -4,10 +4,6 @@ import NavLinks from "./navLinks";
 // import UserLinks from "./userLinks";
 
 export default function Header() {
-  const [state, setState] = useState("hello");
-  function handleClick() {
-    setState(null);
-  }
   return (
     <header className="header">
       <a href="/" className="header__logo">
