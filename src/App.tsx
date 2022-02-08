@@ -1,5 +1,5 @@
 import { Component, ErrorInfo } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/footer";
 
@@ -27,9 +27,8 @@ export default class App extends Component<unknown, IState> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    const navigate = useNavigate();
     console.log(error, errorInfo);
-    navigate("/", { replace: true });
+    return <Navigate to="/" />;
   }
 
   render() {
