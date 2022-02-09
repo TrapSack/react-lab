@@ -37,7 +37,7 @@ export default function Header(props: IProps) {
       <div className="header__links-container">
         <NavLinks currentUser={props.currentUser} setState={props.setState} />
         {props.currentUser.login ? (
-          <ProfileLinks setState={props.setState} />
+          <ProfileLinks setState={props.setState} currentUser={props.currentUser} />
         ) : (
           <AuthorizationLinks setState={props.setState} />
         )}

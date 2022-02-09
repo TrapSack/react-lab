@@ -1,6 +1,1 @@
-[
-  { "login": "trapsack", "password": "123456" },
-  { "login": "admin", "password": "admin" },
-  { "login": "sasha", "password": "wwwwwww2222" },
-  { "login": "crappfunpay", "password": "11221122" }
-]
+[{"login":"trapsack","password":"123456"},{"login":"admin","password":"admin"},{"login":"sasha","password":"wwwwwww2222"},{"login":"crappfunpay","password":"11221122"},{"login":"123dsasda","password":"123456"},{"login":"crappfunpay","password":""},{"login":"crappfunpay","password":"12"},{"login":"das","password":"asd"},{"login":"trapsackdd","password":"11221122"},{"login":"asdas","password":"123456"},{"login":"trapsackda","password":"123456"},{"login":"trapsack2","password":"123456"},{"login":"trapsackdasdas","password":"123456"}]

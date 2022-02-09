@@ -6,6 +6,7 @@ interface IModalProps {
   open: boolean;
   children: ReactNode;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  title?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -24,7 +25,21 @@ export default function Modal(props: IModalProps) {
           props.setIsOpen(false);
         }}
       />
-      <div className="modal">{props.children}</div>
+      <div className="modal">
+        <div className="modal__title-wrapper">
+          <span className="modal__title">{props.title}</span>
+          <button
+            className="modal__close-btn"
+            type="button"
+            onClick={() => {
+              props.setIsOpen(false);
+            }}
+          >
+            &times;
+          </button>
+        </div>
+        {props.children}
+      </div>
     </>,
     portalDiv
   );

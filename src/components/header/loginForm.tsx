@@ -1,3 +1,4 @@
+import FormOption from "@/elements/formOption";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { ITempUser } from "./interfaces";
@@ -24,7 +25,7 @@ interface IFormProps {
     callback?: (() => void) | undefined
   ) => void;
 }
-
+// move to one component
 export default function loginForm(props: IFormProps) {
   const [tempUser, setTempUser] = useState<ITempUser>(() => ({
     login: "",
@@ -54,47 +55,23 @@ export default function loginForm(props: IFormProps) {
   }
   return (
     <form onSubmit={handleSubmit} className="modal__form">
-      <div className="modal__title-wrapper">
-        <span className="modal__title">Login</span>
-        <button
-          className="modal__close-btn"
-          type="button"
-          onClick={() => {
-            setTempUser({
-              login: "",
-              password: "",
-              confirmPassword: "",
-            });
-            props.setIsOpen(false);
-          }}
-        >
-          &times;
-        </button>
-      </div>
-      <label htmlFor="login" className="modal__form-option">
-        Login
-        <input
-          type="text"
-          placeholder="Login"
-          name="login"
-          className="modal__input"
-          value={tempUser.login}
-          onChange={handleChange}
-        />
-      </label>
-
-      <label htmlFor="password" className="modal__form-option">
-        Password
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          className="modal__input"
-          onChange={handleChange}
-          value={tempUser.password}
-        />
-      </label>
-      <span className="modal__input-error">{error}</span>
+      <FormOption
+        type="text"
+        placeholder="login"
+        inputName="login"
+        value={tempUser.login}
+        // eslint-disable-next-line react/jsx-no-bind
+        handleChange={handleChange}
+      />
+      <FormOption
+        type="password"
+        placeholder="Password"
+        inputName="password"
+        value={tempUser.password}
+        // eslint-disable-next-line react/jsx-no-bind
+        handleChange={handleChange}
+        error={error}
+      />
       <button type="submit" className="modal__submit">
         Login
       </button>

@@ -28,17 +28,29 @@ interface IProps {
   ) => void;
 }
 
+interface IModalConent {
+  content: ReactNode;
+  title: string;
+}
+
 export default function AuthorizationLinks(props: IProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<ReactNode>(
-    <LoginForm setIsOpen={setIsOpen} setState={props.setState} />
-  );
+  const [modal, setModal] = useState<IModalConent>({
+    content: <LoginForm setIsOpen={setIsOpen} setState={props.setState} />,
+    title: "Login",
+  });
   function setLoginModal() {
-    setModalContent(<LoginForm setIsOpen={setIsOpen} setState={props.setState} />);
+    setModal({
+      content: <LoginForm setIsOpen={setIsOpen} setState={props.setState} />,
+      title: "Login",
+    });
     setIsOpen(true);
   }
   function setRegisterModal() {
-    setModalContent(<RegisterForm setIsOpen={setIsOpen} setState={props.setState} />);
+    setModal({
+      content: <RegisterForm setState={props.setState} />,
+      title: "Register",
+    });
     setIsOpen(true);
   }
   return (
@@ -49,8 +61,8 @@ export default function AuthorizationLinks(props: IProps) {
       <button type="button" className="navbar__link navbar__link--btn" onClick={setRegisterModal}>
         Register
       </button>
-      <Modal setIsOpen={setIsOpen} open={isOpen}>
-        {modalContent}
+      <Modal setIsOpen={setIsOpen} open={isOpen} title={modal.title}>
+        {modal.content}
       </Modal>
     </>
   );

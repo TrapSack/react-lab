@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function valiDatePassword(password: string): boolean {
-  const reg = /^([\d\w{}]{6,})+$/gm;
+  const reg = /^([\d\w{}]{6,})+$/gm; // upadte
   return reg.test(password);
 }
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import FormOption from "@/elements/formOption";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { ITempUser } from "./interfaces";
 import { valiDatePassword } from "./validators";
@@ -16,7 +17,6 @@ interface IState {
 }
 
 interface IFormProps {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setState: (
     state:
       | IState
@@ -40,13 +40,9 @@ export default function RegisterForm(props: IFormProps) {
   }));
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    let checkOnSubmit = tempUser.login.length > 0;
-    Object.keys(error).forEach((err: string) => {
-      if (error[err] === "") return err; // ERROR? ?? ? ? ? ?? ? ? ? https://stackoverflow.com/questions/55012174/why-doesnt-object-keys-return-a-keyof-type-in-typescript/55012175#55012175
-      checkOnSubmit = false;
-      return err;
-    });
-    if (checkOnSubmit) {
+    // rename iscoorect haserrors
+    const hasErrors = Object.values(error).every((err) => err === "");
+    if (hasErrors && tempUser.login.length > 0) {
       axios.post(`api/postUser/${tempUser.login}/${tempUser.password}`).then((res) => {
         if (res.data) {
           props.setState({
@@ -95,54 +91,34 @@ export default function RegisterForm(props: IFormProps) {
   }
   return (
     <form onSubmit={handleSubmit} className="modal__form">
-      <div className="modal__title-wrapper">
-        <span className="modal__title">Register</span>
-        <button
-          className="modal__close-btn"
-          type="button"
-          onClick={() => {
-            props.setIsOpen(false);
-          }}
-        >
-          &times;
-        </button>
-      </div>
-      <label htmlFor="login" className="modal__form-option">
-        Login
-        <input
-          type="text"
-          placeholder="Login"
-          name="login"
-          className="modal__input"
-          onChange={handleChange}
-          value={tempUser.login}
-        />
-      </label>
-      <span className="modal__input-error">{error.loginInputError}</span>
-      <label htmlFor="password" className="modal__form-option">
-        Password
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          className="modal__input"
-          onChange={handleChange}
-          value={tempUser.password}
-        />
-      </label>
-      <span className="modal__input-error">{error.PasswordInputError}</span>
-      <label htmlFor="password" className="modal__form-option">
-        Confirm
-        <input
-          type="password"
-          placeholder="Confirm password"
-          name="confirmPassword"
-          className="modal__input"
-          onChange={handleChange}
-          value={tempUser.confirmPassword}
-        />
-      </label>
-      <span className="modal__input-error">{error.PasswordRepeatError}</span>
+      <FormOption
+        type="text"
+        placeholder="Login"
+        inputName="login"
+        value={tempUser.login}
+        // eslint-disable-next-line react/jsx-no-bind
+        handleChange={handleChange}
+        error={error.loginInputError}
+      />
+      <FormOption
+        type="password"
+        placeholder="Password"
+        inputName="password"
+        value={tempUser.password}
+        // eslint-disable-next-line react/jsx-no-bind
+        handleChange={handleChange}
+        error={error.PasswordInputError}
+      />
+      <FormOption
+        type="password"
+        placeholder="Confirm"
+        inputName="confirmPassword"
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        value={tempUser.confirmPassword!}
+        // eslint-disable-next-line react/jsx-no-bind
+        handleChange={handleChange}
+        error={error.PasswordRepeatError}
+      />
       <button type="submit" className="modal__submit">
         Register
       </button>

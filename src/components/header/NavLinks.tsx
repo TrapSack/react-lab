@@ -7,6 +7,8 @@ import LoginForm from "./loginForm";
 interface IError {
   isError: boolean;
 }
+
+// create state with redirect route, after login redirect on this route
 interface IState {
   currentUser: {
     login: string;
@@ -35,7 +37,7 @@ export default function NavLinks(props: IProps) {
   const dropdownStyle = {
     display: DropdownShow ? "block" : "none",
   };
-
+  // add title
   function showDropdown() {
     setDropdownShow(true);
   }
@@ -141,7 +143,7 @@ export default function NavLinks(props: IProps) {
       >
         About
       </NavLink>
-      <Modal setIsOpen={setShowModal} open={showModal}>
+      <Modal setIsOpen={setShowModal} open={showModal} title="Login">
         <LoginForm setState={props.setState} setIsOpen={setShowModal} />
       </Modal>
     </nav>

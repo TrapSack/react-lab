@@ -4,11 +4,6 @@ import fs from "fs";
 import games from "./src/api/games.json";
 import users from "./src/api/users.json";
 
-interface IUser {
-  login: string;
-  password: string;
-}
-
 interface IGame {
   id: string;
   name: string;

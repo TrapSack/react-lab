@@ -31,10 +31,6 @@ export default class App extends Component<unknown, IState> {
     };
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
-
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     const navigate = useNavigate();
     console.log(error, errorInfo);

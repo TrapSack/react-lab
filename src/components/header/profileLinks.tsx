@@ -21,6 +21,9 @@ interface IProps {
       | null,
     callback?: (() => void) | undefined
   ) => void;
+  currentUser: {
+    login: string;
+  };
 }
 
 export default function ProfileLinks(props: IProps) {
@@ -32,14 +35,11 @@ export default function ProfileLinks(props: IProps) {
     });
     navigate(home, { replace: true });
   }
+
   return (
     <>
       <button type="button" className="navbar__link navbar__link--btn">
-        <img
-          src="https://w7.pngwing.com/pngs/841/727/png-transparent-computer-icons-user-profile-synonyms-and-antonyms-android-android-computer-wallpaper-monochrome-sphere.png"
-          alt=""
-          className="navbar__profile-avatar"
-        />
+        {props.currentUser.login}
       </button>
       <button type="button" className="navbar__link navbar__link--btn" onClick={handleClick}>
         LogOut
