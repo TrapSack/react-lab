@@ -20,6 +20,7 @@ export default class App extends Component<unknown, IState> {
       error: { isError: false },
       currentUser: { login: "" },
     };
+    this.setState = this.setState.bind(this);
   }
 
   static getDerivedStateFromError() {
@@ -28,6 +29,10 @@ export default class App extends Component<unknown, IState> {
         isError: true,
       },
     };
+  }
+
+  componentDidUpdate() {
+    console.log(this.state);
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -40,7 +45,7 @@ export default class App extends Component<unknown, IState> {
     if (this.state.error.isError) return <div>Error</div>;
     return (
       <>
-        <Header />
+        <Header currentUser={this.state.currentUser} setState={this.setState} />
         <Outlet />
         <Footer />
       </>

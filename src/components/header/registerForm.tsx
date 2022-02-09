@@ -4,9 +4,27 @@ import { ITempUser } from "./interfaces";
 import { valiDatePassword } from "./validators";
 import debounce from "../../helpers/useDebounce";
 
+interface IError {
+  isError: boolean;
+}
+
+interface IState {
+  error: IError;
+  currentUser: {
+    login: string;
+  };
+}
+
 interface IFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  currentUser: { login: string };
+  setState: (
+    state:
+      | IState
+      | ((prevState: Readonly<IState>, props: Readonly<unknown>) => IState | Pick<IState, keyof IState> | null)
+      | Pick<IState, keyof IState>
+      | null,
+    callback?: (() => void) | undefined
+  ) => void;
 }
 
 export default function RegisterForm(props: IFormProps) {
@@ -29,9 +47,14 @@ export default function RegisterForm(props: IFormProps) {
       return err;
     });
     if (checkOnSubmit) {
-      console.log("submitted!!");
-    } else {
-      console.log("NOT SUBMITTED  ");
+      axios.post(`api/postUser/${tempUser.login}/${tempUser.password}`).then((res) => {
+        if (res.data) {
+          props.setState({
+            error: { isError: false },
+            currentUser: { login: tempUser.login },
+          });
+        }
+      });
     }
   }
   function validateUserLogin() {

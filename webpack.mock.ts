@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
+import fs from "fs";
 import games from "./src/api/games.json";
 import users from "./src/api/users.json";
 
@@ -68,7 +69,10 @@ export default webpackMockServer.add((app, helper) => {
     });
     res.json(confirmAuthorization);
   });
-  app.post("/testPostMock", (req, res) => {
-    res.json({ body: req.body || null, success: true });
+  app.post("/api/postUser/*/*", (req, res) => {
+    const [userName, userPass] = req.path.split("/").slice(3, 5);
+    users.push({ login: userName, password: userPass });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json(true);
   });
 });

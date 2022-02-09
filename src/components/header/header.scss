@@ -53,6 +53,11 @@
       border: none;
     }
   }
+  &__profile-avatar {
+    background: none;
+    border-radius: 50px;
+    height: 80%;
+  }
 
   &__dropdown {
     // position: absolute;
@@ -74,7 +79,7 @@
 }
 
 .modal {
-   &__form {
+  &__form {
     display: flex;
     flex-direction: column;
   }
@@ -109,7 +114,7 @@
   &__submit {
     width: 40%;
     margin-top: 30px;
-    transform: translate(70%,0);
+    transform: translate(70%, 0);
     font-size: 20px;
     color: white;
     background: rgb(20, 20, 20);
