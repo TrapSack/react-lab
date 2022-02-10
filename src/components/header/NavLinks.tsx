@@ -46,9 +46,11 @@ export default function NavLinks(props: IProps) {
   function hideDropdown() {
     setDropdownShow(false);
   }
+
   useEffect(() => {
     if (props.currentUser.login) navigate(redirectPath, { replace: true });
   }, [redirectPath]);
+
   function checkAuth(e) {
     const { href } = e.target;
     if (!props.currentUser.login) setShowModal(true);
