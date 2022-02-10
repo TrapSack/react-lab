@@ -73,7 +73,9 @@ export default function RegisterForm(props: IFormProps) {
         setError((prev) => ({
           ...prev,
           PasswordInputError:
-            valiDatePassword(value) || value.length === 0 ? "" : "Password length should be more than 6 sybmols",
+            valiDatePassword(value) || value.length === 0
+              ? ""
+              : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
         }));
         break;
       case "confirmPassword":
