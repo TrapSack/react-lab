@@ -47,7 +47,6 @@ export default function NavLinks(props: IProps) {
     setDropdownShow(false);
   }
   useEffect(() => {
-    console.log("change path in useeffect", redirectPath);
     if (props.currentUser.login) navigate(redirectPath, { replace: true });
   }, [redirectPath]);
   function checkAuth(e) {
