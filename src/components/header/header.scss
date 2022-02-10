@@ -75,40 +75,20 @@
     margin-top: 5px;
     height: 15px;
     transition: all 0.7s ease-out;
+    pointer-events: none;
   }
 }
 
-.modal {
-  &__form {
-    display: flex;
-    flex-direction: column;
-  }
-  &__title-wrapper {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  &__title {
-    font-size: 28px;
-  }
+.form {
+  display: flex;
+  flex-direction: column;
+  
+
   &__input {
     float: right;
     padding: 7px 15px;
     &:focus {
       outline: none;
-    }
-  }
-  &__close-btn {
-    margin-top: -30px;
-    margin-right: -10px;
-    font-size: 35px;
-    cursor: pointer;
-    color: white;
-    border: none;
-    background: none;
-    &:hover {
-      color: $hoverLinkColor;
     }
   }
   &__submit {
@@ -126,7 +106,7 @@
       transition: 0.1s ease-in;
     }
   }
-  &__form-option {
+  &__option {
     display: flex;
     align-items: center;
     margin: 5px 0;

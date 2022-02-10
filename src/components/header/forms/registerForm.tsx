@@ -4,9 +4,9 @@ import FormOption from "@/elements/formOption";
 import { useNavigate } from "react-router-dom";
 import { profile } from "@/helpers/links";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { ITempUser } from "./interfaces";
-import { valiDatePassword } from "./validators";
-import debounce from "../../helpers/useDebounce";
+import { ITempUser } from "../interfaces";
+import { valiDatePassword } from "../validators";
+import debounce from "../../../helpers/useDebounce";
 
 interface IError {
   isError: boolean;
@@ -101,7 +101,7 @@ export default function RegisterForm(props: IFormProps) {
     }));
   }
   return (
-    <form onSubmit={handleSubmit} className="modal__form">
+    <form onSubmit={handleSubmit} className="form form--register">
       <FormOption
         type="text"
         placeholder="Login"
@@ -127,7 +127,7 @@ export default function RegisterForm(props: IFormProps) {
         handleChange={handleChange}
         error={error.PasswordRepeatError}
       />
-      <button type="submit" className="modal__submit">
+      <button type="submit" className="form__submit">
         Register
       </button>
     </form>

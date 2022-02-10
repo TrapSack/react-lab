@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-bind */
 import Modal from "@/elements/modal";
-import { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { products, about, home } from "../../helpers/links";
-import LoginForm from "./loginForm";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { products, about, home } from "../../../helpers/links";
+import LoginForm from "../forms/loginForm";
 
 interface IError {
   isError: boolean;
@@ -35,7 +35,6 @@ export default function NavLinks(props: IProps) {
   const [DropdownShow, setDropdownShow] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [redirectPath, setRedicectPath] = useState("");
-  const navigate = useNavigate();
   const dropdownStyle = {
     display: DropdownShow ? "block" : "none",
   };
@@ -48,10 +47,10 @@ export default function NavLinks(props: IProps) {
   }
 
   useEffect(() => {
-    if (props.currentUser.login) navigate(redirectPath, { replace: true });
+    console.log(redirectPath);
   }, [redirectPath]);
 
-  function checkAuth(e) {
+  function checkAuth(e: BaseSyntheticEvent) {
     const { href } = e.target;
     if (!props.currentUser.login) setShowModal(true);
     setRedicectPath(

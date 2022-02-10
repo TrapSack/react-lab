@@ -13,18 +13,18 @@ interface IFormOptionProps {
 export default function FormOption(props: IFormOptionProps) {
   return (
     <>
-      <label htmlFor="login" className="modal__form-option">
+      <label htmlFor="login" className="form__option">
         {props.placeholder}
         <input
           type={props.type}
           placeholder={props.placeholder}
           name={props.inputName}
-          className="modal__input"
+          className="form__input"
           value={props.value}
           onChange={props.handleChange}
         />
       </label>
-      {props.error ? <span className="modal__input-error">{props.error}</span> : null}
+      {props.error ? <span className="form__input-error">{props.error}</span> : null}
     </>
   );
 }

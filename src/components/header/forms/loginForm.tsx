@@ -3,7 +3,7 @@ import FormOption from "@/elements/formOption";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ITempUser } from "./interfaces";
+import { ITempUser } from "../interfaces";
 
 interface IError {
   isError: boolean;
@@ -34,8 +34,10 @@ export default function loginForm(props: IFormProps) {
     login: "",
     password: "",
   }));
+
   const [error, setError] = useState<string>("");
   const navigate = useNavigate();
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     axios.get(`api/authorizeUser/${tempUser.login}/${tempUser.password}`).then((res) => {
@@ -50,6 +52,7 @@ export default function loginForm(props: IFormProps) {
       setError(res.data ? "" : "Incorrect login or password");
     });
   }
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setTempUser((prev) => ({
@@ -57,11 +60,12 @@ export default function loginForm(props: IFormProps) {
       [name]: value,
     }));
   }
+
   return (
-    <form onSubmit={handleSubmit} className="modal__form">
+    <form onSubmit={handleSubmit} className="form form--login">
       <FormOption
         type="text"
-        placeholder="login"
+        placeholder="Login"
         inputName="login"
         value={tempUser.login}
         handleChange={handleChange}
@@ -74,7 +78,7 @@ export default function loginForm(props: IFormProps) {
         handleChange={handleChange}
         error={error}
       />
-      <button type="submit" className="modal__submit">
+      <button type="submit" className="form__submit">
         Login
       </button>
     </form>

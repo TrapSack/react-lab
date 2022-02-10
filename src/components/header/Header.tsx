@@ -1,7 +1,7 @@
 import "./header.scss";
-import NavLinks from "./navLinks";
-import AuthorizationLinks from "./authorizationLinks";
-import ProfileLinks from "./profileLinks";
+import AuthorizationLinks from "./navbar/authorizationLinks";
+import NavLinks from "./navbar/navbar";
+import ProfileLinks from "./navbar/profileLinks";
 
 interface IError {
   isError: boolean;

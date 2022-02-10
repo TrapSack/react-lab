@@ -1,7 +1,7 @@
 import Modal from "@/elements/modal";
 import { ReactNode, useState } from "react";
-import LoginForm from "./loginForm";
-import RegisterForm from "./registerForm";
+import LoginForm from "../forms/loginForm";
+import RegisterForm from "../forms/registerForm";
 
 interface IError {
   isError: boolean;
