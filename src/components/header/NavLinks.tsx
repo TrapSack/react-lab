@@ -47,15 +47,19 @@ export default function NavLinks(props: IProps) {
     setDropdownShow(false);
   }
   useEffect(() => {
-    console.log(redirectPath);
-    navigate(redirectPath, { replace: true });
+    console.log("change path in useeffect", redirectPath);
+    if (props.currentUser.login) navigate(redirectPath, { replace: true });
   }, [redirectPath]);
   function checkAuth(e) {
     const { href } = e.target;
     if (!props.currentUser.login) setShowModal(true);
-    else {
-      setRedicectPath(`/${href.replace(/http:\/\//gm, "").split("/")[1]}`);
-    }
+    setRedicectPath(
+      `/${href
+        .replace(/http:\/\//gm, "")
+        .split("/")
+        .slice(1)
+        .join("/")}`
+    );
   }
 
   return (
@@ -116,7 +120,7 @@ export default function NavLinks(props: IProps) {
         About
       </NavLink>
       <Modal setIsOpen={setShowModal} open={showModal} title="Login">
-        <LoginForm setState={props.setState} setIsOpen={setShowModal} />
+        <LoginForm setState={props.setState} setIsOpen={setShowModal} redirectPath={redirectPath} />
       </Modal>
     </nav>
   );

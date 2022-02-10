@@ -5,6 +5,8 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { ITempUser } from "./interfaces";
 import { valiDatePassword } from "./validators";
 import debounce from "../../helpers/useDebounce";
+import { useNavigate } from "react-router-dom";
+import { profile } from "@/helpers/links";
 
 interface IError {
   isError: boolean;
@@ -39,6 +41,7 @@ export default function RegisterForm(props: IFormProps) {
     password: "",
     confirmPassword: "",
   }));
+  const navigate = useNavigate();
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     // rename iscoorect haserrors
@@ -50,6 +53,7 @@ export default function RegisterForm(props: IFormProps) {
             error: { isError: false },
             currentUser: { login: tempUser.login },
           });
+          navigate(profile, { replace: true });
         }
       });
     }

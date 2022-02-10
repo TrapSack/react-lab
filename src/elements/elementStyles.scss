@@ -45,3 +45,13 @@
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.7);
 }
+
+.info-modal {
+  background-color: #6986d4;
+  transition: all 0.5s ease-in;
+  padding: 50px 80px;
+  border-radius: 10px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}

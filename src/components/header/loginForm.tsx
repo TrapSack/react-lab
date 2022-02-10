@@ -2,6 +2,7 @@
 import FormOption from "@/elements/formOption";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ITempUser } from "./interfaces";
 
 interface IError {
@@ -25,6 +26,7 @@ interface IFormProps {
       | null,
     callback?: (() => void) | undefined
   ) => void;
+  redirectPath?: string;
 }
 // move to one component
 export default function loginForm(props: IFormProps) {
@@ -33,7 +35,7 @@ export default function loginForm(props: IFormProps) {
     password: "",
   }));
   const [error, setError] = useState<string>("");
-
+  const navigate = useNavigate();
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     axios.get(`api/authorizeUser/${tempUser.login}/${tempUser.password}`).then((res) => {
@@ -43,6 +45,7 @@ export default function loginForm(props: IFormProps) {
           currentUser: { login: tempUser.login },
         });
         props.setIsOpen(false);
+        props.redirectPath && navigate(props.redirectPath, { replace: true });
       }
       setError(res.data ? "" : "Incorrect login or password");
     });

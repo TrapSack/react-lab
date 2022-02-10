@@ -2,10 +2,11 @@ import { Component, ErrorInfo } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/footer";
-import { about, home, products } from "./helpers/links";
+import { about, home, products, profile } from "./helpers/links";
 import About from "./components/about/about";
 import Home from "./components/home/Home";
 import Products from "./components/products/products";
+import Profile from "./components/profile/profile";
 
 interface IError {
   isError: boolean;
@@ -53,6 +54,7 @@ export default class App extends Component<unknown, IState> {
           </Route>
           <Route path={about} element={this.state.currentUser.login ? <About /> : <Navigate to={home} />} />
           <Route path="*" element={<Home />} />
+          <Route path={profile} element={<Profile />} />
         </Routes>
         <Footer />
       </>

@@ -6,18 +6,13 @@ import RegisterForm from "./registerForm";
 interface IError {
   isError: boolean;
 }
-
 interface IState {
   error: IError;
   currentUser: {
     login: string;
   };
 }
-
 interface IProps {
-  // currentUser: {
-  //   login: string;
-  // };
   setState: (
     state:
       | IState
@@ -34,24 +29,24 @@ interface IModalConent {
 }
 
 export default function AuthorizationLinks(props: IProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modal, setModal] = useState<IModalConent>({
-    content: <LoginForm setIsOpen={setIsOpen} setState={props.setState} />,
+    content: <LoginForm setIsOpen={setIsModalOpen} setState={props.setState} />,
     title: "Login",
   });
   function setLoginModal() {
     setModal({
-      content: <LoginForm setIsOpen={setIsOpen} setState={props.setState} />,
+      content: <LoginForm setIsOpen={setIsModalOpen} setState={props.setState} />,
       title: "Login",
     });
-    setIsOpen(true);
+    setIsModalOpen(true);
   }
   function setRegisterModal() {
     setModal({
       content: <RegisterForm setState={props.setState} />,
       title: "Register",
     });
-    setIsOpen(true);
+    setIsModalOpen(true);
   }
   return (
     <>
@@ -61,7 +56,7 @@ export default function AuthorizationLinks(props: IProps) {
       <button type="button" className="navbar__link navbar__link--btn" onClick={setRegisterModal}>
         Register
       </button>
-      <Modal setIsOpen={setIsOpen} open={isOpen} title={modal.title}>
+      <Modal setIsOpen={setIsModalOpen} open={isModalOpen} title={modal.title}>
         {modal.content}
       </Modal>
     </>
