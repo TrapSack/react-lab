@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-no-bind */
 import Modal from "@/elements/modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { products, about, home } from "../../helpers/links";
 import LoginForm from "./loginForm";
@@ -33,11 +34,11 @@ interface IProps {
 export default function NavLinks(props: IProps) {
   const [DropdownShow, setDropdownShow] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [redirectPath, setRedicectPath] = useState("");
   const navigate = useNavigate();
   const dropdownStyle = {
     display: DropdownShow ? "block" : "none",
   };
-  // add title
   function showDropdown() {
     setDropdownShow(true);
   }
@@ -45,39 +46,30 @@ export default function NavLinks(props: IProps) {
   function hideDropdown() {
     setDropdownShow(false);
   }
-  function checkAuth() {
-    if (!props.currentUser.login) {
-      setShowModal(true);
-      navigate(home);
+  useEffect(() => {
+    console.log(redirectPath);
+    navigate(redirectPath, { replace: true });
+  }, [redirectPath]);
+  function checkAuth(e) {
+    const { href } = e.target;
+    if (!props.currentUser.login) setShowModal(true);
+    else {
+      setRedicectPath(`/${href.replace(/http:\/\//gm, "").split("/")[1]}`);
     }
   }
 
   return (
     <nav className="navbar">
-      <NavLink
-        to={home}
-        className={({ isActive }) => `navbar__link ${isActive ? "navbar__link_active" : ""}`}
-        onClick={() => {
-          if (!props.currentUser.login) {
-            setShowModal(true);
-            navigate(home);
-          }
-        }}
-      >
+      <NavLink to={home} className={({ isActive }) => `navbar__link ${isActive ? "navbar__link_active" : ""}`}>
         Home
       </NavLink>
       <div className="navbar__dropdown" onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
         <NavLink
-          to={props.currentUser.login && products}
+          to={products}
           className={({ isActive }) =>
             `navbar__link ${isActive && props.currentUser.login ? "navbar__link_active" : ""}`
           }
-          onClick={() => {
-            if (!props.currentUser.login) {
-              setShowModal(true);
-              navigate(home, { replace: true });
-            }
-          }}
+          onClick={checkAuth}
         >
           Products
           <img
@@ -88,58 +80,38 @@ export default function NavLinks(props: IProps) {
         </NavLink>
         <div className="navbar__dropdown-container" style={dropdownStyle}>
           <NavLink
-            to={props.currentUser.login && `${products}/desktop`}
+            to={`${products}/desktop`}
             className={({ isActive }) =>
               `navbar__link ${isActive && props.currentUser.login ? "navbar__link_active" : ""}`
             }
-            onClick={() => {
-              if (!props.currentUser.login) {
-                setShowModal(true);
-                navigate(home, { replace: true });
-              }
-            }}
+            onClick={checkAuth}
           >
             Desktop
           </NavLink>
           <NavLink
-            to={props.currentUser.login && `${products}/playstation`}
+            to={`${products}/playstation`}
             className={({ isActive }) =>
               `navbar__link ${isActive && props.currentUser.login ? "navbar__link_active" : ""}`
             }
-            onClick={() => {
-              if (!props.currentUser.login) {
-                setShowModal(true);
-                navigate(home, { replace: true });
-              }
-            }}
+            onClick={checkAuth}
           >
             PlayStation 5
           </NavLink>
           <NavLink
-            to={props.currentUser.login && `${products}/xbox`}
+            to={`${products}/xbox`}
             className={({ isActive }) =>
               `navbar__link ${isActive && props.currentUser.login ? "navbar__link_active" : ""}`
             }
-            onClick={() => {
-              if (!props.currentUser.login) {
-                setShowModal(true);
-                navigate(home, { replace: true });
-              }
-            }}
+            onClick={checkAuth}
           >
             Xbox One
           </NavLink>
         </div>
       </div>
       <NavLink
-        to={props.currentUser.login && about}
+        to={about}
         className={({ isActive }) => `navbar__link ${isActive && props.currentUser.login ? "navbar__link_active" : ""}`}
-        onClick={() => {
-          if (!props.currentUser.login) {
-            setShowModal(true);
-            navigate(home, { replace: true });
-          }
-        }}
+        onClick={checkAuth}
       >
         About
       </NavLink>

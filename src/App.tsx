@@ -1,7 +1,11 @@
 import { Component, ErrorInfo } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/footer";
+import { about, home, products } from "./helpers/links";
+import About from "./components/about/about";
+import Home from "./components/home/Home";
+import Products from "./components/products/products";
 
 interface IError {
   isError: boolean;
@@ -42,7 +46,14 @@ export default class App extends Component<unknown, IState> {
     return (
       <>
         <Header currentUser={this.state.currentUser} setState={this.setState} />
-        <Outlet />
+        <Routes>
+          <Route path={home} element={<Home />} />
+          <Route path={products} element={this.state.currentUser.login ? <Products /> : <Navigate to={home} />}>
+            <Route path=":platFormId" element={<Products />} />
+          </Route>
+          <Route path={about} element={this.state.currentUser.login ? <About /> : <Navigate to={home} />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
         <Footer />
       </>
     );

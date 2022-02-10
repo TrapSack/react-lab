@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import axios from "axios";
 import FormOption from "@/elements/formOption";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
@@ -96,7 +97,6 @@ export default function RegisterForm(props: IFormProps) {
         placeholder="Login"
         inputName="login"
         value={tempUser.login}
-        // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
         error={error.loginInputError}
       />
@@ -105,7 +105,6 @@ export default function RegisterForm(props: IFormProps) {
         placeholder="Password"
         inputName="password"
         value={tempUser.password}
-        // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
         error={error.PasswordInputError}
       />
@@ -115,7 +114,6 @@ export default function RegisterForm(props: IFormProps) {
         inputName="confirmPassword"
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         value={tempUser.confirmPassword!}
-        // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
         error={error.PasswordRepeatError}
       />

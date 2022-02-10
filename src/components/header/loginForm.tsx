@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import FormOption from "@/elements/formOption";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -60,7 +61,6 @@ export default function loginForm(props: IFormProps) {
         placeholder="login"
         inputName="login"
         value={tempUser.login}
-        // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
       />
       <FormOption
@@ -68,7 +68,6 @@ export default function loginForm(props: IFormProps) {
         placeholder="Password"
         inputName="password"
         value={tempUser.password}
-        // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
         error={error}
       />
