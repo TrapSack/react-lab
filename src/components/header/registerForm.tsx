@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-no-bind */
 import axios from "axios";
 import FormOption from "@/elements/formOption";
+import { useNavigate } from "react-router-dom";
+import { profile } from "@/helpers/links";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { ITempUser } from "./interfaces";
 import { valiDatePassword } from "./validators";
 import debounce from "../../helpers/useDebounce";
-import { useNavigate } from "react-router-dom";
-import { profile } from "@/helpers/links";
 
 interface IError {
   isError: boolean;
