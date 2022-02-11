@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
+import fs from "fs";
 import games from "./src/api/games.json";
+import users from "./src/api/users.json";
 
 interface IGame {
   id: string;
@@ -42,7 +44,30 @@ export default webpackMockServer.add((app, helper) => {
     });
     res.json(resultArr.slice(0, 3));
   });
-  app.post("/testPostMock", (req, res) => {
-    res.json({ body: req.body || null, success: true });
+  app.get(`/api/getUser/*`, (_req, res) => {
+    const userName = _req.path.split("/")[3];
+    if (userName === "") {
+      res.json(undefined);
+    } else {
+      res.json(users.find((user) => user.login.toLowerCase() === userName.toLowerCase())?.login);
+    }
+  });
+  app.get(`/api/authorizeUser/*/*`, (_req, res) => {
+    const [userName, userPass] = _req.path.split("/").slice(3, 5);
+    let confirmAuthorization = false;
+    users.forEach((user) => {
+      if (user.login.toLowerCase() === userName.toLowerCase()) {
+        if (user.password === userPass) {
+          confirmAuthorization = true;
+        }
+      }
+    });
+    res.json(confirmAuthorization);
+  });
+  app.post("/api/postUser/*/*", (req, res) => {
+    const [userName, userPass] = req.path.split("/").slice(3, 5);
+    users.push({ login: userName, password: userPass });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json(true);
   });
 });
