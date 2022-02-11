@@ -1,5 +1,6 @@
 import { Component, ErrorInfo } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { Context } from "./context";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/footer";
 import { about, home, products, profile } from "./helpers/links";
@@ -44,8 +45,9 @@ export default class App extends Component<unknown, IState> {
   render() {
     if (this.state.error.isError) return <div>Error</div>;
     return (
-      <>
-        <Header currentUser={this.state.currentUser} setState={this.setState} />
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      <Context.Provider value={{ currentUser: this.state.currentUser }}>
+        <Header setState={this.setState} />
         <Routes>
           <Route path={home} element={<Home />} />
           <Route path={products} element={this.state.currentUser.login ? <Products /> : <Navigate to={home} />}>
@@ -56,7 +58,7 @@ export default class App extends Component<unknown, IState> {
           <Route path={profile} element={<Profile />} />
         </Routes>
         <Footer />
-      </>
+      </Context.Provider>
     );
   }
 }

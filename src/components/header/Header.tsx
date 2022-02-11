@@ -1,7 +1,9 @@
 import "./header.scss";
+import { useContext } from "react";
 import AuthorizationLinks from "./navbar/authorizationLinks";
 import NavLinks from "./navbar/navbar";
 import ProfileLinks from "./navbar/profileLinks";
+import { Context } from "../../context";
 
 interface IError {
   isError: boolean;
@@ -15,9 +17,6 @@ interface IState {
 }
 
 interface IProps {
-  currentUser: {
-    login: string;
-  };
   setState: (
     state:
       | IState
@@ -29,15 +28,16 @@ interface IProps {
 }
 
 export default function Header(props: IProps) {
+  const { currentUser } = useContext(Context);
   return (
     <header className="header">
       <a href="/" className="header__logo">
         <span> My Games Market</span>
       </a>
       <div className="header__links-container">
-        <NavLinks currentUser={props.currentUser} setState={props.setState} />
-        {props.currentUser.login ? (
-          <ProfileLinks setState={props.setState} currentUser={props.currentUser} />
+        <NavLinks currentUser={currentUser} setState={props.setState} />
+        {currentUser.login ? (
+          <ProfileLinks setState={props.setState} currentUser={currentUser} />
         ) : (
           <AuthorizationLinks setState={props.setState} />
         )}
