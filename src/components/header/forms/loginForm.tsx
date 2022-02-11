@@ -1,31 +1,14 @@
 /* eslint-disable react/jsx-no-bind */
 import FormOption from "@/elements/formOption";
+import { logIn } from "@/redux/actions/userActions";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ITempUser } from "../interfaces";
 
-interface IError {
-  isError: boolean;
-}
-
-interface IState {
-  currentUser: {
-    login: string;
-  };
-  error: IError;
-}
-
 interface IFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setState: (
-    state:
-      | IState
-      | ((prevState: Readonly<IState>, props: Readonly<unknown>) => IState | Pick<IState, keyof IState> | null)
-      | Pick<IState, keyof IState>
-      | null,
-    callback?: (() => void) | undefined
-  ) => void;
   redirectPath?: string;
 }
 // move to one component
@@ -34,18 +17,15 @@ export default function loginForm(props: IFormProps) {
     login: "",
     password: "",
   }));
-
   const [error, setError] = useState<string>("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     axios.get(`api/authorizeUser/${tempUser.login}/${tempUser.password}`).then((res) => {
       if (res.data) {
-        props.setState({
-          error: { isError: false },
-          currentUser: { login: tempUser.login },
-        });
+        dispatch(logIn(tempUser.login));
         props.setIsOpen(false);
         props.redirectPath && navigate(props.redirectPath, { replace: true });
       }

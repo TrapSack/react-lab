@@ -1,45 +1,22 @@
 import { home } from "@/helpers/links";
+import { logOut } from "@/redux/actions/userActions";
+import { IUserState } from "@/redux/types/types";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-interface IError {
-  isError: boolean;
-}
-
-interface IState {
-  error: IError;
-  currentUser: {
-    login: string;
-  };
-}
-
-interface IProps {
-  setState: (
-    state:
-      | IState
-      | ((prevState: Readonly<IState>, props: Readonly<unknown>) => IState | Pick<IState, keyof IState> | null)
-      | Pick<IState, keyof IState>
-      | null,
-    callback?: (() => void) | undefined
-  ) => void;
-  currentUser: {
-    login: string;
-  };
-}
-
-export default function ProfileLinks(props: IProps) {
+export default function ProfileLinks() {
+  const user = useSelector((state: { user: IUserState }) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   function handleClick() {
-    props.setState({
-      error: { isError: false },
-      currentUser: { login: "" },
-    });
+    dispatch(logOut());
     navigate(home, { replace: true });
   }
 
   return (
     <>
       <button type="button" className="navbar__link navbar__link--btn">
-        {props.currentUser.login}
+        {user.login}
       </button>
       <button type="button" className="navbar__link navbar__link--btn" onClick={handleClick}>
         LogOut

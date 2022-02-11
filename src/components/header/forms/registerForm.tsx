@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
+import { useDispatch } from "react-redux";
+import { logIn } from "@/redux/actions/userActions";
 import axios from "axios";
 import FormOption from "@/elements/formOption";
 import { useNavigate } from "react-router-dom";
@@ -8,34 +10,13 @@ import { ITempUser } from "../interfaces";
 import { valiDatePassword } from "../validators";
 import debounce from "../../../helpers/useDebounce";
 
-interface IError {
-  isError: boolean;
-}
-
-interface IState {
-  error: IError;
-  currentUser: {
-    login: string;
-  };
-}
-
-interface IFormProps {
-  setState: (
-    state:
-      | IState
-      | ((prevState: Readonly<IState>, props: Readonly<unknown>) => IState | Pick<IState, keyof IState> | null)
-      | Pick<IState, keyof IState>
-      | null,
-    callback?: (() => void) | undefined
-  ) => void;
-}
-
-export default function RegisterForm(props: IFormProps) {
+export default function RegisterForm() {
   const [error, setError] = useState({
     loginInputError: "",
     PasswordInputError: "",
     PasswordRepeatError: "",
   });
+  const dispatch = useDispatch();
   const [tempUser, setTempUser] = useState<ITempUser>(() => ({
     login: "",
     password: "",
@@ -49,10 +30,7 @@ export default function RegisterForm(props: IFormProps) {
     if (hasErrors && tempUser.login.length > 0) {
       axios.post(`api/postUser/${tempUser.login}/${tempUser.password}`).then((res) => {
         if (res.data) {
-          props.setState({
-            error: { isError: false },
-            currentUser: { login: tempUser.login },
-          });
+          dispatch(logIn(tempUser.login));
           navigate(profile, { replace: true });
         }
       });
