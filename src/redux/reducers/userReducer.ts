@@ -6,13 +6,15 @@ const initialState = {
 };
 
 // eslint-disable-next-line
-export const userReducer = (state: IUserState = initialState, action: UserAction): IUserState => {
+export default function userReducer(state: IUserState = initialState, action: UserAction): IUserState {
   switch (action.type) {
     case IActionTypes.LOGIN:
       return { login: action.payload, isAuth: true };
     case IActionTypes.LOGOUT:
       return { login: "", isAuth: false };
+    case IActionTypes.ERROR:
+      return { login: "", isAuth: false, error: "Incorrect login or password" };
     default:
       return state;
   }
-};
+}

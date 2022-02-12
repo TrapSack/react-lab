@@ -46,11 +46,7 @@ export default function RegisterForm() {
   }
   const debouncedValidate = debounce(validateUserLogin, 300);
   useEffect(() => {
-    let isMounted = true;
-    if (isMounted) debouncedValidate();
-    return () => {
-      isMounted = false;
-    };
+    debouncedValidate();
   }, [tempUser.login]);
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
