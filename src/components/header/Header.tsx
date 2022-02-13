@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className="header">
       <a href="/" className="header__logo">
-        <span> My Games Market</span>
+        My Games Market
       </a>
       <div className="header__links-container">
         <NavLinks />
