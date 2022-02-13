@@ -5,10 +5,9 @@ import axios from "axios";
 import FormOption from "@/elements/formOption";
 import { useNavigate } from "react-router-dom";
 import { profile } from "@/helpers/links";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { ITempUser } from "../interfaces";
 import { valiDatePassword } from "../validators";
-import debounce from "../../../helpers/useDebounce";
 
 export default function RegisterForm() {
   const [error, setError] = useState({
@@ -25,9 +24,8 @@ export default function RegisterForm() {
   const navigate = useNavigate();
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // rename iscoorect haserrors
     const hasErrors = Object.values(error).every((err) => err === "");
-    if (hasErrors && tempUser.login.length > 0) {
+    if (hasErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
       axios.post(`api/postUser/${tempUser.login}/${tempUser.password}`).then((res) => {
         if (res.data) {
           dispatch(logIn(tempUser.login));
@@ -35,26 +33,38 @@ export default function RegisterForm() {
         }
       });
     }
-  }
-  function validateUserLogin() {
-    axios.get(`api/getUser/${tempUser.login}`).then((res) => {
+    if (!tempUser.login)
       setError((prev) => ({
         ...prev,
-        loginInputError: tempUser.login === res.data && tempUser.login.length !== 0 ? "User Already exists" : "",
+        loginInputError: "login is required",
       }));
-    });
+    if (!tempUser.password)
+      setError((prev) => ({
+        ...prev,
+        PasswordInputError: "Password is required",
+      }));
+    if (!tempUser.confirmPassword)
+      setError((prev) => ({
+        ...prev,
+        PasswordRepeatError: "Confirm password is required",
+      }));
   }
-  const debouncedValidate = debounce(validateUserLogin, 300);
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) debouncedValidate();
-    return () => {
-      isMounted = false;
-    };
-  }, [tempUser.login]);
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  function validation(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     switch (name) {
+      case "login":
+        axios.get(`api/getUser/${tempUser.login}`).then((res) => {
+          setError((prev) => ({
+            ...prev,
+            loginInputError: tempUser.login === res.data && tempUser.login.length !== 0 ? "User Already exists" : "",
+          }));
+        });
+        if (!value)
+          setError((prev) => ({
+            ...prev,
+            loginInputError: "login is required",
+          }));
+        break;
       case "password":
         setError((prev) => ({
           ...prev,
@@ -63,16 +73,29 @@ export default function RegisterForm() {
               ? ""
               : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
         }));
+        if (!value)
+          setError((prev) => ({
+            ...prev,
+            PasswordInputError: "Password is required",
+          }));
         break;
       case "confirmPassword":
         setError((prev) => ({
           ...prev,
           PasswordRepeatError: value === tempUser.password ? "" : "Passwords don`t match",
         }));
+        if (!value)
+          setError((prev) => ({
+            ...prev,
+            PasswordRepeatError: "Confirm password is required",
+          }));
         break;
       default:
         break;
     }
+  }
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target;
     setTempUser((prev) => ({
       ...prev,
       [name]: value,
@@ -87,6 +110,7 @@ export default function RegisterForm() {
         value={tempUser.login}
         handleChange={handleChange}
         error={error.loginInputError}
+        handleBlur={validation}
       />
       <FormOption
         type="password"
@@ -95,6 +119,7 @@ export default function RegisterForm() {
         value={tempUser.password}
         handleChange={handleChange}
         error={error.PasswordInputError}
+        handleBlur={validation}
       />
       <FormOption
         type="password"
@@ -104,6 +129,7 @@ export default function RegisterForm() {
         value={tempUser.confirmPassword!}
         handleChange={handleChange}
         error={error.PasswordRepeatError}
+        handleBlur={validation}
       />
       <button type="submit" className="form__submit">
         Register

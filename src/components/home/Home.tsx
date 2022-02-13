@@ -45,7 +45,7 @@ export default function Home() {
       {showLoader && <Loader />}
       {/* <Loader /> */}
       <Platforms />
-      {showLoader ? "" : <GamesContainer gamesArr={gamesArr} />}
+      {!showLoader && <GamesContainer gamesArr={gamesArr} />}
     </div>
   );
 }
