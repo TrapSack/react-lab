@@ -28,11 +28,11 @@ export default function loginForm(props: IFormProps) {
   }
 
   useEffect(() => {
-    if (currentUser.login) {
+    if (currentUser.login !== "") {
       props.setIsOpen(false);
       props.redirectPath && navigate(props.redirectPath, { replace: true });
     }
-    setError(currentUser.error || "");
+    setError(currentUser.error ? currentUser.error : "");
   }, [currentUser]);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -43,6 +43,11 @@ export default function loginForm(props: IFormProps) {
     }));
   }
 
+  function checkOnEmptyInput(event: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target;
+    if (!value) setError(() => `${name[0].toUpperCase() + name.slice(1)} is required`);
+  }
+
   return (
     <form onSubmit={handleSubmit} className="form form--login">
       <FormOption
@@ -51,6 +56,7 @@ export default function loginForm(props: IFormProps) {
         inputName="login"
         value={tempUser.login}
         handleChange={handleChange}
+        handleBlur={checkOnEmptyInput}
       />
       <FormOption
         type="password"
@@ -59,6 +65,7 @@ export default function loginForm(props: IFormProps) {
         value={tempUser.password}
         handleChange={handleChange}
         error={error}
+        handleBlur={checkOnEmptyInput}
       />
       <button type="submit" className="form__submit">
         Login

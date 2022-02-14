@@ -13,7 +13,7 @@ export default function RegisterForm() {
   const [error, setError] = useState({
     loginInputError: "",
     passwordInputError: "",
-    passwordRepeatError: "",
+    confirmPasswordInputError: "",
   });
   const dispatch = useDispatch();
   const [tempUser, setTempUser] = useState<ITempUser>(() => ({
@@ -33,12 +33,47 @@ export default function RegisterForm() {
           navigate(profile, { replace: true });
         }
       });
+    } else {
+      setError(() => ({
+        loginInputError: tempUser.login ? "" : "login is required",
+        passwordInputError: tempUser.password ? "" : "Password is required",
+        confirmPasswordInputError: tempUser.confirmPassword ? "" : "Confirm password is required",
+      }));
     }
+  }
+
+  function checkOnEmptyInput(name: string, value: string) {
+    if (!value)
+      setError((prev) => ({
+        ...prev,
+        [`${name}InputError`]: `${name[0].toUpperCase() + name.slice(1)} is required`,
+      }));
+  }
+
+  function loginValidation(login: string) {
+    if (login) {
+      axios.get(`api/getUser/${login}`).then((res) => {
+        setError((prev) => ({
+          ...prev,
+          loginInputError: res.data ? "User Already exists" : "",
+        }));
+      });
+    }
+  }
+
+  function passwordValidation(password: string) {
     setError((prev) => ({
       ...prev,
-      loginInputError: tempUser.login ? "" : "login is required",
-      passwordInputError: tempUser.password ? "" : "Password is required",
-      passwordRepeatError: tempUser.confirmPassword ? "" : "Confirm password is required",
+      passwordInputError: valiDatePassword(password)
+        ? ""
+        : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
+    }));
+  }
+
+  function confirmPasswordValidation(password: string) {
+    setError((prev) => ({
+      ...prev,
+      confirmPasswordInputError: password === tempUser.password ? "" : "Passwords don`t match",
     }));
   }
 
@@ -46,41 +81,16 @@ export default function RegisterForm() {
     const { name, value } = event.target;
     switch (name) {
       case "login":
-        axios.get(`api/getUser/${tempUser.login}`).then((res) => {
-          setError((prev) => ({
-            ...prev,
-            loginInputError: res.data ? "User Already exists" : "",
-          }));
-          if (!value)
-            setError((prev) => ({
-              ...prev,
-              loginInputError: "login is required",
-            }));
-        });
+        loginValidation(value);
+        checkOnEmptyInput(name, value);
         break;
       case "password":
-        setError((prev) => ({
-          ...prev,
-          passwordInputError: valiDatePassword(value)
-            ? ""
-            : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
-        }));
-        if (!value)
-          setError((prev) => ({
-            ...prev,
-            passwordInputError: "Password is required",
-          }));
+        passwordValidation(value);
+        checkOnEmptyInput(name, value);
         break;
       case "confirmPassword":
-        setError((prev) => ({
-          ...prev,
-          passwordRepeatError: value === tempUser.password ? "" : "Passwords don`t match",
-        }));
-        if (!value)
-          setError((prev) => ({
-            ...prev,
-            passwordRepeatError: "Confirm password is required",
-          }));
+        confirmPasswordValidation(value);
+        checkOnEmptyInput(name, value);
         break;
       default:
         break;
@@ -123,7 +133,7 @@ export default function RegisterForm() {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         value={tempUser.confirmPassword!}
         handleChange={handleChange}
-        error={error.passwordRepeatError}
+        error={error.confirmPasswordInputError}
         handleBlur={validation}
       />
       <button type="submit" className="form__submit">
