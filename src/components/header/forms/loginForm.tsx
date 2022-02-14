@@ -28,7 +28,7 @@ export default function loginForm(props: IFormProps) {
   }
 
   useEffect(() => {
-    if (currentUser.login !== "") {
+    if (currentUser.login) {
       props.setIsOpen(false);
       props.redirectPath && navigate(props.redirectPath, { replace: true });
     }
