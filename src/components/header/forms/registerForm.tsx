@@ -26,6 +26,7 @@ export default function RegisterForm() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const hasErrors = Object.values(error).every((err) => err === "");
+    console.log(hasErrors);
     if (hasErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
       axios.post(`api/postUser/${tempUser.login}/${tempUser.password}`).then((res) => {
         if (res.data) {
@@ -34,10 +35,12 @@ export default function RegisterForm() {
         }
       });
     } else {
-      setError(() => ({
-        loginInputError: tempUser.login ? "" : "login is required",
-        passwordInputError: tempUser.password ? "" : "Password is required",
-        confirmPasswordInputError: tempUser.confirmPassword ? "" : "Confirm password is required",
+      setError((prev) => ({
+        loginInputError: tempUser.login ? prev.loginInputError : "login is required",
+        passwordInputError: tempUser.password ? prev.passwordInputError : "Password is required",
+        confirmPasswordInputError: tempUser.confirmPassword
+          ? prev.confirmPasswordInputError
+          : "Confirm password is required",
       }));
     }
   }
@@ -99,7 +102,7 @@ export default function RegisterForm() {
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
-    validation(event);
+    // validation(event);
     setTempUser((prev) => ({
       ...prev,
       [name]: value,
