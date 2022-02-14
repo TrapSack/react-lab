@@ -23,17 +23,21 @@ export default function Home() {
       setShowLoader(false);
     }
   }
-  useEffect(() => {
-    dispatch(getTopProducts());
-  }, []);
-  const debouncedSearch = debounce(doSearchToApi, 300);
-  useEffect(() => {
-    debouncedSearch();
-  }, [searchState]);
+
   function toggleChange(e: ChangeEvent<HTMLInputElement>) {
     setShowLoader(true);
     setSearchState(e.target.value);
   }
+
+  const debouncedSearch = debounce(doSearchToApi, 300);
+
+  useEffect(() => {
+    dispatch(getTopProducts());
+  }, []);
+  useEffect(() => {
+    debouncedSearch();
+  }, [searchState]);
+
   return (
     <div className="home">
       <input
@@ -45,7 +49,6 @@ export default function Home() {
         value={searchState}
       />
       {showLoader && <Loader />}
-      {/* <Loader /> */}
       <Platforms />
       {!showLoader && <GamesContainer gamesArr={gamesArr} />}
     </div>

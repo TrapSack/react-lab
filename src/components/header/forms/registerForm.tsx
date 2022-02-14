@@ -22,6 +22,7 @@ export default function RegisterForm() {
     confirmPassword: "",
   }));
   const navigate = useNavigate();
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const hasErrors = Object.values(error).every((err) => err === "");
@@ -40,6 +41,7 @@ export default function RegisterForm() {
       passwordRepeatError: tempUser.confirmPassword ? "" : "Confirm password is required",
     }));
   }
+
   function validation(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     switch (name) {
@@ -47,22 +49,21 @@ export default function RegisterForm() {
         axios.get(`api/getUser/${tempUser.login}`).then((res) => {
           setError((prev) => ({
             ...prev,
-            loginInputError: tempUser.login === res.data && tempUser.login.length !== 0 ? "User Already exists" : "",
+            loginInputError: res.data ? "User Already exists" : "",
           }));
+          if (!value)
+            setError((prev) => ({
+              ...prev,
+              loginInputError: "login is required",
+            }));
         });
-        if (!value)
-          setError((prev) => ({
-            ...prev,
-            loginInputError: "login is required",
-          }));
         break;
       case "password":
         setError((prev) => ({
           ...prev,
-          passwordInputError:
-            valiDatePassword(value) || value.length === 0
-              ? ""
-              : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
+          passwordInputError: valiDatePassword(value)
+            ? ""
+            : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
         }));
         if (!value)
           setError((prev) => ({
@@ -85,13 +86,16 @@ export default function RegisterForm() {
         break;
     }
   }
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
+    validation(event);
     setTempUser((prev) => ({
       ...prev,
       [name]: value,
     }));
   }
+
   return (
     <form onSubmit={handleSubmit} className="form form--register">
       <FormOption

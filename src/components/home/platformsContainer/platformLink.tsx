@@ -9,7 +9,7 @@ interface IPlatformLinkProps {
 
 export default function PlatformLink(props: IPlatformLinkProps) {
   return (
-    <Link to={`${products}/${props.link}`} className="platform-link" id={props.title}>
+    <Link to={`${products}/${props.link}`} className="platform-link" id={props.link}>
       <img src={props.cover} alt={props.title} className="platform-link__logo" />
       <div className="platform-link__title">{props.title}</div>
     </Link>
