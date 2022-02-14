@@ -7,7 +7,7 @@ import { about, home, products, profile } from "./helpers/links";
 import About from "./components/about/about";
 import Home from "./components/home/Home";
 import Products from "./components/products/products";
-import Profile from "./components/profile/profile";
+import Profile from "./components/products/profile/profile";
 import { IUserState } from "./redux/types/types";
 
 interface IError {

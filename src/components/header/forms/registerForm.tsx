@@ -12,8 +12,8 @@ import { valiDatePassword } from "../validators";
 export default function RegisterForm() {
   const [error, setError] = useState({
     loginInputError: "",
-    PasswordInputError: "",
-    PasswordRepeatError: "",
+    passwordInputError: "",
+    passwordRepeatError: "",
   });
   const dispatch = useDispatch();
   const [tempUser, setTempUser] = useState<ITempUser>(() => ({
@@ -33,21 +33,12 @@ export default function RegisterForm() {
         }
       });
     }
-    if (!tempUser.login)
-      setError((prev) => ({
-        ...prev,
-        loginInputError: "login is required",
-      }));
-    if (!tempUser.password)
-      setError((prev) => ({
-        ...prev,
-        PasswordInputError: "Password is required",
-      }));
-    if (!tempUser.confirmPassword)
-      setError((prev) => ({
-        ...prev,
-        PasswordRepeatError: "Confirm password is required",
-      }));
+    setError((prev) => ({
+      ...prev,
+      loginInputError: tempUser.login ? "" : "login is required",
+      passwordInputError: tempUser.password ? "" : "Password is required",
+      passwordRepeatError: tempUser.confirmPassword ? "" : "Confirm password is required",
+    }));
   }
   function validation(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -68,7 +59,7 @@ export default function RegisterForm() {
       case "password":
         setError((prev) => ({
           ...prev,
-          PasswordInputError:
+          passwordInputError:
             valiDatePassword(value) || value.length === 0
               ? ""
               : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
@@ -76,18 +67,18 @@ export default function RegisterForm() {
         if (!value)
           setError((prev) => ({
             ...prev,
-            PasswordInputError: "Password is required",
+            passwordInputError: "Password is required",
           }));
         break;
       case "confirmPassword":
         setError((prev) => ({
           ...prev,
-          PasswordRepeatError: value === tempUser.password ? "" : "Passwords don`t match",
+          passwordRepeatError: value === tempUser.password ? "" : "Passwords don`t match",
         }));
         if (!value)
           setError((prev) => ({
             ...prev,
-            PasswordRepeatError: "Confirm password is required",
+            passwordRepeatError: "Confirm password is required",
           }));
         break;
       default:
@@ -118,7 +109,7 @@ export default function RegisterForm() {
         inputName="password"
         value={tempUser.password}
         handleChange={handleChange}
-        error={error.PasswordInputError}
+        error={error.passwordInputError}
         handleBlur={validation}
       />
       <FormOption
@@ -128,7 +119,7 @@ export default function RegisterForm() {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         value={tempUser.confirmPassword!}
         handleChange={handleChange}
-        error={error.PasswordRepeatError}
+        error={error.passwordRepeatError}
         handleBlur={validation}
       />
       <button type="submit" className="form__submit">
