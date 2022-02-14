@@ -5,16 +5,15 @@ import axios from "axios";
 import FormOption from "@/elements/formOption";
 import { useNavigate } from "react-router-dom";
 import { profile } from "@/helpers/links";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { ITempUser } from "../interfaces";
 import { valiDatePassword } from "../validators";
-import debounce from "../../../helpers/useDebounce";
 
 export default function RegisterForm() {
   const [error, setError] = useState({
     loginInputError: "",
-    PasswordInputError: "",
-    PasswordRepeatError: "",
+    passwordInputError: "",
+    confirmPasswordInputError: "",
   });
   const dispatch = useDispatch();
   const [tempUser, setTempUser] = useState<ITempUser>(() => ({
@@ -23,57 +22,90 @@ export default function RegisterForm() {
     confirmPassword: "",
   }));
   const navigate = useNavigate();
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // rename iscoorect haserrors
     const hasErrors = Object.values(error).every((err) => err === "");
-    if (hasErrors && tempUser.login.length > 0) {
+    if (hasErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
       axios.post(`api/postUser/${tempUser.login}/${tempUser.password}`).then((res) => {
         if (res.data) {
           dispatch(logIn(tempUser.login));
           navigate(profile, { replace: true });
         }
       });
+    } else {
+      setError(() => ({
+        loginInputError: tempUser.login ? "" : "login is required",
+        passwordInputError: tempUser.password ? "" : "Password is required",
+        confirmPasswordInputError: tempUser.confirmPassword ? "" : "Confirm password is required",
+      }));
     }
   }
-  function validateUserLogin() {
-    axios.get(`api/getUser/${tempUser.login}`).then((res) => {
+
+  function checkOnEmptyInput(name: string, value: string) {
+    if (!value)
       setError((prev) => ({
         ...prev,
-        loginInputError: tempUser.login === res.data && tempUser.login.length !== 0 ? "User Already exists" : "",
+        [`${name}InputError`]: `${name[0].toUpperCase() + name.slice(1)} is required`,
       }));
-    });
   }
-  const debouncedValidate = debounce(validateUserLogin, 300);
-  useEffect(() => {
-    debouncedValidate();
-  }, [tempUser.login]);
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+
+  function loginValidation(login: string) {
+    if (login) {
+      axios.get(`api/getUser/${login}`).then((res) => {
+        setError((prev) => ({
+          ...prev,
+          loginInputError: res.data ? "User Already exists" : "",
+        }));
+      });
+    }
+  }
+
+  function passwordValidation(password: string) {
+    setError((prev) => ({
+      ...prev,
+      passwordInputError: valiDatePassword(password)
+        ? ""
+        : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
+    }));
+  }
+
+  function confirmPasswordValidation(password: string) {
+    setError((prev) => ({
+      ...prev,
+      confirmPasswordInputError: password === tempUser.password ? "" : "Passwords don`t match",
+    }));
+  }
+
+  function validation(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     switch (name) {
+      case "login":
+        loginValidation(value);
+        checkOnEmptyInput(name, value);
+        break;
       case "password":
-        setError((prev) => ({
-          ...prev,
-          PasswordInputError:
-            valiDatePassword(value) || value.length === 0
-              ? ""
-              : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
-        }));
+        passwordValidation(value);
+        checkOnEmptyInput(name, value);
         break;
       case "confirmPassword":
-        setError((prev) => ({
-          ...prev,
-          PasswordRepeatError: value === tempUser.password ? "" : "Passwords don`t match",
-        }));
+        confirmPasswordValidation(value);
+        checkOnEmptyInput(name, value);
         break;
       default:
         break;
     }
+  }
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target;
+    validation(event);
     setTempUser((prev) => ({
       ...prev,
       [name]: value,
     }));
   }
+
   return (
     <form onSubmit={handleSubmit} className="form form--register">
       <FormOption
@@ -83,6 +115,7 @@ export default function RegisterForm() {
         value={tempUser.login}
         handleChange={handleChange}
         error={error.loginInputError}
+        handleBlur={validation}
       />
       <FormOption
         type="password"
@@ -90,7 +123,8 @@ export default function RegisterForm() {
         inputName="password"
         value={tempUser.password}
         handleChange={handleChange}
-        error={error.PasswordInputError}
+        error={error.passwordInputError}
+        handleBlur={validation}
       />
       <FormOption
         type="password"
@@ -99,7 +133,8 @@ export default function RegisterForm() {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         value={tempUser.confirmPassword!}
         handleChange={handleChange}
-        error={error.PasswordRepeatError}
+        error={error.confirmPasswordInputError}
+        handleBlur={validation}
       />
       <button type="submit" className="form__submit">
         Register

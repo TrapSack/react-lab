@@ -8,6 +8,8 @@ interface IFormOptionProps {
   placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
+  // eslint-disable-next-line react/require-default-props
+  handleBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function FormOption(props: IFormOptionProps) {
@@ -22,6 +24,7 @@ export default function FormOption(props: IFormOptionProps) {
           className="form__input"
           value={props.value}
           onChange={props.handleChange}
+          onBlur={props.handleBlur}
         />
       </label>
       {props.error ? <span className="form__input-error">{props.error}</span> : null}
