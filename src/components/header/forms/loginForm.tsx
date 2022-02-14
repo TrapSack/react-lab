@@ -28,11 +28,11 @@ export default function loginForm(props: IFormProps) {
   }
 
   useEffect(() => {
-    if (currentUser.login !== "") {
+    if (currentUser.isAuth) {
       props.setIsOpen(false);
       props.redirectPath && navigate(props.redirectPath, { replace: true });
     }
-    setError(currentUser.error ? currentUser.error : "");
+    setError(currentUser.error || "");
   }, [currentUser]);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
