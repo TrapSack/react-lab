@@ -24,6 +24,10 @@
     background: $homeContainersBackground;
     border-radius: 20px;
   }
+  &__description {
+    width: 100%;
+    word-wrap: break-word;
+  }
   &__password-change-confirm,
   &__change-info-btn,
   &__info-change-submit {

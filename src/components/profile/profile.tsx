@@ -13,7 +13,7 @@ export default function Profile() {
     <div className="profile">
       <div className="profile__information-container">
         <h2>{user.login}</h2>
-        <p className="profile__decription">{user.description}</p>
+        <p className="profile__description">{user.description}</p>
         <button
           className="profile__change-info-btn"
           type="button"
