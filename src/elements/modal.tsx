@@ -13,34 +13,37 @@ interface IModalProps {
 const portalDiv = document.getElementById("portal")!;
 
 export default function Modal(props: IModalProps) {
-  if (!props.open) return null;
-  return ReactDOM.createPortal(
-    <>
-      <div
-        className="modal-overlay"
-        role="button"
-        tabIndex={0}
-        aria-label="overlay"
-        onClick={() => {
-          props.setIsOpen(false);
-        }}
-      />
-      <div className="modal">
-        <div className="modal__title-wrapper">
-          <span className="modal__title">{props.title}</span>
-          <button
-            className="modal__close-btn"
-            type="button"
-            onClick={() => {
-              props.setIsOpen(false);
-            }}
-          >
-            &times;
-          </button>
+  // if (!props.open) return null;
+  return (
+    props.open &&
+    ReactDOM.createPortal(
+      <>
+        <div
+          className="modal-overlay"
+          role="button"
+          tabIndex={0}
+          aria-label="overlay"
+          onClick={() => {
+            props.setIsOpen(false);
+          }}
+        />
+        <div className="modal">
+          <div className="modal__title-wrapper">
+            <span className="modal__title">{props.title}</span>
+            <button
+              className="modal__close-btn"
+              type="button"
+              onClick={() => {
+                props.setIsOpen(false);
+              }}
+            >
+              &times;
+            </button>
+          </div>
+          {props.children}
         </div>
-        {props.children}
-      </div>
-    </>,
-    portalDiv
+      </>,
+      portalDiv
+    )
   );
 }
