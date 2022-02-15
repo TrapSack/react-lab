@@ -40,7 +40,10 @@ export default function InfoChangeForm() {
     if (user.login === credentials.login && user.description === credentials.description) {
       return <Navigate to={profile} />;
     }
-    if (!loginInputError) dispatch(saveProfile(user.login, credentials.login, credentials.description));
+    if (!loginInputError) {
+      dispatch(saveProfile(user.login, credentials.login, credentials.description));
+    }
+    return <Navigate to={profile} />;
   }
   return (
     <form className="profile__info-change-form" onSubmit={handleSubmit}>
