@@ -1,6 +1,9 @@
 import { valiDatePassword } from "@/components/header/validators";
 import FormOption from "@/elements/formOption";
-import { ChangeEvent, useState } from "react";
+import { changePassword } from "@/redux/actions/userActions";
+import { RootReducerType } from "@/redux/reducers/rootReducer";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function PasswordChangeForm() {
   const [credentials, setCredentials] = useState(() => ({
@@ -8,10 +11,15 @@ export default function PasswordChangeForm() {
     confirmPassword: "",
   }));
 
+  const [successMessage, setSuccessMessage] = useState(() => "");
+
   const [error, setError] = useState({
     passwordInputError: "",
     confirmPasswordInputError: "",
   });
+
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootReducerType) => state.user);
 
   function passwordValidation(password: string) {
     setError((prev) => ({
@@ -51,8 +59,24 @@ export default function PasswordChangeForm() {
       [name]: value,
     }));
   }
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    const hasErrors = Object.values(error).every((err) => err === "");
+    if (hasErrors && credentials.password && credentials.confirmPassword) {
+      dispatch(changePassword(user.login, credentials.password));
+      setCredentials({
+        password: "",
+        confirmPassword: "",
+      });
+      setSuccessMessage("Your password has been changed");
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 1000);
+    }
+  }
   return (
-    <form className="profile__password-change-form">
+    <form className="profile__password-change-form" onSubmit={handleSubmit}>
       <FormOption
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
@@ -71,6 +95,7 @@ export default function PasswordChangeForm() {
         error={error.confirmPasswordInputError}
         value={credentials.confirmPassword}
       />
+      {successMessage && <p className="profile__password-change-submit-message">{successMessage}</p>}
       <button type="submit" className="profile__password-change-confirm">
         Change Password
       </button>

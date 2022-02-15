@@ -24,6 +24,10 @@
     background: $homeContainersBackground;
     border-radius: 20px;
   }
+  &__password-change-submit-message {
+    color: $brightgreen;
+  }
+
   &__description {
     width: 100%;
     word-wrap: break-word;

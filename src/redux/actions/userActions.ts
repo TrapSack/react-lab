@@ -43,12 +43,21 @@ export function saveProfile(userNamePrev: string, userNameNew: string, userDescr
     const parsedResponse: boolean = await response.data;
     if (parsedResponse) {
       dispatch({
-        type: IActionTypes.UPDATE,
+        type: IActionTypes.UPDATEINFO,
         payload: {
           nickname: userNameNew,
           description: userDescription,
         },
       });
     }
+  };
+}
+
+export function changePassword(login: string, newPassword: string) {
+  return async (dispatch: (arg0: { type: IActionTypes }) => void) => {
+    await axios.post(`/api/changePassword/${login}/${newPassword}`);
+    dispatch({
+      type: IActionTypes.UPDATEPASSWORD,
+    });
   };
 }

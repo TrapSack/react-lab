@@ -80,9 +80,9 @@
 }
 
 .form {
+  width: 380px;
   display: flex;
   flex-direction: column;
-  
 
   &__input {
     float: right;
@@ -113,6 +113,7 @@
     justify-content: space-between;
   }
   &__input-error {
+    width: 100%;
     font-size: 12px;
     font-weight: 600;
     color: rgb(153, 43, 43);

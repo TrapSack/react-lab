@@ -15,8 +15,10 @@ export default function userReducer(state: IUserState = initialState, action: Us
       return { login: "", isAuth: false, description: "" };
     case IActionTypes.ERROR:
       return { login: "", isAuth: false, error: "Incorrect login or password", description: "" };
-    case IActionTypes.UPDATE:
+    case IActionTypes.UPDATEINFO:
       return { login: action.payload.nickname, isAuth: true, description: action.payload.description };
+    case IActionTypes.UPDATEPASSWORD:
+      return { login: state.login, isAuth: true, description: state.description };
     default:
       return state;
   }

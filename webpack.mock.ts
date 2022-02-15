@@ -85,4 +85,18 @@ export default webpackMockServer.add((app, helper) => {
     fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
     res.json(true);
   });
+  app.post("/api/changePassword/*/*", (req, res) => {
+    const [userName, newPassword] = req.path.split("/").slice(3, 6);
+    const resultUsers = users.map((user) => {
+      if (user.login === userName) {
+        return {
+          ...user,
+          password: newPassword,
+        };
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
+    res.json(true);
+  });
 });

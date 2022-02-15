@@ -9,10 +9,16 @@ export enum IActionTypes {
   LOGIN = "USER/LOGIN",
   LOGOUT = "USER/LOGOUT",
   ERROR = "USER/ERROR",
-  UPDATE = "USER/UPDATE",
+  UPDATEINFO = "USER/UPDATEINFO",
+  UPDATEPASSWORD = "USER/UPDATEPASS",
 }
 
-export type UserAction = ILoginAction | ILogoutAction | IErrorAction | IUpdateAction;
+export type UserAction =
+  | ILoginAction
+  | ILogoutAction
+  | IErrorAction
+  | IUpdateUserInfoAction
+  | IUpdateUserPasswordAction;
 
 export interface ILoginAction {
   type: IActionTypes.LOGIN;
@@ -31,10 +37,14 @@ export interface IErrorAction {
   payload: string;
 }
 
-export interface IUpdateAction {
-  type: IActionTypes.UPDATE;
+export interface IUpdateUserInfoAction {
+  type: IActionTypes.UPDATEINFO;
   payload: {
     nickname: string;
     description: string;
   };
+}
+
+export interface IUpdateUserPasswordAction {
+  type: IActionTypes.UPDATEPASSWORD;
 }
