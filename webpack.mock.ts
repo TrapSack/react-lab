@@ -46,28 +46,44 @@ export default webpackMockServer.add((app, helper) => {
   });
   app.get(`/api/getUser/*`, (_req, res) => {
     const userName = _req.path.split("/")[3];
-    if (userName === "") {
-      res.json(undefined);
-    } else {
-      res.json(users.find((user) => user.login.toLowerCase() === userName.toLowerCase())?.login);
-    }
+    res.json(userName ? !!users.find((user) => user.login.toLowerCase() === userName.toLowerCase())?.login : undefined);
   });
   app.get(`/api/authorizeUser/*/*`, (_req, res) => {
     const [userName, userPass] = _req.path.split("/").slice(3, 5);
-    let confirmAuthorization = false;
     users.forEach((user) => {
+      console.log(user.login);
       if (user.login.toLowerCase() === userName.toLowerCase()) {
         if (user.password === userPass) {
-          confirmAuthorization = true;
+          res.json({
+            nickname: userName,
+            description: user.description,
+          });
+          return true;
         }
       }
+      return user;
     });
-    res.json(confirmAuthorization);
+    return res.json(false);
   });
   app.post("/api/postUser/*/*", (req, res) => {
     const [userName, userPass] = req.path.split("/").slice(3, 5);
-    users.push({ login: userName, password: userPass });
+    users.push({ login: userName, password: userPass, description: "" });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json(true);
+  });
+  app.post("/api/saveUser/*/*/*", (req, res) => {
+    const [userNamePrev, userNameNew, userDescription] = req.path.split("/").slice(3, 6);
+    const resultUsers = users.map((user) => {
+      if (user.login === userNamePrev) {
+        return {
+          ...user,
+          login: userNameNew,
+          description: userDescription,
+        };
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
     res.json(true);
   });
 });
