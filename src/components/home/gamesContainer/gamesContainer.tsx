@@ -20,7 +20,7 @@ export default function GamesContainer(props: IGamesContainer): JSX.Element {
   ));
   return (
     <div className="home__games-container">
-      {gameComponentArray.length > 0 ? gameComponentArray : <NoMatchesParagraph />}
+      {gameComponentArray.length ? gameComponentArray : <NoMatchesParagraph />}
     </div>
   );
 }

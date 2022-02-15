@@ -1,37 +1,43 @@
 import "./home.scss";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, useEffect, useState } from "react";
+import { getTopProducts, searchGame } from "@/redux/actions/gamesActions";
 import Loader from "../../elements/loader";
 import debounce from "../../helpers/useDebounce";
-import { IGame } from "./gamesContainer/interfaces";
-import GamesContainer from "./gamesContainer/gamesContainer";
 import Platforms from "./platformsContainer/platforms";
+import GamesContainer from "./gamesContainer/gamesContainer";
 
 export default function Home() {
   const [searchState, setSearchState] = useState<string>("");
   const [showLoader, setShowLoader] = useState<boolean>(false);
-  const [gamesArr, setGamesArr] = useState<IGame[]>([]);
+  const gamesArr = useSelector((state: RootReducerType) => state.games.games);
+  const dispatch = useDispatch();
+
   function doSearchToApi() {
-    if (!searchState.trim()) {
-      axios.get(`/api/getTopProducts`).then((res) => {
-        setGamesArr(res.data);
-        setShowLoader(false);
-      });
+    if (!searchState) {
+      dispatch(getTopProducts());
+      setShowLoader(false);
     } else {
-      axios.get(`/api/search/${searchState}`).then((res) => {
-        setGamesArr(res.data);
-        setShowLoader(false);
-      });
+      dispatch(searchGame(searchState));
+      setShowLoader(false);
     }
   }
-  const debouncedSearch = debounce(doSearchToApi, 300);
-  useEffect(() => {
-    debouncedSearch();
-  }, [searchState]);
+
   function toggleChange(e: ChangeEvent<HTMLInputElement>) {
     setShowLoader(true);
     setSearchState(e.target.value);
   }
+
+  const debouncedSearch = debounce(doSearchToApi, 300);
+
+  useEffect(() => {
+    dispatch(getTopProducts());
+  }, []);
+  useEffect(() => {
+    debouncedSearch();
+  }, [searchState]);
+
   return (
     <div className="home">
       <input
@@ -43,9 +49,8 @@ export default function Home() {
         value={searchState}
       />
       {showLoader && <Loader />}
-      {/* <Loader /> */}
       <Platforms />
-      {showLoader ? "" : <GamesContainer gamesArr={gamesArr} />}
+      {!showLoader && <GamesContainer gamesArr={gamesArr} />}
     </div>
   );
 }

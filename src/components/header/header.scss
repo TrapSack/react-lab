@@ -19,6 +19,9 @@
     margin-left: 20px;
     text-decoration: none;
   }
+  &__links-container {
+    display: flex;
+  }
 }
 
 .navbar {
@@ -45,6 +48,15 @@
       background: $hoverLinkColor;
       transition: 0.2s ease-in;
     }
+    &--btn {
+      background: none;
+      border: none;
+    }
+  }
+  &__profile-avatar {
+    background: none;
+    border-radius: 50px;
+    height: 80%;
   }
 
   &__dropdown {
@@ -63,5 +75,46 @@
     margin-top: 5px;
     height: 15px;
     transition: all 0.7s ease-out;
+    pointer-events: none;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  
+
+  &__input {
+    float: right;
+    padding: 7px 15px;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__submit {
+    width: 40%;
+    margin-top: 30px;
+    transform: translate(70%, 0);
+    font-size: 20px;
+    color: white;
+    background: rgb(20, 20, 20);
+    border: 2px solid $brightgreen;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background: $brightgreen;
+      transition: 0.1s ease-in;
+    }
+  }
+  &__option {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    justify-content: space-between;
+  }
+  &__input-error {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(153, 43, 43);
   }
 }

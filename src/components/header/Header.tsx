@@ -1,12 +1,14 @@
-import { useState } from "react";
-import NavLinks from "./navLinks";
+import { useSelector } from "react-redux";
+import { IUserState } from "@/redux/types/types";
 import "./header.scss";
+import AuthorizationLinks from "./navbar/authorizationLinks";
+import NavLinks from "./navbar/navbar";
+import ProfileLinks from "./navbar/profileLinks";
 
 export default function Header() {
-  const [state, setState] = useState("Hello");
-  function handleClick() {
-    setState(null);
-  }
+
+  const user = useSelector((state: { user: IUserState }) => state.user);
+      
   return (
     <header className="header">
       <a href="/" className="header__logo">
@@ -16,7 +18,10 @@ export default function Header() {
         My Games Market
         {state.length}
       </a>
-      <NavLinks />
+      <div className="header__links-container">
+        <NavLinks />
+        {user.isAuth ? <ProfileLinks /> : <AuthorizationLinks />}
+      </div>
     </header>
   );
 }

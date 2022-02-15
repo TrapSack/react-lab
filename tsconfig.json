@@ -23,7 +23,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": false
   },
   "exclude": ["node_modules", "dist", "build", ".vscode"]
 }
