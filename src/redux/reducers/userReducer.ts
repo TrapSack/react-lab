@@ -1,9 +1,9 @@
 import { IUserState, UserAction, IActionTypes } from "../types/types";
 
 const initialState = {
-  login: "trapsack",
-  isAuth: true,
-  description: "fsafsafsaf12412 siajSOIFJIO@!J%O!I@I IJFAASFJFSAJFSAJFSJSJ",
+  login: "",
+  isAuth: false,
+  description: "",
 };
 
 // eslint-disable-next-line
