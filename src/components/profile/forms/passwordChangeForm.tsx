@@ -1,5 +1,5 @@
-import { valiDatePassword } from "@/components/header/validators";
-import FormOption from "@/elements/formOption";
+import ConfirmPasswordFormOption from "@/elements/confirmPasswordFormOption";
+import PasswordFormOption from "@/elements/passwordFormOption";
 import { changePassword } from "@/redux/actions/userActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -21,39 +21,8 @@ export default function PasswordChangeForm() {
   const dispatch = useDispatch();
   const user = useSelector((state: RootReducerType) => state.user);
 
-  function passwordValidation(password: string) {
-    setError((prev) => ({
-      ...prev,
-      passwordInputError:
-        valiDatePassword(password) || !password
-          ? ""
-          : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
-    }));
-  }
-
-  function confirmPasswordValidation(password: string) {
-    setError((prev) => ({
-      ...prev,
-      confirmPasswordInputError: password === credentials.password ? "" : "Passwords don`t match",
-    }));
-  }
-  function validation(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target;
-    switch (name) {
-      case "password":
-        passwordValidation(value);
-        break;
-      case "confirmPassword":
-        confirmPasswordValidation(value);
-        break;
-      default:
-        break;
-    }
-  }
-
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { value, name } = event.target;
-    validation(event);
     setCredentials((prev) => ({
       ...prev,
       [name]: value,
@@ -77,7 +46,7 @@ export default function PasswordChangeForm() {
   }
   return (
     <form className="profile__password-change-form" onSubmit={handleSubmit}>
-      <FormOption
+      <PasswordFormOption
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
         type="password"
@@ -85,8 +54,9 @@ export default function PasswordChangeForm() {
         placeholder="Password"
         error={error.passwordInputError}
         value={credentials.password}
+        setError={setError}
       />
-      <FormOption
+      <ConfirmPasswordFormOption
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
         type="password"
@@ -94,6 +64,8 @@ export default function PasswordChangeForm() {
         placeholder="Confirm Password"
         error={error.confirmPasswordInputError}
         value={credentials.confirmPassword}
+        setError={setError}
+        passwordToConfirm={credentials.password}
       />
       {successMessage && <p className="profile__password-change-submit-message">{successMessage}</p>}
       <button type="submit" className="profile__password-change-confirm">

@@ -2,12 +2,13 @@
 import { useDispatch } from "react-redux";
 import { logIn } from "@/redux/actions/userActions";
 import axios from "axios";
-import FormOption from "@/elements/formOption";
+import ConfirmPasswordFormOption from "@/elements/confirmPasswordFormOption";
+import LoginFormOption from "@/elements/loginFormOption";
+import PasswordFormOption from "@/elements/passwordFormOption";
 import { useNavigate } from "react-router-dom";
 import { profile } from "@/helpers/links";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { ITempUser } from "../interfaces";
-import { valiDatePassword } from "../validators";
 
 export default function RegisterForm() {
   const [error, setError] = useState({
@@ -44,62 +45,6 @@ export default function RegisterForm() {
       }));
     }
   }
-
-  function checkOnEmptyInput(name: string, value: string) {
-    if (!value)
-      setError((prev) => ({
-        ...prev,
-        [`${name}InputError`]: `${name[0].toUpperCase() + name.slice(1)} is required`,
-      }));
-  }
-
-  function loginValidation(login: string) {
-    if (login) {
-      axios.get(`api/getUser/${login}`).then((res) => {
-        setError((prev) => ({
-          ...prev,
-          loginInputError: res.data ? "User Already exists" : "",
-        }));
-      });
-    }
-  }
-
-  function passwordValidation(password: string) {
-    setError((prev) => ({
-      ...prev,
-      passwordInputError: valiDatePassword(password)
-        ? ""
-        : "Password length should be more than 8 sybmols, atleast one uppercase and lowercase symbol",
-    }));
-  }
-
-  function confirmPasswordValidation(password: string) {
-    setError((prev) => ({
-      ...prev,
-      confirmPasswordInputError: password === tempUser.password ? "" : "Passwords don`t match",
-    }));
-  }
-
-  function validation(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target;
-    switch (name) {
-      case "login":
-        loginValidation(value);
-        checkOnEmptyInput(name, value);
-        break;
-      case "password":
-        passwordValidation(value);
-        checkOnEmptyInput(name, value);
-        break;
-      case "confirmPassword":
-        confirmPasswordValidation(value);
-        checkOnEmptyInput(name, value);
-        break;
-      default:
-        break;
-    }
-  }
-
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     // validation(event);
@@ -111,25 +56,25 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="form form--register">
-      <FormOption
+      <LoginFormOption
         type="text"
         placeholder="Login"
         inputName="login"
         value={tempUser.login}
         handleChange={handleChange}
         error={error.loginInputError}
-        handleBlur={validation}
+        setError={setError}
       />
-      <FormOption
+      <PasswordFormOption
         type="password"
         placeholder="Password"
         inputName="password"
         value={tempUser.password}
         handleChange={handleChange}
         error={error.passwordInputError}
-        handleBlur={validation}
+        setError={setError}
       />
-      <FormOption
+      <ConfirmPasswordFormOption
         type="password"
         placeholder="Confirm"
         inputName="confirmPassword"
@@ -137,8 +82,10 @@ export default function RegisterForm() {
         value={tempUser.confirmPassword!}
         handleChange={handleChange}
         error={error.confirmPasswordInputError}
-        handleBlur={validation}
+        setError={setError}
+        passwordToConfirm={tempUser.password}
       />
+
       <button type="submit" className="form__submit">
         Register
       </button>

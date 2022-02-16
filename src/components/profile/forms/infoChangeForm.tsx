@@ -1,4 +1,5 @@
 import FormOption from "@/elements/formOption";
+import LoginFormOption from "@/elements/loginFormOption";
 import { profile } from "@/helpers/links";
 import { saveProfile } from "@/redux/actions/userActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
@@ -13,16 +14,22 @@ export default function InfoChangeForm() {
     login: user.login,
     description: user.description,
   }));
-  const [loginInputError, setLoginInputError] = useState("");
+  const [error, setError] = useState({
+    loginInputError: "",
+  });
   const dispatch = useDispatch();
   function loginValidation(event: ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
     if (value) {
       axios.get(`api/getUser/${value}`).then((res) => {
-        setLoginInputError(() => (res.data && value !== user.login ? "User Already exists" : ""));
+        setError(() => ({
+          loginInputError: res.data && value !== user.login ? "User Already exists" : "",
+        }));
       });
     } else {
-      setLoginInputError(`Login is required`);
+      setError(() => ({
+        loginInputError: "Login is required",
+      }));
     }
   }
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -40,21 +47,22 @@ export default function InfoChangeForm() {
     if (user.login === credentials.login && user.description === credentials.description) {
       return <Navigate to={profile} />;
     }
-    if (!loginInputError) {
+    if (!error.loginInputError) {
       dispatch(saveProfile(user.login, credentials.login, credentials.description));
     }
     return <Navigate to={profile} />;
   }
   return (
     <form className="profile__info-change-form" onSubmit={handleSubmit}>
-      <FormOption
+      <LoginFormOption
         type="text"
         placeholder="Login"
         value={credentials.login}
         inputName="login"
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
-        error={loginInputError}
+        error={error.loginInputError}
+        setError={setError}
       />
       <FormOption
         type="text"

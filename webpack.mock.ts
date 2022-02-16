@@ -50,7 +50,6 @@ export default webpackMockServer.add((app, helper) => {
   });
   app.get(`/api/authorizeUser/*/*`, (_req, res) => {
     const [userName, userPass] = _req.path.split("/").slice(3, 5);
-<<<<<<< HEAD
     let responseUser;
     users.forEach((user) => {
       if (user.login.toLowerCase() === userName.toLowerCase()) {
@@ -59,24 +58,11 @@ export default webpackMockServer.add((app, helper) => {
             nickname: user.login,
             description: user.description,
           };
-=======
-    users.forEach((user) => {
-      if (user.login.toLowerCase() === userName.toLowerCase()) {
-        if (user.password === userPass) {
-          res.json(userName);
-        } else {
-          res.json(false);
->>>>>>> c2cbf7439ed2e027d5ee8a92f894b363dfffb548
         }
-      } else {
-        res.json(false);
       }
       return user;
     });
-<<<<<<< HEAD
     return res.json(responseUser || false);
-=======
->>>>>>> c2cbf7439ed2e027d5ee8a92f894b363dfffb548
   });
   app.post("/api/postUser/*/*", (req, res) => {
     const [userName, userPass] = req.path.split("/").slice(3, 5);
@@ -88,6 +74,7 @@ export default webpackMockServer.add((app, helper) => {
     const [userNamePrev, userNameNew, userDescription] = req.path.split("/").slice(3, 6);
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
+        console.log("set user");
         return {
           ...user,
           login: userNameNew,

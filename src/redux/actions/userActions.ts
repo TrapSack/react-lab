@@ -20,7 +20,7 @@ export function logIn(nickname: string): ILoginAction {
 export function asyncLogIn(nickname: string, password: string) {
   return async (dispatch: (arg0: { type: IActionTypes; payload: boolean }) => void) => {
     const data = await axios.get(`api/authorizeUser/${nickname}/${password}`);
-    const parsedData: boolean = await data.data;
+    const parsedData = await data.data;
     if (parsedData) {
       dispatch({
         type: IActionTypes.LOGIN,
@@ -59,23 +59,5 @@ export function changePassword(login: string, newPassword: string) {
     dispatch({
       type: IActionTypes.UPDATEPASSWORD,
     });
-  };
-}
-
-export function asyncLogIn(nickname: string, password: string) {
-  return async (dispatch: (arg0: { type: IActionTypes; payload: boolean }) => void) => {
-    const data = await axios.get(`api/authorizeUser/${nickname}/${password}`);
-    const parsedData: boolean = await data.data;
-    if (parsedData) {
-      dispatch({
-        type: IActionTypes.LOGIN,
-        payload: parsedData,
-      });
-    } else {
-      dispatch({
-        type: IActionTypes.ERROR,
-        payload: parsedData,
-      });
-    }
   };
 }
