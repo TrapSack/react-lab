@@ -52,7 +52,7 @@ class App extends Component<{ user: IUserState }, IState> {
           </Route>
           <Route path={about} element={this.props.user.isAuth ? <About /> : <Navigate to={home} />} />
           <Route path="*" element={<Home />} />
-          <Route path={profile} element={<Profile />} />
+          <Route path={profile} element={this.props.user.isAuth ? <Profile /> : <Navigate to={home} />} />
         </Routes>
         <Footer />
       </>

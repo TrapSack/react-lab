@@ -7,6 +7,7 @@ import ProfileLinks from "./navbar/profileLinks";
 
 export default function Header() {
   const user = useSelector((state: { user: IUserState }) => state.user);
+
   return (
     <header className="header">
       <a href="/" className="header__logo">

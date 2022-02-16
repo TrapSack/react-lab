@@ -13,10 +13,8 @@ interface IModalProps {
 const portalDiv = document.getElementById("portal")!;
 
 export default function Modal(props: IModalProps) {
-  // if (!props.open) return null;
-  return (
-    props.open &&
-    ReactDOM.createPortal(
+  return ReactDOM.createPortal(
+    props.open && (
       <>
         <div
           className="modal-overlay"
@@ -42,8 +40,8 @@ export default function Modal(props: IModalProps) {
           </div>
           {props.children}
         </div>
-      </>,
-      portalDiv
-    )
+      </>
+    ),
+    portalDiv
   );
 }

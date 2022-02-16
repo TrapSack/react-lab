@@ -46,28 +46,71 @@ export default webpackMockServer.add((app, helper) => {
   });
   app.get(`/api/getUser/*`, (_req, res) => {
     const userName = _req.path.split("/")[3];
-    if (userName === "") {
-      res.json(undefined);
-    } else {
-      res.json(users.find((user) => user.login.toLowerCase() === userName.toLowerCase())?.login);
-    }
+    res.json(userName ? !!users.find((user) => user.login.toLowerCase() === userName.toLowerCase())?.login : undefined);
   });
   app.get(`/api/authorizeUser/*/*`, (_req, res) => {
     const [userName, userPass] = _req.path.split("/").slice(3, 5);
-    let confirmAuthorization = false;
+<<<<<<< HEAD
+    let responseUser;
     users.forEach((user) => {
       if (user.login.toLowerCase() === userName.toLowerCase()) {
         if (user.password === userPass) {
-          confirmAuthorization = true;
+          responseUser = {
+            nickname: user.login,
+            description: user.description,
+          };
+=======
+    users.forEach((user) => {
+      if (user.login.toLowerCase() === userName.toLowerCase()) {
+        if (user.password === userPass) {
+          res.json(userName);
+        } else {
+          res.json(false);
+>>>>>>> c2cbf7439ed2e027d5ee8a92f894b363dfffb548
         }
+      } else {
+        res.json(false);
       }
+      return user;
     });
-    res.json(confirmAuthorization);
+<<<<<<< HEAD
+    return res.json(responseUser || false);
+=======
+>>>>>>> c2cbf7439ed2e027d5ee8a92f894b363dfffb548
   });
   app.post("/api/postUser/*/*", (req, res) => {
     const [userName, userPass] = req.path.split("/").slice(3, 5);
-    users.push({ login: userName, password: userPass });
+    users.push({ login: userName, password: userPass, description: "" });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json(true);
+  });
+  app.post("/api/saveUser/*/*/*", (req, res) => {
+    const [userNamePrev, userNameNew, userDescription] = req.path.split("/").slice(3, 6);
+    const resultUsers = users.map((user) => {
+      if (user.login === userNamePrev) {
+        return {
+          ...user,
+          login: userNameNew,
+          description: userDescription,
+        };
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
+    res.json(true);
+  });
+  app.post("/api/changePassword/*/*", (req, res) => {
+    const [userName, newPassword] = req.path.split("/").slice(3, 6);
+    const resultUsers = users.map((user) => {
+      if (user.login === userName) {
+        return {
+          ...user,
+          password: newPassword,
+        };
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
     res.json(true);
   });
 });
