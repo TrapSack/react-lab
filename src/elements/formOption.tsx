@@ -10,6 +10,8 @@ interface IFormOptionProps {
   placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
+  // eslint-disable-next-line react/require-default-props
+  handleBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function FormOption(props: IFormOptionProps) {

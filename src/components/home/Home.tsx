@@ -15,7 +15,11 @@ export default function Home() {
   const dispatch = useDispatch();
 
   function doSearchToApi() {
+<<<<<<< HEAD
     if (!searchState) {
+=======
+    if (searchState === "") {
+>>>>>>> c2cbf7439ed2e027d5ee8a92f894b363dfffb548
       dispatch(getTopProducts());
       setShowLoader(false);
     } else {
@@ -23,7 +27,17 @@ export default function Home() {
       setShowLoader(false);
     }
   }
+<<<<<<< HEAD
 
+=======
+  useEffect(() => {
+    dispatch(getTopProducts());
+  }, []);
+  const debouncedSearch = debounce(doSearchToApi, 300);
+  useEffect(() => {
+    debouncedSearch();
+  }, [searchState]);
+>>>>>>> c2cbf7439ed2e027d5ee8a92f894b363dfffb548
   function toggleChange(e: ChangeEvent<HTMLInputElement>) {
     setShowLoader(true);
     setSearchState(e.target.value);
