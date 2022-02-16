@@ -36,7 +36,6 @@ export interface IErrorAction {
   type: IActionTypes.ERROR;
   payload: string;
 }
-<<<<<<< HEAD
 
 export interface IUpdateUserInfoAction {
   type: IActionTypes.UPDATEINFO;
@@ -49,5 +48,3 @@ export interface IUpdateUserInfoAction {
 export interface IUpdateUserPasswordAction {
   type: IActionTypes.UPDATEPASSWORD;
 }
-=======
->>>>>>> c2cbf7439ed2e027d5ee8a92f894b363dfffb548
