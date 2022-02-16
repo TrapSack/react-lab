@@ -64,14 +64,15 @@ export default webpackMockServer.add((app, helper) => {
     });
     return res.json(responseUser || false);
   });
-  app.post("/api/postUser/*/*", (req, res) => {
-    const [userName, userPass] = req.path.split("/").slice(3, 5);
+  app.post("/api/postUser/", (req, res) => {
+    const { userName, userPass } = req.body;
     users.push({ login: userName, password: userPass, description: "" });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
     res.json(true);
   });
-  app.post("/api/saveUser/*/*/*", (req, res) => {
-    const [userNamePrev, userNameNew, userDescription] = req.path.split("/").slice(3, 6);
+  app.post("/api/saveUser/", (req, res) => {
+    console.log(req.body);
+    const { userNamePrev, userNameNew, userDescription } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
         console.log("set user");
@@ -86,8 +87,8 @@ export default webpackMockServer.add((app, helper) => {
     fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
     res.json(true);
   });
-  app.post("/api/changePassword/*/*", (req, res) => {
-    const [userName, newPassword] = req.path.split("/").slice(3, 6);
+  app.post("/api/changePassword/", (req, res) => {
+    const { userName, newPassword } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userName) {
         return {
@@ -99,5 +100,21 @@ export default webpackMockServer.add((app, helper) => {
     });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
     res.json(true);
+  });
+  app.get(`/api/getTest/name=*&surname=*`, (_req, res) => {
+    const [userName, userPass] = _req.path.split("/").slice(3, 5);
+    let responseUser;
+    users.forEach((user) => {
+      if (user.login.toLowerCase() === userName.toLowerCase()) {
+        if (user.password === userPass) {
+          responseUser = {
+            nickname: user.login,
+            description: user.description,
+          };
+        }
+      }
+      return user;
+    });
+    return res.json(responseUser || false);
   });
 });

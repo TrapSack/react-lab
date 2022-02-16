@@ -39,7 +39,7 @@ export function saveProfile(userNamePrev: string, userNameNew: string, userDescr
   return async (
     dispatch: (arg0: { type: IActionTypes; payload: { nickname: string; description: string } }) => void
   ) => {
-    const response = await axios.post(`/api/saveUser/${userNamePrev}/${userNameNew}/${userDescription}`);
+    const response = await axios.post(`/api/saveUser/`, { userNamePrev, userNameNew, userDescription });
     const parsedResponse: boolean = await response.data;
     if (parsedResponse) {
       dispatch({
@@ -55,7 +55,7 @@ export function saveProfile(userNamePrev: string, userNameNew: string, userDescr
 
 export function changePassword(login: string, newPassword: string) {
   return async (dispatch: (arg0: { type: IActionTypes }) => void) => {
-    await axios.post(`/api/changePassword/${login}/${newPassword}`);
+    await axios.post(`/api/changePassword/`, { userName: login, newPassword });
     dispatch({
       type: IActionTypes.UPDATEPASSWORD,
     });

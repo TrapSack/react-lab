@@ -8,10 +8,10 @@ import PasswordFormOption from "@/elements/passwordFormOption";
 import { useNavigate } from "react-router-dom";
 import { profile } from "@/helpers/links";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { ITempUser } from "../interfaces";
+import { IError, ITempUser } from "../interfaces";
 
 export default function RegisterForm() {
-  const [error, setError] = useState({
+  const [error, setError] = useState<IError>({
     loginInputError: "",
     passwordInputError: "",
     confirmPasswordInputError: "",
@@ -29,7 +29,7 @@ export default function RegisterForm() {
     const hasErrors = Object.values(error).every((err) => err === "");
     console.log(hasErrors);
     if (hasErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
-      axios.post(`api/postUser/${tempUser.login}/${tempUser.password}`).then((res) => {
+      axios.post(`api/postUser/`, { userName: tempUser.login, userPass: tempUser.password }).then((res) => {
         if (res.data) {
           dispatch(logIn(tempUser.login));
           navigate(profile, { replace: true });

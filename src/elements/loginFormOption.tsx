@@ -1,3 +1,4 @@
+import { IError } from "@/components/header/interfaces";
 import axios from "axios";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
@@ -9,9 +10,7 @@ interface IFormOptionProps {
   placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
-  setError: Dispatch<
-    SetStateAction<{ loginInputError: string; passwordInputError?: string; confirmPasswordInputError?: string }>
-  >;
+  setError: Dispatch<SetStateAction<IError>>;
 }
 
 export default function LoginFormOption(props: IFormOptionProps) {
@@ -45,9 +44,9 @@ export default function LoginFormOption(props: IFormOptionProps) {
           className="form__input"
           value={props.value}
           onChange={(e) => {
-            loginValidation(e);
             checkOnEmptyInput(e);
             props.handleChange(e);
+            loginValidation(e);
           }}
           onBlur={(e) => {
             checkOnEmptyInput(e);
