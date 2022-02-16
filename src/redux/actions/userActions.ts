@@ -19,7 +19,7 @@ export function logIn(nickname: string): ILoginAction {
 
 export function asyncLogIn(nickname: string, password: string) {
   return async (dispatch: (arg0: { type: IActionTypes; payload: boolean }) => void) => {
-    const data = await axios.get(`api/authorizeUser/${nickname}/${password}`);
+    const data = await axios.put(`api/authorizeUser/`, { params: { userName: nickname, userPass: password } });
     const parsedData = await data.data;
     if (parsedData) {
       dispatch({
