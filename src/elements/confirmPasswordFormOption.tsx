@@ -15,7 +15,6 @@ interface IFormOptionProps {
 
 export default function ConfirmPasswordFormOption(props: IFormOptionProps) {
   function confirmPasswordValidation(event: ChangeEvent<HTMLInputElement>) {
-    console.log(props.value);
     props.setError((prev) => ({
       ...prev,
       confirmPasswordInputError: event.target.value === props.passwordToConfirm ? "" : "Passwords don`t match",

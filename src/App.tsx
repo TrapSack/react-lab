@@ -9,6 +9,7 @@ import Home from "./components/home/Home";
 import Products from "./components/products/products";
 import Profile from "./components/profile/profile";
 import { IUserState } from "./redux/types/types";
+import NotificationComponent from "./elements/notification";
 
 interface IError {
   isError: boolean;
@@ -45,6 +46,7 @@ class App extends Component<{ user: IUserState }, IState> {
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       <>
         <Header />
+        <NotificationComponent />
         <Routes>
           <Route path={home} element={<Home />} />
           <Route path={products} element={this.props.user.isAuth ? <Products /> : <Navigate to={home} />}>

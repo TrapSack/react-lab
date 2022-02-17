@@ -55,7 +55,7 @@ export default webpackMockServer.add((app) => {
       }
       return user;
     });
-    return res.status(responseUser ? 200 : 401).json(responseUser || false);
+    return res.status(responseUser ? 200 : 403).json(responseUser || false);
   });
 
   app.post("/api/postUser/", (req, res) => {
@@ -67,11 +67,9 @@ export default webpackMockServer.add((app) => {
   });
 
   app.post("/api/saveUser/", (req, res) => {
-    console.log(req.body);
     const { userNamePrev, userNameNew, userDescription } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
-        console.log("set user");
         return {
           ...user,
           login: userNameNew,

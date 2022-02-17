@@ -36,7 +36,7 @@ export interface ILogoutAction {
 
 export interface IErrorAction {
   type: IActionTypes.ERROR;
-  payload: string;
+  payload: boolean;
 }
 
 export interface IUpdateUserInfoAction {

@@ -1,5 +1,7 @@
 import axios from "axios";
-import { IActionTypes, ILogoutAction } from "../types/types";
+import { IChangeNotificationAction } from "../types/notificationTypes";
+import { IActionTypes, IErrorAction, ILoginAction, ILogoutAction } from "../types/types";
+import changeNotification from "./notificationActions";
 
 export function logOut(): ILogoutAction {
   return {
@@ -8,27 +10,40 @@ export function logOut(): ILogoutAction {
 }
 
 export function asyncLogIn(login: string, password: string) {
-  return async (dispatch: (arg0: { type: IActionTypes; payload: boolean }) => void) => {
-    const data = await axios.post(`api/authorizeUser/`, { userName: login, userPass: password });
-    const parsedData = await data.data;
-    if (parsedData) {
-      dispatch({
-        type: IActionTypes.LOGIN,
-        payload: parsedData,
-      });
-    } else {
+  return async (dispatch: (arg0: IChangeNotificationAction | ILoginAction | IErrorAction) => void) => {
+    try {
+      const data = await axios.post(`api/authorizeUser/`, { userName: login, userPass: password });
+      const parsedData = await data.data;
+      if (parsedData) {
+        dispatch(changeNotification("success", "You successfully logged in"));
+        dispatch({
+          type: IActionTypes.LOGIN,
+          payload: parsedData,
+        });
+      }
+    } catch {
       dispatch({
         type: IActionTypes.ERROR,
-        payload: parsedData,
+        payload: false,
       });
     }
   };
 }
 
 export function saveProfile(userNamePrev: string, userNameNew: string, userDescription: string) {
-  return async (dispatch: (arg0: { type: IActionTypes; payload: { login: string; description: string } }) => void) => {
+  return async (
+    dispatch: (
+      arg0:
+        | {
+            type: IActionTypes;
+            payload: { login: string; description: string };
+          }
+        | IChangeNotificationAction
+    ) => void
+  ) => {
     const response = await axios.post(`/api/saveUser/`, { userNamePrev, userNameNew, userDescription });
     const parsedResponse: boolean = await response.data;
+    dispatch(changeNotification("success", "Successfully changed information"));
     if (parsedResponse) {
       dispatch({
         type: IActionTypes.UPDATEINFO,
@@ -51,9 +66,10 @@ export function changePassword(login: string, newPassword: string) {
 }
 
 export function registerUser(login: string, password: string) {
-  return async (dispatch: (arg0: { type: IActionTypes; payload: unknown }) => void) => {
+  return async (dispatch: (arg0: { type: IActionTypes; payload: unknown } | IChangeNotificationAction) => void) => {
     const data = await axios.post("/api/postUser", { userName: login, userPass: password });
     const parsedData = data.data;
+    dispatch(changeNotification("success", "Registration successfull"));
     dispatch({
       type: IActionTypes.REGISTER,
       payload: { ...parsedData },

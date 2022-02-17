@@ -24,7 +24,9 @@ export default function loginForm(props: IFormProps) {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    dispatch(asyncLogIn(tempUser.login, tempUser.password));
+    if (tempUser.login && tempUser.password) {
+      dispatch(asyncLogIn(tempUser.login, tempUser.password));
+    }
   }
 
   useEffect(() => {
@@ -67,6 +69,7 @@ export default function loginForm(props: IFormProps) {
         error={error}
         handleBlur={checkOnEmptyInput}
       />
+      {/* {error} */}
       <button type="submit" className="form__submit">
         Login
       </button>

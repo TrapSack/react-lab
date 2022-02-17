@@ -75,3 +75,23 @@
   bottom: 0;
   right: 0;
 }
+
+.notification {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  color: white;
+  font-weight: 600;
+  height: 40px;
+  text-align: center;
+  margin-top: 60px;
+  &--success {
+    background: $cardButtonBackgroundOnHover;
+  }
+  &--danger {
+    background: red;
+  }
+}
