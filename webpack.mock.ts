@@ -97,9 +97,4 @@ export default webpackMockServer.add((app) => {
     fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
     res.status(200).json(true);
   });
-
-  app.get(`/api/getTest/`, (_req, res) => {
-    const { userName, userSurname } = _req.query;
-    console.log(userName, userSurname);
-  });
 });

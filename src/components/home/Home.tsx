@@ -30,9 +30,9 @@ export default function Home() {
 
   const debouncedSearch = debounce(doSearchToApi, 300);
 
-  useEffect(() => {
-    dispatch(getTopProducts());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getTopProducts());
+  // }, []);
   useEffect(() => {
     debouncedSearch();
   }, [searchState]);

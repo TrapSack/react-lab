@@ -7,6 +7,7 @@ export interface IUserState {
 
 export enum IActionTypes {
   LOGIN = "USER/LOGIN",
+  REGISTER = "USER/REGISTER",
   LOGOUT = "USER/LOGOUT",
   ERROR = "USER/ERROR",
   UPDATEINFO = "USER/UPDATEINFO",
@@ -18,12 +19,13 @@ export type UserAction =
   | ILogoutAction
   | IErrorAction
   | IUpdateUserInfoAction
-  | IUpdateUserPasswordAction;
+  | IUpdateUserPasswordAction
+  | IRegisterAction;
 
 export interface ILoginAction {
   type: IActionTypes.LOGIN;
   payload: {
-    nickname: string;
+    login: string;
     description: string;
   };
 }
@@ -40,11 +42,19 @@ export interface IErrorAction {
 export interface IUpdateUserInfoAction {
   type: IActionTypes.UPDATEINFO;
   payload: {
-    nickname: string;
+    login: string;
     description: string;
   };
 }
 
 export interface IUpdateUserPasswordAction {
   type: IActionTypes.UPDATEPASSWORD;
+}
+
+export interface IRegisterAction {
+  type: IActionTypes.REGISTER;
+  payload: {
+    login: string;
+    description: string;
+  };
 }
