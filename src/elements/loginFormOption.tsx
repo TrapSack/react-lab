@@ -1,4 +1,3 @@
-import { IError } from "@/components/header/interfaces";
 import axios from "axios";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
@@ -10,7 +9,7 @@ interface IFormOptionProps {
   placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
-  setError: Dispatch<SetStateAction<IError>>;
+  setError: Dispatch<SetStateAction<{ ILoginAction: string }>>;
 }
 
 export default function LoginFormOption(props: IFormOptionProps) {

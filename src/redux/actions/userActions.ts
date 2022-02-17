@@ -57,8 +57,9 @@ export function saveProfile(userNamePrev: string, userNameNew: string, userDescr
 }
 
 export function changePassword(login: string, newPassword: string) {
-  return async (dispatch: (arg0: { type: IActionTypes }) => void) => {
+  return async (dispatch: (arg0: { type: IActionTypes } | IChangeNotificationAction) => void) => {
     await axios.post(`/api/changePassword/`, { userName: login, newPassword });
+    dispatch(changeNotification("success", "Password has been changed"));
     dispatch({
       type: IActionTypes.UPDATEPASSWORD,
     });

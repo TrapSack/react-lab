@@ -1,4 +1,3 @@
-import { IError } from "@/components/header/interfaces";
 import { valiDatePassword } from "@/components/header/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
@@ -10,7 +9,7 @@ interface IFormOptionProps {
   placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
-  setError: Dispatch<SetStateAction<IError>>;
+  setError: Dispatch<SetStateAction<{ passwordInputError: string; confirmPasswordInputError: string }>>;
 }
 
 export default function PasswordFormOption(props: IFormOptionProps) {

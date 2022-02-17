@@ -11,8 +11,6 @@ export default function PasswordChangeForm() {
     confirmPassword: "",
   }));
 
-  const [successMessage, setSuccessMessage] = useState(() => "");
-
   const [error, setError] = useState({
     passwordInputError: "",
     confirmPasswordInputError: "",
@@ -38,10 +36,6 @@ export default function PasswordChangeForm() {
         password: "",
         confirmPassword: "",
       });
-      setSuccessMessage("Your password has been changed");
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 1000);
     }
   }
   return (
@@ -67,7 +61,6 @@ export default function PasswordChangeForm() {
         setError={setError}
         passwordToConfirm={credentials.password}
       />
-      {successMessage && <p className="profile__password-change-submit-message">{successMessage}</p>}
       <button type="submit" className="profile__password-change-confirm">
         Change Password
       </button>
