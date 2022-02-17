@@ -7,8 +7,10 @@ import users from "./src/api/users.json";
 interface IGame {
   id: string;
   name: string;
-  rating: number;
   price: number;
+  rating: number;
+  genre: string;
+  age: number;
   releaseDate: string;
   cover: string;
   description: string;
