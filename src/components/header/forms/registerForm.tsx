@@ -1,10 +1,8 @@
 /* eslint-disable react/jsx-no-bind */
 import { useDispatch } from "react-redux";
-import { logIn } from "@/redux/actions/userActions";
+import { registerUser } from "@/redux/actions/userActions";
 import axios from "axios";
 import FormOption from "@/elements/formOption";
-import { useNavigate } from "react-router-dom";
-import { profile } from "@/helpers/links";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { ITempUser } from "../interfaces";
 import { valiDatePassword } from "../validators";
@@ -21,28 +19,19 @@ export default function RegisterForm() {
     password: "",
     confirmPassword: "",
   }));
-  const navigate = useNavigate();
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const hasErrors = Object.values(error).every((err) => err === "");
-    console.log(hasErrors);
-    if (hasErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
-      axios.post(`api/postUser/${tempUser.login}/${tempUser.password}`).then((res) => {
-        if (res.data) {
-          dispatch(logIn(tempUser.login));
-          navigate(profile, { replace: true });
-        }
-      });
-    } else {
-      setError((prev) => ({
-        loginInputError: tempUser.login ? prev.loginInputError : "login is required",
-        passwordInputError: tempUser.password ? prev.passwordInputError : "Password is required",
-        confirmPasswordInputError: tempUser.confirmPassword
-          ? prev.confirmPasswordInputError
-          : "Confirm password is required",
-      }));
+    const hasNoErrors = Object.values(error).every((err) => err === "");
+    if (hasNoErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
+      dispatch(registerUser(tempUser.login, tempUser.password));
     }
+    setError((prev) => ({
+      loginInputError: tempUser.login ? prev.loginInputError : "login is required",
+      passwordInputError: tempUser.password ? prev.passwordInputError : "Password is required",
+      confirmPasswordInputError: tempUser.confirmPassword
+        ? prev.confirmPasswordInputError
+        : "Confirm password is required",
+    }));
   }
 
   function checkOnEmptyInput(name: string, value: string) {

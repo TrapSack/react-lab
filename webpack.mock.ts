@@ -14,16 +14,7 @@ interface IGame {
   description: string;
 }
 
-export default webpackMockServer.add((app, helper) => {
-  app.get("/testMock", (_req, res) => {
-    const response = {
-      id: helper.getUniqueIdInt(),
-      randomInt: helper.getRandomInt(),
-      lastDate: new Date(),
-    };
-
-    res.json(response);
-  });
+export default webpackMockServer.add((app) => {
   app.get(`/api/search/*`, (_req, res) => {
     const resultArr: IGame[] = [];
     games.forEach((game: IGame) => {
@@ -34,6 +25,7 @@ export default webpackMockServer.add((app, helper) => {
     });
     res.json(resultArr);
   });
+
   app.get(`/api/getTopProducts`, (_req, res) => {
     const resultArr: IGame[] = [...games];
     resultArr.sort((game1: IGame, game2: IGame): number => {
@@ -44,50 +36,42 @@ export default webpackMockServer.add((app, helper) => {
     });
     res.json(resultArr.slice(0, 3));
   });
+
   app.get(`/api/getUser/*`, (_req, res) => {
     const userName = _req.path.split("/")[3];
     res.json(userName ? !!users.find((user) => user.login.toLowerCase() === userName.toLowerCase())?.login : undefined);
   });
-  app.get(`/api/authorizeUser/*/*`, (_req, res) => {
-    const [userName, userPass] = _req.path.split("/").slice(3, 5);
-<<<<<<< HEAD
+  app.post(`/api/authorizeUser/`, (_req, res) => {
+    const { userName, userPass } = _req.body;
     let responseUser;
     users.forEach((user) => {
       if (user.login.toLowerCase() === userName.toLowerCase()) {
         if (user.password === userPass) {
           responseUser = {
-            nickname: user.login,
+            login: user.login,
             description: user.description,
           };
-=======
-    users.forEach((user) => {
-      if (user.login.toLowerCase() === userName.toLowerCase()) {
-        if (user.password === userPass) {
-          res.json(userName);
-        } else {
-          res.json(false);
->>>>>>> c2cbf7439ed2e027d5ee8a92f894b363dfffb548
         }
-      } else {
-        res.json(false);
       }
       return user;
     });
-<<<<<<< HEAD
-    return res.json(responseUser || false);
-=======
->>>>>>> c2cbf7439ed2e027d5ee8a92f894b363dfffb548
+    return res.status(responseUser ? 200 : 401).json(responseUser || false);
   });
-  app.post("/api/postUser/*/*", (req, res) => {
-    const [userName, userPass] = req.path.split("/").slice(3, 5);
-    users.push({ login: userName, password: userPass, description: "" });
+
+  app.post("/api/postUser/", (req, res) => {
+    const { userName, userPass } = req.body;
+    const newUser = { login: userName, password: userPass, description: "" };
+    users.push(newUser);
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
-    res.json(true);
+    res.status(201).json({ login: newUser.login, description: newUser.description });
   });
-  app.post("/api/saveUser/*/*/*", (req, res) => {
-    const [userNamePrev, userNameNew, userDescription] = req.path.split("/").slice(3, 6);
+
+  app.post("/api/saveUser/", (req, res) => {
+    console.log(req.body);
+    const { userNamePrev, userNameNew, userDescription } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
+        console.log("set user");
         return {
           ...user,
           login: userNameNew,
@@ -97,10 +81,11 @@ export default webpackMockServer.add((app, helper) => {
       return user;
     });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
-    res.json(true);
+    res.status(200).json(true);
   });
-  app.post("/api/changePassword/*/*", (req, res) => {
-    const [userName, newPassword] = req.path.split("/").slice(3, 6);
+
+  app.post("/api/changePassword/", (req, res) => {
+    const { userName, newPassword } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userName) {
         return {
@@ -111,6 +96,6 @@ export default webpackMockServer.add((app, helper) => {
       return user;
     });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
-    res.json(true);
+    res.status(200).json(true);
   });
 });
