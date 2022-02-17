@@ -23,7 +23,6 @@ export default function Home() {
       setShowLoader(false);
     }
   }
-
   function toggleChange(e: ChangeEvent<HTMLInputElement>) {
     setShowLoader(true);
     setSearchState(e.target.value);
@@ -31,9 +30,9 @@ export default function Home() {
 
   const debouncedSearch = debounce(doSearchToApi, 300);
 
-  useEffect(() => {
-    dispatch(getTopProducts());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getTopProducts());
+  // }, []);
   useEffect(() => {
     debouncedSearch();
   }, [searchState]);

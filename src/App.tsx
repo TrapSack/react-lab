@@ -7,7 +7,7 @@ import { about, home, products, profile } from "./helpers/links";
 import About from "./components/about/about";
 import Home from "./components/home/Home";
 import Products from "./components/products/products";
-import Profile from "./components/products/profile/profile";
+import Profile from "./components/profile/profile";
 import { IUserState } from "./redux/types/types";
 
 interface IError {
@@ -52,7 +52,7 @@ class App extends Component<{ user: IUserState }, IState> {
           </Route>
           <Route path={about} element={this.props.user.isAuth ? <About /> : <Navigate to={home} />} />
           <Route path="*" element={<Home />} />
-          <Route path={profile} element={<Profile />} />
+          <Route path={profile} element={this.props.user.isAuth ? <Profile /> : <Navigate to={home} />} />
         </Routes>
         <Footer />
       </>

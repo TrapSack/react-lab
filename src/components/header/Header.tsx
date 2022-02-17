@@ -6,17 +6,12 @@ import NavLinks from "./navbar/navbar";
 import ProfileLinks from "./navbar/profileLinks";
 
 export default function Header() {
-
   const user = useSelector((state: { user: IUserState }) => state.user);
-      
+
   return (
     <header className="header">
       <a href="/" className="header__logo">
-        <button type="button" onClick={handleClick}>
-          Test
-        </button>
         My Games Market
-        {state.length}
       </a>
       <div className="header__links-container">
         <NavLinks />
