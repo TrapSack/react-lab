@@ -10,7 +10,7 @@ import { Navigate } from "react-router-dom";
 
 export default function InfoChangeForm() {
   const user = useSelector((state: RootReducerType) => state.user);
-  const [credentials, setCredentials] = useState(() => ({
+  const [userData, setuserData] = useState(() => ({
     login: user.login,
     description: user.description,
   }));
@@ -37,18 +37,18 @@ export default function InfoChangeForm() {
     if (name === "login") {
       loginValidation(event);
     }
-    setCredentials((prev) => ({
+    setuserData((prev) => ({
       ...prev,
       [name]: value,
     }));
   }
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    if (user.login === credentials.login && user.description === credentials.description) {
+    if (user.login === userData.login && user.description === userData.description) {
       return <Navigate to={profile} />;
     }
     if (!error.loginInputError) {
-      dispatch(saveProfile(user.login, credentials.login, credentials.description));
+      dispatch(saveProfile(user.login, userData.login, userData.description));
     }
     return <Navigate to={profile} />;
   }
@@ -57,7 +57,7 @@ export default function InfoChangeForm() {
       <LoginFormOption
         type="text"
         placeholder="Login"
-        value={credentials.login}
+        value={userData.login}
         inputName="login"
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
@@ -67,7 +67,7 @@ export default function InfoChangeForm() {
       <FormOption
         type="text"
         placeholder="Description"
-        value={credentials.description}
+        value={userData.description}
         inputName="description"
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}

@@ -6,7 +6,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function PasswordChangeForm() {
-  const [credentials, setCredentials] = useState(() => ({
+  const [userData, setuserData] = useState(() => ({
     password: "",
     confirmPassword: "",
   }));
@@ -21,7 +21,7 @@ export default function PasswordChangeForm() {
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { value, name } = event.target;
-    setCredentials((prev) => ({
+    setuserData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -30,9 +30,9 @@ export default function PasswordChangeForm() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     const hasErrors = Object.values(error).every((err) => err === "");
-    if (hasErrors && credentials.password && credentials.confirmPassword) {
-      dispatch(changePassword(user.login, credentials.password));
-      setCredentials({
+    if (hasErrors && userData.password && userData.confirmPassword) {
+      dispatch(changePassword(user.login, userData.password));
+      setuserData({
         password: "",
         confirmPassword: "",
       });
@@ -47,7 +47,7 @@ export default function PasswordChangeForm() {
         inputName="password"
         placeholder="Password"
         error={error.passwordInputError}
-        value={credentials.password}
+        value={userData.password}
         setError={setError}
       />
       <ConfirmPasswordFormOption
@@ -57,9 +57,9 @@ export default function PasswordChangeForm() {
         inputName="confirmPassword"
         placeholder="Confirm Password"
         error={error.confirmPasswordInputError}
-        value={credentials.confirmPassword}
+        value={userData.confirmPassword}
         setError={setError}
-        passwordToConfirm={credentials.password}
+        passwordToConfirm={userData.password}
       />
       <button type="submit" className="profile__password-change-confirm">
         Change Password
