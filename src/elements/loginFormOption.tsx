@@ -46,9 +46,9 @@ export default function LoginFormOption(props: IFormOptionProps) {
           onChange={(e) => {
             checkOnEmptyInput(e);
             props.handleChange(e);
-            loginValidation(e);
           }}
           onBlur={(e) => {
+            loginValidation(e);
             checkOnEmptyInput(e);
           }}
         />

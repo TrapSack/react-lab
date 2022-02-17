@@ -41,14 +41,14 @@ export default webpackMockServer.add((app) => {
     const userName = _req.path.split("/")[3];
     res.json(userName ? !!users.find((user) => user.login.toLowerCase() === userName.toLowerCase())?.login : undefined);
   });
-  app.put(`/api/authorizeUser/`, (_req, res) => {
-    const { userName, userPass } = _req.body.params;
+  app.post(`/api/authorizeUser/`, (_req, res) => {
+    const { userName, userPass } = _req.body;
     let responseUser;
     users.forEach((user) => {
       if (user.login.toLowerCase() === userName.toLowerCase()) {
         if (user.password === userPass) {
           responseUser = {
-            nickname: user.login,
+            login: user.login,
             description: user.description,
           };
         }
@@ -60,9 +60,10 @@ export default webpackMockServer.add((app) => {
 
   app.post("/api/postUser/", (req, res) => {
     const { userName, userPass } = req.body;
-    users.push({ login: userName, password: userPass, description: "" });
+    const newUser = { login: userName, password: userPass, description: "" };
+    users.push(newUser);
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
-    res.status(201).json(true);
+    res.status(201).json({ login: newUser.login, description: newUser.description });
   });
 
   app.post("/api/saveUser/", (req, res) => {
