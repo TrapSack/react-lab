@@ -15,17 +15,6 @@
     border-radius: 20px;
   }
 
-  &__games-container {
-    margin: 80px 0;
-    display: flex;
-    flex-wrap: wrap;
-    // align-items: center;
-    justify-content: flex-start;
-    max-width: 1100px;
-    border-radius: 70px;
-    background-color: $homeContainersBackground;
-    // justify-content: space-around;
-  }
 
   &__platforms {
     display: flex;
