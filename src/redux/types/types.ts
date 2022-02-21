@@ -2,6 +2,9 @@ export interface IUserState {
   login: string;
   isAuth: boolean;
   description: string;
+  phone: string;
+  adress: string;
+  photo: string;
   error?: string;
 }
 
@@ -27,6 +30,9 @@ export interface ILoginAction {
   payload: {
     login: string;
     description: string;
+    phone: string;
+    adress: string;
+    photo: string;
   };
 }
 
@@ -44,6 +50,9 @@ export interface IUpdateUserInfoAction {
   payload: {
     login: string;
     description: string;
+    phone: string;
+    adress: string;
+    photo: string;
   };
 }
 
@@ -56,5 +65,8 @@ export interface IRegisterAction {
   payload: {
     login: string;
     description: string;
+    phone: string;
+    adress: string;
+    photo: string;
   };
 }

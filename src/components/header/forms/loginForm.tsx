@@ -24,6 +24,7 @@ export default function loginForm(props: IFormProps) {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     if (tempUser.login && tempUser.password) {
       dispatch(asyncLogIn(tempUser.login, tempUser.password));
     }

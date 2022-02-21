@@ -7,10 +7,11 @@ export default function SortField() {
   const params = useParams<{ platformId?: string; "*": string }>();
   const dispatch = useDispatch();
   const [sortState, setSortState] = useState(() => ({
+    platform: params.platformId,
     genre: "",
     age: "",
-    sortBy: "",
-    orderBy: "",
+    sortBy: "name",
+    orderBy: "asc",
   }));
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -22,8 +23,14 @@ export default function SortField() {
   }
 
   useEffect(() => {
-    dispatch(getGames(params.platformId, sortState.genre, sortState.age, sortState.sortBy, sortState.orderBy));
+    dispatch(getGames(sortState.platform, sortState.genre, sortState.age, sortState.sortBy, sortState.orderBy));
   }, [sortState]);
+  useEffect(() => {
+    setSortState((prev) => ({
+      ...prev,
+      platform: params.platformId,
+    }));
+  }, [params.platformId]);
   return (
     <form className="sort-field">
       <h3 className="sort-field__title">

@@ -6,7 +6,7 @@ import Footer from "./components/footer/footer";
 import { about, home, products, profile } from "./helpers/links";
 import About from "./components/about/about";
 import Home from "./components/home/Home";
-import Products from "./components/products/products";
+import Products from "./components/products/Products";
 import Profile from "./components/profile/profile";
 import { IUserState } from "./redux/types/types";
 import NotificationComponent from "./elements/notification";

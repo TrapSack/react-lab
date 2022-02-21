@@ -30,18 +30,32 @@ export function asyncLogIn(login: string, password: string) {
   };
 }
 
-export function saveProfile(userNamePrev: string, userNameNew: string, userDescription: string) {
+export function saveProfile(
+  userNamePrev: string,
+  userNameNew: string,
+  userDescription: string,
+  userPhone: string,
+  userAdress: string,
+  userPhoto: string
+) {
   return async (
     dispatch: (
       arg0:
         | {
             type: IActionTypes;
-            payload: { login: string; description: string };
+            payload: { login: string; description: string; phone: string; adress: string; photo: string };
           }
         | IChangeNotificationAction
     ) => void
   ) => {
-    const response = await axios.post(`/api/saveUser/`, { userNamePrev, userNameNew, userDescription });
+    const response = await axios.post(`/api/saveUser/`, {
+      userNamePrev,
+      userNameNew,
+      userDescription,
+      userPhone,
+      userAdress,
+      userPhoto,
+    });
     const parsedResponse: boolean = await response.data;
     dispatch(changeNotification("success", "Successfully changed information"));
     if (parsedResponse) {
@@ -50,6 +64,9 @@ export function saveProfile(userNamePrev: string, userNameNew: string, userDescr
         payload: {
           login: userNameNew,
           description: userDescription,
+          phone: userPhone,
+          adress: userAdress,
+          photo: userPhoto,
         },
       });
     }
@@ -70,10 +87,11 @@ export function registerUser(login: string, password: string) {
   return async (dispatch: (arg0: { type: IActionTypes; payload: unknown } | IChangeNotificationAction) => void) => {
     const data = await axios.post("/api/postUser", { userName: login, userPass: password });
     const parsedData = data.data;
+    console.log(parsedData);
     dispatch(changeNotification("success", "Registration successfull"));
     dispatch({
       type: IActionTypes.REGISTER,
-      payload: { ...parsedData },
+      payload: parsedData,
     });
   };
 }
