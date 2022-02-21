@@ -52,6 +52,9 @@ export default webpackMockServer.add((app) => {
           responseUser = {
             login: user.login,
             description: user.description,
+            phone: user.phone,
+            adress: user.adress,
+            photo: user.photo,
           };
         }
       }
@@ -62,20 +65,30 @@ export default webpackMockServer.add((app) => {
 
   app.post("/api/postUser/", (req, res) => {
     const { userName, userPass } = req.body;
-    const newUser = { login: userName, password: userPass, description: "" };
+    const newUser = {
+      login: userName,
+      password: userPass,
+      description: "No description",
+      phone: "No phone",
+      adress: "No adress",
+      photo: "https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg",
+    };
     users.push(newUser);
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
-    res.status(201).json({ login: newUser.login, description: newUser.description });
+    res.status(201).json(newUser);
   });
 
   app.post("/api/saveUser/", (req, res) => {
-    const { userNamePrev, userNameNew, userDescription } = req.body;
+    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
         return {
           ...user,
           login: userNameNew,
           description: userDescription,
+          phone: userPhone,
+          adress: userAdress,
+          photo: userPhoto,
         };
       }
       return user;

@@ -9,7 +9,9 @@ interface IFormOptionProps {
   placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
-  setError: Dispatch<SetStateAction<{ loginInputError: string }>>;
+  setError: Dispatch<
+    SetStateAction<{ loginInputError: string; passwordInputError?: string; confirmPasswordInputError?: string }>
+  >;
 }
 
 export default function LoginFormOption(props: IFormOptionProps) {

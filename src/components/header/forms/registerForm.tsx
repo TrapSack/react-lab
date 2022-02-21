@@ -5,10 +5,10 @@ import ConfirmPasswordFormOption from "@/elements/confirmPasswordFormOption";
 import LoginFormOption from "@/elements/loginFormOption";
 import PasswordFormOption from "@/elements/passwordFormOption";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { IError, ITempUser } from "../interfaces";
+import { ITempUser } from "../interfaces";
 
 export default function RegisterForm() {
-  const [error, setError] = useState<IError>({
+  const [error, setError] = useState({
     loginInputError: "",
     passwordInputError: "",
     confirmPasswordInputError: "",
