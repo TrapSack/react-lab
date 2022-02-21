@@ -60,6 +60,7 @@ export default function userReducer(state: IUserState = initialState, action: Us
         adress: action.payload.adress,
         photo: action.payload.photo,
       };
+
     default:
       return state;
   }

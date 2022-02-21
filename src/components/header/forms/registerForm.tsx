@@ -1,9 +1,11 @@
 /* eslint-disable react/jsx-no-bind */
 import { useDispatch } from "react-redux";
 import { registerUser } from "@/redux/actions/userActions";
+
 import ConfirmPasswordFormOption from "@/elements/confirmPasswordFormOption";
 import LoginFormOption from "@/elements/loginFormOption";
 import PasswordFormOption from "@/elements/passwordFormOption";
+
 import { ChangeEvent, FormEvent, useState } from "react";
 import { ITempUser } from "../interfaces";
 
@@ -34,6 +36,7 @@ export default function RegisterForm() {
         : "Confirm password is required",
     }));
   }
+
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     // validation(event);
@@ -62,6 +65,7 @@ export default function RegisterForm() {
         handleChange={handleChange}
         error={error.passwordInputError}
         setError={setError}
+
       />
       <ConfirmPasswordFormOption
         type="password"
