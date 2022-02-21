@@ -19,7 +19,7 @@
     "age": 18,
     "genre": "racing",
     "releaseDate": "2014-03-11",
-    "platforms": ["desktop", "Xbox", "playstation"],
+    "platforms": ["desktop", "xbox", "playstation"],
     "cover": "https://image.api.playstation.com/vulcan/img/cfn/11307x4B5WLoVoIUtdewG4uJ_YuDRTwBxQy0qP8ylgazLLc01PBxbsFG1pGOWmqhZsxnNkrU3GXbdXIowBAstzlrhtQ4LCI4.png",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responsesExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responsesExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   },
@@ -31,7 +31,7 @@
     "age": 12,
     "genre": "sandbox",
     "releaseDate": "2014-03-11",
-    "platforms": ["desktop", "Xbox"],
+    "platforms": ["desktop", "xbox"],
     "cover": "https://s3.gaming-cdn.com/images/products/932/orig/game-steam-terraria-cover.jpg",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   },
@@ -55,7 +55,7 @@
     "age": 6,
     "genre": "racing",
     "releaseDate": "2014-03-11",
-    "platforms": ["Xbox", "playstation"],
+    "platforms": ["xbox", "playstation"],
     "cover": "https://www.global-esports.news/wp-content/uploads/2022/01/League-of-Legends-2022.jpg",
     "description": "ExpressJs Middleware for webpack-dev-server with built-in hot-replacement (HMR) and typescript compiler. Uses for mocking api responses"
   },

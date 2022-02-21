@@ -24,7 +24,7 @@ export function searchGame(name: string) {
   };
 }
 
-export function getGames(platform: string, genre: string, age: number, sortBy: string, orderBy: string) {
+export function getGames(platform = "", genre = "", age = "", sortBy = "", orderBy = "") {
   return async (dispatch: (arg0: { type: IActionTypes; payload: unknown }) => void) => {
     const data = await axios.get("api/getGames", { params: { platform, genre, age, sortBy, orderBy } });
     const parsedData = data.data;

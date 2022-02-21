@@ -31,4 +31,4 @@ export interface IGetGames {
   payload: IGame[];
 }
 
-export type IGamesAction = IGetTopProductsAction | ISearchGame;
+export type IGamesAction = IGetTopProductsAction | ISearchGame | IGetGames;

@@ -12,14 +12,7 @@ export default function GameCard(props: IGame) {
   }
 
   return (
-    <div
-      className="game-card"
-      // onClick={() => {
-      //   alert("CLICKED");
-      // }}
-      onMouseEnter={setShowDescription}
-      onMouseLeave={setHideDescription}
-    >
+    <div className="game-card" onMouseEnter={setShowDescription} onMouseLeave={setHideDescription}>
       <div className="game-card__platforms">
         {props.platforms.map((platform) => {
           switch (platform) {
@@ -32,13 +25,13 @@ export default function GameCard(props: IGame) {
                   alt="playstation"
                 />
               );
-            case "Xbox":
+            case "xbox":
               return (
                 <img
                   key={platform}
                   className="game-card__platform"
                   src="https://www.freepnglogos.com/uploads/xbox-logo-black-png-7.png"
-                  alt="Xbox"
+                  alt="xbox"
                 />
               );
             case "desktop": {

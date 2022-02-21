@@ -39,9 +39,9 @@ export default webpackMockServer.add((app) => {
       if (new Date(game1.releaseDate) === new Date(game2.releaseDate)) return 0;
       return 0;
     });
-    setTimeout(() => {
-      res.json(resultArr.slice(0, 3));
-    }, 1000);
+    // setTimeout(() => {
+    res.json(resultArr.slice(0, 3));
+    // }, 1000);
   });
 
   app.get(`/api/getUser/*`, (_req, res) => {
@@ -123,25 +123,24 @@ export default webpackMockServer.add((app) => {
       if (platform) resultArr = resultArr.filter((game) => game.platforms.includes(platform.toString()));
       if (genre) resultArr = resultArr.filter((game) => game.genre === genre);
       if (age) resultArr = resultArr.filter((game) => game.age >= Number(age));
-      console.log(req.query);
       resultArr.sort((game1, game2) => {
         switch (sortBy) {
           case "name": {
             console.log("sort by name");
-            if (game1.name.toLowerCase() > game2.name.toLowerCase()) return orderBy === "ASC" ? 1 : -1;
-            if (game1.name.toLowerCase() < game2.name.toLowerCase()) return orderBy === "ASC" ? -1 : 1;
+            if (game1.name.toLowerCase() > game2.name.toLowerCase()) return orderBy === "asc" ? 1 : -1;
+            if (game1.name.toLowerCase() < game2.name.toLowerCase()) return orderBy === "asc" ? -1 : 1;
             if (game1.name.toLowerCase() === game2.name.toLowerCase()) return 0;
             break;
           }
           case "price": {
-            if (game1.price > game2.price) return orderBy === "ASC" ? 1 : -1;
-            if (game1.price < game2.price) return orderBy === "ASC" ? -1 : 1;
+            if (game1.price > game2.price) return orderBy === "asc" ? 1 : -1;
+            if (game1.price < game2.price) return orderBy === "asc" ? -1 : 1;
             if (game1.price === game2.price) return 0;
             break;
           }
           case "rating": {
-            if (game1.rating > game2.rating) return orderBy === "ASC" ? -1 : 1;
-            if (game1.rating < game2.rating) return orderBy === "ASC" ? 1 : -1;
+            if (game1.rating > game2.rating) return orderBy === "asc" ? -1 : 1;
+            if (game1.rating < game2.rating) return orderBy === "asc" ? 1 : -1;
             if (game1.rating === game2.rating) return 0;
             break;
           }
@@ -150,7 +149,6 @@ export default webpackMockServer.add((app) => {
         }
         return 0;
       });
-      // console.log(resultArr);
       res.json(resultArr);
     }
   );
