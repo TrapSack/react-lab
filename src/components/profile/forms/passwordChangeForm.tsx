@@ -1,5 +1,5 @@
-import ConfirmPasswordFormOption from "@/elements/confirmPasswordFormOption";
-import PasswordFormOption from "@/elements/passwordFormOption";
+import ConfirmPasswordFormOption from "@/elements/form-options/confirmPasswordFormOption";
+import PasswordFormOption from "@/elements/form-options/passwordFormOption";
 import { changePassword } from "@/redux/actions/userActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -12,8 +12,11 @@ export default function PasswordChangeForm() {
   }));
 
   const [error, setError] = useState({
+    loginInputError: "",
     passwordInputError: "",
     confirmPasswordInputError: "",
+    phoneInputError: "",
+    adressInputError: "",
   });
 
   const dispatch = useDispatch();
@@ -43,9 +46,6 @@ export default function PasswordChangeForm() {
       <PasswordFormOption
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
-        type="password"
-        inputName="password"
-        placeholder="Password"
         error={error.passwordInputError}
         value={userData.password}
         setError={setError}
@@ -53,9 +53,6 @@ export default function PasswordChangeForm() {
       <ConfirmPasswordFormOption
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
-        type="password"
-        inputName="confirmPassword"
-        placeholder="Confirm Password"
         error={error.confirmPasswordInputError}
         value={userData.confirmPassword}
         setError={setError}

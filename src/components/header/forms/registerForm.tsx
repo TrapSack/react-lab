@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-no-bind */
 import { useDispatch } from "react-redux";
 import { registerUser } from "@/redux/actions/userActions";
-
-import ConfirmPasswordFormOption from "@/elements/confirmPasswordFormOption";
-import LoginFormOption from "@/elements/loginFormOption";
-import PasswordFormOption from "@/elements/passwordFormOption";
-
+import ConfirmPasswordFormOption from "@/elements/form-options/confirmPasswordFormOption";
+import LoginFormOption from "@/elements/form-options/loginFormOption";
+import PasswordFormOption from "@/elements/form-options/passwordFormOption";
+import AdressFormOption from "@/elements/form-options/adressFormOption";
 import { ChangeEvent, FormEvent, useState } from "react";
+import PhoneFormOption from "@/elements/form-options/phoneFormOption";
 import { ITempUser } from "../interfaces";
 
 export default function RegisterForm() {
@@ -14,32 +14,37 @@ export default function RegisterForm() {
     loginInputError: "",
     passwordInputError: "",
     confirmPasswordInputError: "",
+    phoneInputError: "",
+    adressInputError: "",
   });
   const dispatch = useDispatch();
   const [tempUser, setTempUser] = useState<ITempUser>(() => ({
     login: "",
     password: "",
     confirmPassword: "",
+    adress: "",
+    phone: "",
   }));
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const hasNoErrors = Object.values(error).every((err) => err === "");
     if (hasNoErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
-      dispatch(registerUser(tempUser.login, tempUser.password));
+      dispatch(registerUser(tempUser.login, tempUser.password, tempUser.phone, tempUser.adress));
     }
     setError((prev) => ({
-      loginInputError: tempUser.login ? prev.loginInputError : "login is required",
+      loginInputError: tempUser.login ? prev.loginInputError : "Login is required",
       passwordInputError: tempUser.password ? prev.passwordInputError : "Password is required",
       confirmPasswordInputError: tempUser.confirmPassword
         ? prev.confirmPasswordInputError
         : "Confirm password is required",
+      phoneInputError: tempUser.phone ? prev.phoneInputError : "Phone is required",
+      adressInputError: tempUser.adress ? prev.adressInputError : "Adress is required",
     }));
   }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
-    // validation(event);
     setTempUser((prev) => ({
       ...prev,
       [name]: value,
@@ -49,27 +54,18 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit} className="form form--register">
       <LoginFormOption
-        type="text"
-        placeholder="Login"
-        inputName="login"
         value={tempUser.login}
         handleChange={handleChange}
         error={error.loginInputError}
         setError={setError}
       />
       <PasswordFormOption
-        type="password"
-        placeholder="Password"
-        inputName="password"
         value={tempUser.password}
         handleChange={handleChange}
         error={error.passwordInputError}
         setError={setError}
       />
       <ConfirmPasswordFormOption
-        type="password"
-        placeholder="Confirm"
-        inputName="confirmPassword"
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         value={tempUser.confirmPassword!}
         handleChange={handleChange}
@@ -77,7 +73,18 @@ export default function RegisterForm() {
         setError={setError}
         passwordToConfirm={tempUser.password}
       />
-
+      <PhoneFormOption
+        setError={setError}
+        handleChange={handleChange}
+        value={tempUser.phone}
+        error={error.phoneInputError}
+      />
+      <AdressFormOption
+        setError={setError}
+        handleChange={handleChange}
+        value={tempUser.adress}
+        error={error.adressInputError}
+      />
       <button type="submit" className="form__submit">
         Register
       </button>

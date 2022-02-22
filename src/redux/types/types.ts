@@ -4,7 +4,7 @@ export interface IUserState {
   description: string;
   phone: string;
   adress: string;
-  photo: string;
+  photo: string | ArrayBuffer | null;
   error?: string;
 }
 
@@ -32,7 +32,7 @@ export interface ILoginAction {
     description: string;
     phone: string;
     adress: string;
-    photo: string;
+    photo: string | ArrayBuffer | null;
   };
 }
 
@@ -52,7 +52,7 @@ export interface IUpdateUserInfoAction {
     description: string;
     phone: string;
     adress: string;
-    photo: string;
+    photo: string | ArrayBuffer | null;
   };
 }
 
@@ -67,6 +67,6 @@ export interface IRegisterAction {
     description: string;
     phone: string;
     adress: string;
-    photo: string;
+    photo: string | ArrayBuffer | null;
   };
 }

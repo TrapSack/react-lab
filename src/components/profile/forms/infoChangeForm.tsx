@@ -1,14 +1,13 @@
-import FormOption from "@/elements/formOption";
-import LoginFormOption from "@/elements/loginFormOption";
-import { profile } from "@/helpers/links";
-import { validateAdress, validatePhone } from "@/helpers/validators";
+import AdressFormOption from "@/elements/form-options/adressFormOption";
+import FormOption from "@/elements/form-options/formOption";
+import LoginFormOption from "@/elements/form-options/loginFormOption";
+import PhoneFormOption from "@/elements/form-options/phoneFormOption";
 import { saveProfile } from "@/redux/actions/userActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 
-export default function InfoChangeForm() {
+export default function InfoChangeForm(props: { setIsOpen: Dispatch<SetStateAction<boolean>> }) {
   const user = useSelector((state: RootReducerType) => state.user);
   const [userData, setuserData] = useState(() => ({
     login: user.login,
@@ -19,31 +18,18 @@ export default function InfoChangeForm() {
   }));
   const [error, setError] = useState({
     loginInputError: "",
+    passwordInputError: "",
+    confirmPasswordInputError: "",
     phoneInputError: "",
     adressInputError: "",
   });
   const dispatch = useDispatch();
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value, files } = event.target;
+    const { name, value } = event.target;
     setuserData((prev) => ({
       ...prev,
-      [name]: name === "photo" ? URL.createObjectURL(files[0]) : value,
+      [name]: value,
     }));
-  }
-  function handleBlur(event: ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target;
-    if (name === "phone") {
-      setError((prev) => ({
-        ...prev,
-        phoneInputError: validatePhone(value) || !value ? "" : "Wrong phone",
-      }));
-    }
-    if (name === "adress") {
-      setError((prev) => ({
-        ...prev,
-        adressInputError: validateAdress(value) || !value ? "" : "Wrong adress",
-      }));
-    }
   }
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -54,7 +40,8 @@ export default function InfoChangeForm() {
       userData.phone === user.phone &&
       userData.photo === user.photo
     ) {
-      return <Navigate to={profile} />;
+      props.setIsOpen(false);
+      return;
     }
     const hasNoErrors = Object.values(error).every((err) => err === "");
     if (hasNoErrors) {
@@ -62,15 +49,12 @@ export default function InfoChangeForm() {
         saveProfile(user.login, userData.login, userData.description, userData.phone, userData.adress, userData.photo)
       );
     }
-    return <Navigate to={profile} />;
+    props.setIsOpen(false);
   }
   return (
     <form className="profile__info-change-form" onSubmit={handleSubmit}>
       <LoginFormOption
-        type="text"
-        placeholder="Login"
         value={userData.login}
-        inputName="login"
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
         error={error.loginInputError}
@@ -84,31 +68,38 @@ export default function InfoChangeForm() {
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
       />
-      <FormOption
-        type="text"
-        placeholder="Phone"
+      <PhoneFormOption
         value={userData.phone}
-        inputName="phone"
-        // eslint-disable-next-line react/jsx-no-bind
-        handleChange={handleChange}
-        // eslint-disable-next-line react/jsx-no-bind
-        handleBlur={handleBlur}
         error={error.phoneInputError}
-        hint="Ex. +375291234567"
-      />
-      <FormOption
-        type="text"
-        placeholder="Adress"
-        value={userData.adress}
-        inputName="adress"
+        setError={setError}
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
-        error={error.adressInputError}
-        // eslint-disable-next-line react/jsx-no-bind
-        handleBlur={handleBlur}
-        hint="Ex.253 N. Cherry St. "
       />
-      <input type="file" accept="images/*" onChange={handleChange} name="photo" />
+      <AdressFormOption
+        // eslint-disable-next-line react/jsx-no-bind
+        handleChange={handleChange}
+        setError={setError}
+        error={error.adressInputError}
+        value={userData.adress}
+      />
+      <input
+        type="file"
+        accept="images/*"
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          const reader = new FileReader();
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          if (e!.target.files[0]) {
+            reader.readAsDataURL(e.target.files[0]);
+            reader.onload = function read() {
+              userData.photo = reader.result;
+            };
+            reader.onerror = function err(fileReaderError) {
+              console.log("Error: ", fileReaderError);
+            };
+          }
+        }}
+        name="photo"
+      />
       <button className="profile__info-change-submit" type="submit">
         Change credetials
       </button>

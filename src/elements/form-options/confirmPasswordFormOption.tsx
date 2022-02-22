@@ -3,17 +3,17 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 interface IFormOptionProps {
   value: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  inputName: string;
-  type: string;
-  placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
   passwordToConfirm: string;
   setError: Dispatch<
-    SetStateAction<
-      | { loginInputError: string; passwordInputError: string; confirmPasswordInputError: string }
-      | { loginInputError?: string; passwordInputError: string; confirmPasswordInputError: string }
-    >
+    SetStateAction<{
+      loginInputError: string;
+      passwordInputError: string;
+      confirmPasswordInputError: string;
+      adressInputError: string;
+      phoneInputError: string;
+    }>
   >;
 }
 
@@ -35,11 +35,11 @@ export default function ConfirmPasswordFormOption(props: IFormOptionProps) {
   return (
     <>
       <label htmlFor="login" className="form__option">
-        {props.placeholder}
+        Confirm
         <input
-          type={props.type}
-          placeholder={props.placeholder}
-          name={props.inputName}
+          type="password"
+          placeholder="Confirm password"
+          name="confirmPassword"
           className="form__input"
           value={props.value}
           onChange={(e) => {

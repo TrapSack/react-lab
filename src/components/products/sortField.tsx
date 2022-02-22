@@ -26,10 +26,11 @@ export default function SortField() {
     dispatch(getGames(sortState.platform, sortState.genre, sortState.age, sortState.sortBy, sortState.orderBy));
   }, [sortState]);
   useEffect(() => {
-    setSortState((prev) => ({
-      ...prev,
-      platform: params.platformId,
-    }));
+    if (params.platformId !== sortState.platform)
+      setSortState((prev) => ({
+        ...prev,
+        platform: params.platformId,
+      }));
   }, [params.platformId]);
   return (
     <form className="sort-field">

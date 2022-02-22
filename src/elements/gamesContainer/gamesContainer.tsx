@@ -1,5 +1,5 @@
+import useLoader from "@/helpers/useLoader";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
-import React from "react";
 import { useSelector } from "react-redux";
 import NoMatchesParagraph from "../noMatchesParagraph";
 import GameCard from "./gameCard";
@@ -19,11 +19,10 @@ export default function GamesContainer(): JSX.Element {
       age={game.age}
     />
   ));
+  const Loader = useLoader(!!gameComponentArray.length);
   return (
     <div className="games-container">
-      <React.Suspense fallback={<h2>Loading...</h2>}>
-        {gameComponentArray.length ? gameComponentArray : <NoMatchesParagraph />}
-      </React.Suspense>
+      {Loader ? <h2>Loading...</h2> : gameComponentArray.length ? gameComponentArray : <NoMatchesParagraph />}
     </div>
   );
 }

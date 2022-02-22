@@ -1,47 +1,51 @@
-import axios from "axios";
+import { validatePhone } from "@/helpers/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 interface IFormOptionProps {
   value: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  inputName: string;
-  type: string;
-  placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
   setError: Dispatch<
-    SetStateAction<{ loginInputError: string; passwordInputError?: string; confirmPasswordInputError?: string }>
+    SetStateAction<{
+      loginInputError: string;
+      passwordInputError: string;
+      confirmPasswordInputError: string;
+      adressInputError: string;
+      phoneInputError: string;
+    }>
   >;
 }
 
-export default function LoginFormOption(props: IFormOptionProps) {
+export default function PhoneFormOption(props: IFormOptionProps) {
   function checkOnEmptyInput(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     if (!value)
-      props.setError((prev) => ({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      props.setError((prev: any) => ({
         ...prev,
         [`${name}InputError`]: `${name[0].toUpperCase() + name.slice(1)} is required`,
       }));
   }
 
-  function loginValidation(event: ChangeEvent<HTMLInputElement>) {
+  function phoneValidation(event: ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
     if (event.target.value) {
-      axios.get(`api/getUser/${event.target.value}`).then((res) => {
-        props.setError((prev) => ({
-          ...prev,
-          loginInputError: res.data ? "User Already exists" : "",
-        }));
-      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      props.setError((prev: any) => ({
+        ...prev,
+        phoneInputError: validatePhone(value) || !value ? "" : "Wrong phone",
+      }));
     }
   }
   return (
     <>
       <label htmlFor="login" className="form__option">
-        {props.placeholder}
+        Phone
         <input
-          type={props.type}
-          placeholder={props.placeholder}
-          name={props.inputName}
+          type="text"
+          placeholder="phone"
+          name="phone"
           className="form__input"
           value={props.value}
           onChange={(e) => {
@@ -49,11 +53,12 @@ export default function LoginFormOption(props: IFormOptionProps) {
             props.handleChange(e);
           }}
           onBlur={(e) => {
-            loginValidation(e);
+            phoneValidation(e);
             checkOnEmptyInput(e);
           }}
         />
       </label>
+      <span className="form__hint">Ex. +375441234567</span>
       {props.error && <span className="form__input-error">{props.error}</span>}
     </>
   );
