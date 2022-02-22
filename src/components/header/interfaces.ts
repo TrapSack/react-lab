@@ -2,6 +2,8 @@ export interface ITempUser {
   login: string;
   password: string;
   confirmPassword?: string;
+  adress: string;
+  phone: string;
 }
 
 export interface IError {

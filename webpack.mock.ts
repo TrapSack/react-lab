@@ -64,15 +64,17 @@ export default webpackMockServer.add((app) => {
   });
 
   app.post("/api/postUser/", (req, res) => {
-    const { userName, userPass } = req.body;
+    const { userName, userPass, userPhone, userAdress } = req.body;
+    console.log(req.body);
     const newUser = {
       login: userName,
       password: userPass,
       description: "No description",
-      phone: "No phone",
-      adress: "No adress",
+      phone: userPhone,
+      adress: userAdress,
       photo: "https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg",
     };
+    console.log(newUser);
     users.push(newUser);
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
     res.status(201).json(newUser);

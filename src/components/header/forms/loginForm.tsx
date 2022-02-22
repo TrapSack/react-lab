@@ -1,11 +1,10 @@
 /* eslint-disable react/jsx-no-bind */
-import FormOption from "@/elements/formOption";
+import FormOption from "@/elements/form-options/formOption";
 import { asyncLogIn } from "@/redux/actions/userActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ITempUser } from "../interfaces";
 
 interface IFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,7 +12,7 @@ interface IFormProps {
 }
 // move to one component
 export default function loginForm(props: IFormProps) {
-  const [tempUser, setTempUser] = useState<ITempUser>(() => ({
+  const [tempUser, setTempUser] = useState(() => ({
     login: "",
     password: "",
   }));

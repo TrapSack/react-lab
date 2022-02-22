@@ -1,20 +1,23 @@
-import axios from "axios";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 interface IFormOptionProps {
   value: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  inputName: string;
-  type: string;
-  placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
+  passwordToConfirm: string;
   setError: Dispatch<
-    SetStateAction<{ loginInputError: string; passwordInputError?: string; confirmPasswordInputError?: string }>
+    SetStateAction<{ loginInputError?: string; passwordInputError: string; confirmPasswordInputError: string }>
   >;
 }
 
-export default function LoginFormOption(props: IFormOptionProps) {
+export default function ConfirmPasswordFormOption(props: IFormOptionProps) {
+  function confirmPasswordValidation(event: ChangeEvent<HTMLInputElement>) {
+    props.setError((prev) => ({
+      ...prev,
+      confirmPasswordInputError: event.target.value === props.passwordToConfirm ? "" : "Passwords don`t match",
+    }));
+  }
   function checkOnEmptyInput(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     if (!value)
@@ -23,33 +26,21 @@ export default function LoginFormOption(props: IFormOptionProps) {
         [`${name}InputError`]: `${name[0].toUpperCase() + name.slice(1)} is required`,
       }));
   }
-
-  function loginValidation(event: ChangeEvent<HTMLInputElement>) {
-    if (event.target.value) {
-      axios.get(`api/getUser/${event.target.value}`).then((res) => {
-        props.setError((prev) => ({
-          ...prev,
-          loginInputError: res.data ? "User Already exists" : "",
-        }));
-      });
-    }
-  }
   return (
     <>
       <label htmlFor="login" className="form__option">
-        {props.placeholder}
+        Confirm
         <input
-          type={props.type}
-          placeholder={props.placeholder}
-          name={props.inputName}
+          type="password"
+          placeholder="Confirm password"
+          name="confirmPassword"
           className="form__input"
           value={props.value}
           onChange={(e) => {
-            checkOnEmptyInput(e);
+            confirmPasswordValidation(e);
             props.handleChange(e);
           }}
           onBlur={(e) => {
-            loginValidation(e);
             checkOnEmptyInput(e);
           }}
         />

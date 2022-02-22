@@ -36,14 +36,20 @@ export function saveProfile(
   userDescription: string,
   userPhone: string,
   userAdress: string,
-  userPhoto: string
+  userPhoto: string | ArrayBuffer | null
 ) {
   return async (
     dispatch: (
       arg0:
         | {
             type: IActionTypes;
-            payload: { login: string; description: string; phone: string; adress: string; photo: string };
+            payload: {
+              login: string;
+              description: string;
+              phone: string;
+              adress: string;
+              photo: string | ArrayBuffer | null;
+            };
           }
         | IChangeNotificationAction
     ) => void
@@ -83,9 +89,14 @@ export function changePassword(login: string, newPassword: string) {
   };
 }
 
-export function registerUser(login: string, password: string) {
+export function registerUser(login: string, password: string, phone: string, adress: string) {
   return async (dispatch: (arg0: { type: IActionTypes; payload: unknown } | IChangeNotificationAction) => void) => {
-    const data = await axios.post("/api/postUser", { userName: login, userPass: password });
+    const data = await axios.post("/api/postUser", {
+      userName: login,
+      userPass: password,
+      userPhone: phone,
+      userAdress: adress,
+    });
     const parsedData = data.data;
     console.log(parsedData);
     dispatch(changeNotification("success", "Registration successfull"));

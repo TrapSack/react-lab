@@ -1,53 +1,56 @@
+import { validateAdress } from "@/helpers/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 interface IFormOptionProps {
   value: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  inputName: string;
-  type: string;
-  placeholder: string;
   // eslint-disable-next-line react/require-default-props
   error?: string;
-  passwordToConfirm: string;
-  setError: Dispatch<
-    SetStateAction<{ loginInputError?: string; passwordInputError: string; confirmPasswordInputError: string }>
-  >;
+  setError: Dispatch<SetStateAction<unknown>>;
 }
 
-export default function ConfirmPasswordFormOption(props: IFormOptionProps) {
-  function confirmPasswordValidation(event: ChangeEvent<HTMLInputElement>) {
-    props.setError((prev) => ({
-      ...prev,
-      confirmPasswordInputError: event.target.value === props.passwordToConfirm ? "" : "Passwords don`t match",
-    }));
-  }
+export default function AdressFormOption(props: IFormOptionProps) {
   function checkOnEmptyInput(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     if (!value)
-      props.setError((prev) => ({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      props.setError((prev: any) => ({
         ...prev,
         [`${name}InputError`]: `${name[0].toUpperCase() + name.slice(1)} is required`,
       }));
   }
+
+  function adressValidation(event: ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    if (event.target.value) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      props.setError((prev: any) => ({
+        ...prev,
+        adressInputError: validateAdress(value) || !value ? "" : "Wrong adress",
+      }));
+    }
+  }
   return (
     <>
       <label htmlFor="login" className="form__option">
-        {props.placeholder}
+        Adress
         <input
-          type={props.type}
-          placeholder={props.placeholder}
-          name={props.inputName}
+          type="text"
+          placeholder="Adress"
+          name="adress"
           className="form__input"
           value={props.value}
           onChange={(e) => {
-            confirmPasswordValidation(e);
+            checkOnEmptyInput(e);
             props.handleChange(e);
           }}
           onBlur={(e) => {
+            adressValidation(e);
             checkOnEmptyInput(e);
           }}
         />
       </label>
+      <span className="form__hint">Ex. 24 bg Hello Str</span>
       {props.error && <span className="form__input-error">{props.error}</span>}
     </>
   );

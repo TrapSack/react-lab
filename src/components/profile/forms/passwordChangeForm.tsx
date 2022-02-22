@@ -1,5 +1,5 @@
-import ConfirmPasswordFormOption from "@/elements/confirmPasswordFormOption";
-import PasswordFormOption from "@/elements/passwordFormOption";
+import ConfirmPasswordFormOption from "@/elements/form-options/confirmPasswordFormOption";
+import PasswordFormOption from "@/elements/form-options/passwordFormOption";
 import { changePassword } from "@/redux/actions/userActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, FormEvent, useState } from "react";

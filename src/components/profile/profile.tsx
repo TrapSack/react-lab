@@ -20,7 +20,7 @@ export default function Profile() {
         <span>Adress</span>
         <p className="profile__adress">{user.adress}</p>
         <span>Photo</span>
-        <img src={user.photo} alt="" className="profile__photo" />
+        <img src={user.photo.toString()} alt="" className="profile__photo" />
         <button
           className="profile__change-info-btn"
           type="button"
@@ -32,7 +32,7 @@ export default function Profile() {
         </button>
       </div>
       <Modal open={isOpen} setIsOpen={setIsOpen} title="Change info">
-        <InfoChangeForm />
+        <InfoChangeForm setIsOpen={setIsOpen} />
       </Modal>
       <PasswordChangeForm />
     </div>
