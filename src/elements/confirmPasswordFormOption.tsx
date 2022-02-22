@@ -10,7 +10,10 @@ interface IFormOptionProps {
   error?: string;
   passwordToConfirm: string;
   setError: Dispatch<
-    SetStateAction<{ loginInputError: string; passwordInputError: string; confirmPasswordInputError: string }>
+    SetStateAction<
+      | { loginInputError: string; passwordInputError: string; confirmPasswordInputError: string }
+      | { loginInputError?: string; passwordInputError: string; confirmPasswordInputError: string }
+    >
   >;
 }
 
