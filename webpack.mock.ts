@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
+import { IOrder } from "@/redux/types/types";
 import fs from "fs";
 import games from "./src/api/games.json";
 import users from "./src/api/users.json";
@@ -60,6 +61,7 @@ export default webpackMockServer.add((app) => {
             phone: user.phone,
             adress: user.adress,
             photo: user.photo,
+            orders: user.orders,
           };
         }
       }
@@ -78,6 +80,7 @@ export default webpackMockServer.add((app) => {
       phone: userPhone,
       adress: userAdress,
       photo: "https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg",
+      orders: [] as IOrder[],
     };
     console.log(newUser);
     users.push(newUser);
@@ -86,7 +89,7 @@ export default webpackMockServer.add((app) => {
   });
 
   app.post("/api/saveUser/", (req, res) => {
-    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto } = req.body;
+    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto, userOrders } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
         return {
@@ -96,6 +99,7 @@ export default webpackMockServer.add((app) => {
           phone: userPhone,
           adress: userAdress,
           photo: userPhoto,
+          orders: userOrders,
         };
       }
       return user;
@@ -168,4 +172,44 @@ export default webpackMockServer.add((app) => {
       }, 500);
     }
   );
+  app.post("/api/addOrder/", (req, res) => {
+    const { order, login } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.orders.push(order);
+      }
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json("COOL!!!");
+  });
+  app.post("/api/updateOrder/", (req, res) => {
+    const { orderName, login, amount } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.orders.forEach((order) => {
+          if (order.name === orderName) {
+            // eslint-disable-next-line no-param-reassign
+            order.price += order.price / order.amount;
+            // eslint-disable-next-line no-param-reassign
+            order.amount++;
+          }
+          return order;
+        });
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json("COOL!!!");
+  });
+  app.post("/api/removeOrder/", (req, res) => {
+    const { orderName, login } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.orders.filter((order) => order.name !== orderName);
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json("COOL!!!");
+  });
 });
