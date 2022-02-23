@@ -21,7 +21,7 @@ export default function GameCard(props: IGame) {
   function handleClick() {
     if (user.isAuth) {
       if (!isInCart) {
-        addOrder(props.name, props.platforms[0], user.login, props.price);
+        addOrder(user.login, props.name, props.platforms[0], props.price);
         setIsIncart(true);
         dispatch(changeNotification("success", `${props.name} has been added to your cart`));
       } else {

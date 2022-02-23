@@ -22,7 +22,8 @@
         "platform": "desktop",
         "price": 575.7600000000001
       },
-      { "name": "Terraria", "amount": 4, "orderDate": "2/23/2022", "platform": "desktop", "price": 19.96 }
+      { "name": "Terraria", "amount": 4, "orderDate": "2/23/2022", "platform": "desktop", "price": 19.96 },
+      { "name": "Dota 2", "amount": 8, "orderDate": "2/23/2022", "platform": "playstation", "price": 0.08 }
     ]
   }
 ]

@@ -173,6 +173,7 @@ export default webpackMockServer.add((app) => {
     }
   );
   app.post("/api/addOrder/", (req, res) => {
+    console.log(req.body);
     const { order, login } = req.body;
     users.forEach((user) => {
       if (user.login === login) {
