@@ -1,4 +1,4 @@
-import { getGames } from "@/redux/actions/gamesActions";
+import { clearGames, getGames } from "@/redux/actions/gamesActions";
 import { useState, ChangeEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -23,6 +23,7 @@ export default function SortField() {
   }
 
   useEffect(() => {
+    dispatch(clearGames());
     dispatch(getGames(sortState.platform, sortState.genre, sortState.age, sortState.sortBy, sortState.orderBy));
   }, [sortState]);
   useEffect(() => {

@@ -1,28 +1,28 @@
 // import GamesContainer from "@/elements/gamesContainer/gamesContainer";
-// import GamesContainer from "@/elements/gamesContainer/gamesContainer";
-import Loader from "@/elements/loader";
+// import useLoader from "@/helpers/useLoader";
+// import { RootReducerType } from "@/redux/reducers/rootReducer";
+// import { useSelector } from "react-redux";
 import SearchField from "@/elements/searchField";
-import useLoader from "@/helpers/useLoader";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
-import React, { lazy } from "react";
-import { useSelector } from "react-redux";
+import GamesContainer from "@/elements/gamesContainer/gamesContainer";
+// import Loader from "@/elements/loader";
+// import { lazy } from "react";
 import "./products.scss";
 import SortField from "./sortField";
 
-const GamesContainer = lazy(() => import("@/elements/gamesContainer/gamesContainer"));
+// const GamesContainer = lazy(() => import("@/elements/gamesContainer/gamesContainer"));
 
 export default function Products() {
-  const games = useSelector((state: RootReducerType) => state.games);
-  const loaderState = useLoader(!!games.length);
+  // const games = useSelector((state: RootReducerType) => state.games);
+  // const loaderState = useLoader(!!games.length);
   return (
     <div className="products">
       <SearchField />
       <div className="products__main">
         <SortField />
         {/* {loaderState ? <Loader /> : <GamesContainer />} */}
-        <React.Suspense fallback={<Loader />}>
-          <GamesContainer />
-        </React.Suspense>
+        {/* <React.Suspense fallback={<Loader />}> */}
+        <GamesContainer />
+        {/* </React.Suspense> */}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { IGame } from "@/redux/types/gamesTypes";
 import { useState } from "react";
+import "../elementStyles.scss";
 
 export default function GameCard(props: IGame) {
   const [descriptionShow, setDescriptionShow] = useState<string>(() => "game-card__description");

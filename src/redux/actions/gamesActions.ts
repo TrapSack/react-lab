@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import axios from "axios";
-import { IActionTypes, IGame } from "../types/gamesTypes";
+import { IActionTypes, IClearGames, IGame } from "../types/gamesTypes";
 
 export function getTopProducts() {
   return async (dispatch: (arg0: { type: IActionTypes; payload: IGame[] }) => void) => {
@@ -32,5 +32,11 @@ export function getGames(platform = "", genre = "", age = "", sortBy = "", order
       type: IActionTypes.GET_GAMES,
       payload: parsedData,
     });
+  };
+}
+
+export function clearGames(): IClearGames {
+  return {
+    type: IActionTypes.CLEAR_GAMES,
   };
 }

@@ -14,6 +14,7 @@ export enum IActionTypes {
   GET_TOP_PRODUCTS = "GAMES/GETTOPPRODUCTS",
   SEARCH = "GAMES/SEARCH",
   GET_GAMES = "GAMES/GET",
+  CLEAR_GAMES = "GAMES/CLEAR",
 }
 
 export interface IGetTopProductsAction {
@@ -31,4 +32,8 @@ export interface IGetGames {
   payload: IGame[];
 }
 
-export type IGamesAction = IGetTopProductsAction | ISearchGame | IGetGames;
+export type IGamesAction = IGetTopProductsAction | ISearchGame | IGetGames | IClearGames;
+
+export interface IClearGames {
+  type: IActionTypes.CLEAR_GAMES;
+}

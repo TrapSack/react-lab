@@ -1,4 +1,3 @@
-import React from "react";
 import "./home.scss";
 import SearchField from "@/elements/searchField";
 import GamesContainer from "@/elements/gamesContainer/gamesContainer";
@@ -13,9 +12,7 @@ export default function Home() {
     <div className="home">
       <SearchField topProducts />
       <Platforms />
-      <React.Suspense fallback={<h2>Loading...</h2>}>
-        <GamesContainer />
-      </React.Suspense>
+      <GamesContainer />
     </div>
   );
 }

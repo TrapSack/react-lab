@@ -11,6 +11,8 @@ export default function gamesReducer(state: IGame[] = initialState, action: IGam
       return action.payload;
     case IActionTypes.GET_GAMES:
       return action.payload;
+    case IActionTypes.CLEAR_GAMES:
+      return initialState;
     default:
       return state;
   }
