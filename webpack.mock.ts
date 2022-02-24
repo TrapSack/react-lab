@@ -1,5 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
+<<<<<<< Updated upstream
+=======
+import { IOrder } from "@/redux/types/ordersTypes";
+>>>>>>> Stashed changes
 import fs from "fs";
 import games from "./src/api/games.json";
 import users from "./src/api/users.json";
@@ -168,4 +172,53 @@ export default webpackMockServer.add((app) => {
       }, 500);
     }
   );
+  app.post("/api/addOrder/", (req, res) => {
+    console.log(req.body);
+    const { order, login } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.orders.push(order);
+      }
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json("COOL!!!");
+  });
+  app.post("/api/updateOrder/", (req, res) => {
+    const { orderName, login, amount } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.orders.forEach((order) => {
+          if (order.name === orderName) {
+            // eslint-disable-next-line no-param-reassign
+            order.price += Number((order.price / order.amount).toFixed(2));
+            // eslint-disable-next-line no-param-reassign
+            order.amount++;
+          }
+          return order;
+        });
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json("COOL!!!");
+  });
+  app.post("/api/removeOrder/", (req, res) => {
+    const { orderName, login } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.orders.filter((order) => order.name !== orderName);
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json("COOL!!!");
+  });
+  app.get("/ali/getOrders/", (req, res) => {
+    const { login } = req.query;
+    let resultArr;
+    users.forEach((user) => {
+      if (user.login === login) resultArr = user.orders;
+    });
+    res.status(201).json(resultArr);
+  });
 });
