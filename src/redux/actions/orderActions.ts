@@ -40,9 +40,13 @@ export function updateOrderAmount(name: string, login: string, amount?: number):
   };
 }
 
-export function getOrders() {
+export function getOrders(login: string) {
   return async (dispatch: (arg0: { type: IActionTypes; payload: IOrder[] }) => void) => {
-    const data = await axios.get("api/getOrders/");
+    const data = await axios.get("api/getOrders/", {
+      params: {
+        login,
+      },
+    });
     const parsedData = await data.data;
     dispatch({
       type: IActionTypes.GET_ORDERS,

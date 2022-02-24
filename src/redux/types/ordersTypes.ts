@@ -29,4 +29,4 @@ export interface IGetOrdersAction {
   payload: IOrder[];
 }
 
-export type UserAction = IAddOrderAction | IUpdateOrderAmount | IGetOrdersAction;
+export type OrderAction = IAddOrderAction | IUpdateOrderAmount | IGetOrdersAction;
