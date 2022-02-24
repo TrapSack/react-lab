@@ -1,4 +1,4 @@
-import { IUserState, UserAction, IActionTypes, IOrder } from "../types/types";
+import { IUserState, UserAction, IActionTypes } from "../types/types";
 
 const initialState = {
   login: "untitled",
@@ -7,7 +7,6 @@ const initialState = {
   phone: "",
   adress: "",
   photo: "",
-  orders: [] as IOrder[],
 };
 
 // eslint-disable-next-line
@@ -21,10 +20,9 @@ export default function userReducer(state: IUserState = initialState, action: Us
         phone: action.payload.phone,
         adress: action.payload.adress,
         photo: action.payload.photo,
-        orders: action.payload.orders,
       };
     case IActionTypes.LOGOUT:
-      return { login: "", isAuth: false, description: "", phone: "", adress: "", photo: "", orders: [] };
+      return { login: "", isAuth: false, description: "", phone: "", adress: "", photo: "" };
     case IActionTypes.ERROR:
       return {
         login: "",
@@ -34,7 +32,6 @@ export default function userReducer(state: IUserState = initialState, action: Us
         phone: "",
         adress: "",
         photo: "",
-        orders: [],
       };
     case IActionTypes.UPDATEINFO:
       return {
@@ -44,7 +41,6 @@ export default function userReducer(state: IUserState = initialState, action: Us
         phone: action.payload.phone,
         adress: action.payload.adress,
         photo: action.payload.photo,
-        orders: action.payload.orders,
       };
     case IActionTypes.UPDATEPASSWORD:
       return {
@@ -54,7 +50,6 @@ export default function userReducer(state: IUserState = initialState, action: Us
         phone: state.phone,
         adress: state.adress,
         photo: state.photo,
-        orders: state.orders,
       };
     case IActionTypes.REGISTER:
       return {
@@ -64,33 +59,6 @@ export default function userReducer(state: IUserState = initialState, action: Us
         phone: action.payload.phone,
         adress: action.payload.adress,
         photo: action.payload.photo,
-        orders: action.payload.orders,
-      };
-    case IActionTypes.ADD_ORDER:
-      return {
-        ...state,
-        orders: [...state.orders, action.payload],
-      };
-    case IActionTypes.ADD_AMOUNT_TO_ORDER:
-      return {
-        ...state,
-        orders: state.orders.map((order) => {
-          if (order.name === action.payload.name) {
-            if (action.payload.amount) {
-              // eslint-disable-next-line no-param-reassign
-              order.amount = action.payload.amount;
-            } else {
-              // eslint-disable-next-line no-param-reassign
-              order.amount++;
-            }
-          }
-          return order;
-        }),
-      };
-    case IActionTypes.GET_ORDERS:
-      return {
-        ...state,
-        orders: action.payload,
       };
     default:
       return state;
