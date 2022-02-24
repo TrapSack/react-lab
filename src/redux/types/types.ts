@@ -6,15 +6,6 @@ export interface IUserState {
   adress: string;
   photo: string | ArrayBuffer | null;
   error?: string;
-  orders: IOrder[];
-}
-
-export interface IOrder {
-  name: string;
-  platform: string;
-  orderDate: string;
-  amount: number;
-  price: number;
 }
 
 export enum IActionTypes {
@@ -24,9 +15,6 @@ export enum IActionTypes {
   ERROR = "USER/ERROR",
   UPDATEINFO = "USER/UPDATEINFO",
   UPDATEPASSWORD = "USER/UPDATEPASS",
-  ADD_ORDER = "USER/ADD_ORDER",
-  ADD_AMOUNT_TO_ORDER = "USER/ADD_AMOUNT_TO_ORDER",
-  GET_ORDERS = "USER/GET_ORDERS",
 }
 
 export type UserAction =
@@ -35,10 +23,7 @@ export type UserAction =
   | IErrorAction
   | IUpdateUserInfoAction
   | IUpdateUserPasswordAction
-  | IRegisterAction
-  | IAddOrderAction
-  | IUpdateOrderAmount
-  | IGetOrdersAction;
+  | IRegisterAction;
 
 export interface ILoginAction {
   type: IActionTypes.LOGIN;
@@ -48,7 +33,6 @@ export interface ILoginAction {
     phone: string;
     adress: string;
     photo: string | ArrayBuffer | null;
-    orders: IOrder[];
   };
 }
 
@@ -69,7 +53,6 @@ export interface IUpdateUserInfoAction {
     phone: string;
     adress: string;
     photo: string | ArrayBuffer | null;
-    orders: IOrder[];
   };
 }
 
@@ -87,22 +70,4 @@ export interface IRegisterAction {
     photo: string | ArrayBuffer | null;
     orders: IOrder[];
   };
-}
-
-export interface IAddOrderAction {
-  type: IActionTypes.ADD_ORDER;
-  payload: IOrder;
-}
-
-export interface IUpdateOrderAmount {
-  type: IActionTypes.ADD_AMOUNT_TO_ORDER;
-  payload: {
-    name: string;
-    amount?: number;
-  };
-}
-
-export interface IGetOrdersAction {
-  type: IActionTypes.GET_ORDERS;
-  payload: IOrder[];
 }

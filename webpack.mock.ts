@@ -190,7 +190,7 @@ export default webpackMockServer.add((app) => {
         user.orders.forEach((order) => {
           if (order.name === orderName) {
             // eslint-disable-next-line no-param-reassign
-            order.price += order.price / order.amount;
+            order.price += Number((order.price / order.amount).toFixed(2));
             // eslint-disable-next-line no-param-reassign
             order.amount++;
           }

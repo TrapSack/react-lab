@@ -7,23 +7,19 @@
     "adress": "Ex. 24 bg Hello Str.",
     "photo": "https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg",
     "orders": [
-      {
-        "name": "Fortnite",
-        "amount": 11,
-        "orderDate": "2/23/2022",
-        "platform": "desktop",
-        "price": 54.890000000000015
-      },
+      { "name": "Fortnite", "amount": 11, "orderDate": "2/23/2022", "platform": "desktop", "price": 54.89 },
       { "name": "Minecraft", "amount": 2, "orderDate": "2/23/2022", "platform": "desktop", "price": 49.98 },
+      { "name": "OverWatch", "amount": 37, "orderDate": "2/23/2022", "platform": "desktop", "price": 887.63 },
+      { "name": "Terraria", "amount": 4, "orderDate": "2/23/2022", "platform": "desktop", "price": 19.96 },
+      { "name": "Dota 2", "amount": 8, "orderDate": "2/23/2022", "platform": "playstation", "price": 0.08 },
       {
         "name": "OverWatch",
-        "amount": 24,
-        "orderDate": "2/23/2022",
+        "amount": 14,
+        "orderDate": "2/24/2022",
         "platform": "desktop",
-        "price": 575.7600000000001
+        "price": 335.86000000000007
       },
-      { "name": "Terraria", "amount": 4, "orderDate": "2/23/2022", "platform": "desktop", "price": 19.96 },
-      { "name": "Dota 2", "amount": 8, "orderDate": "2/23/2022", "platform": "playstation", "price": 0.08 }
+      { "name": "OverWatch", "amount": 6, "orderDate": "2/24/2022", "platform": "desktop", "price": 143.94 }
     ]
   }
 ]

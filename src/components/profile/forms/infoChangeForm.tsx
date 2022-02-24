@@ -46,15 +46,7 @@ export default function InfoChangeForm(props: { setIsOpen: Dispatch<SetStateActi
     const hasNoErrors = Object.values(error).every((err) => err === "");
     if (hasNoErrors) {
       dispatch(
-        saveProfile(
-          user.login,
-          userData.login,
-          userData.description,
-          userData.phone,
-          userData.adress,
-          userData.photo,
-          user.orders
-        )
+        saveProfile(user.login, userData.login, userData.description, userData.phone, userData.adress, userData.photo)
       );
     }
     props.setIsOpen(false);
