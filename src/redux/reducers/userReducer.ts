@@ -1,7 +1,7 @@
 import { IUserState, UserAction, IActionTypes } from "../types/types";
 
 const initialState = {
-  login: "",
+  login: "untitled",
   isAuth: true,
   description: "",
   phone: "",
@@ -60,7 +60,6 @@ export default function userReducer(state: IUserState = initialState, action: Us
         adress: action.payload.adress,
         photo: action.payload.photo,
       };
-
     default:
       return state;
   }

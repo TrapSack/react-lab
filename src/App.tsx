@@ -3,13 +3,14 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { connect } from "react-redux";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/footer";
-import { about, home, products, profile } from "./helpers/links";
+import { about, cart, home, products, profile } from "./helpers/links";
 import About from "./components/about/about";
 import Home from "./components/home/Home";
 // import Products from "./components/products/Products";
 import Profile from "./components/profile/profile";
 import { IUserState } from "./redux/types/types";
 import NotificationComponent from "./elements/notification";
+import Cart from "./components/cart/cart";
 
 const Products = lazy(() => import("@/components/products/Products"));
 
@@ -68,6 +69,7 @@ class App extends Component<{ user: IUserState }, IState> {
           <Route path={about} element={this.props.user.isAuth ? <About /> : <Navigate to={home} />} />
           <Route path="*" element={<Home />} />
           <Route path={profile} element={this.props.user.isAuth ? <Profile /> : <Navigate to={home} />} />
+          <Route path={cart} element={this.props.user.isAuth ? <Cart /> : <Navigate to={home} />} />
         </Routes>
         <Footer />
       </>

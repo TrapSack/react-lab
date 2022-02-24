@@ -1,9 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
-<<<<<<< Updated upstream
-=======
-import { IOrder } from "@/redux/types/ordersTypes";
->>>>>>> Stashed changes
+import { ICartItem } from "@/redux/types/cartItemsTypes";
 import fs from "fs";
 import games from "./src/api/games.json";
 import users from "./src/api/users.json";
@@ -64,6 +61,7 @@ export default webpackMockServer.add((app) => {
             phone: user.phone,
             adress: user.adress,
             photo: user.photo,
+            cartItems: user.cartItems,
           };
         }
       }
@@ -82,6 +80,7 @@ export default webpackMockServer.add((app) => {
       phone: userPhone,
       adress: userAdress,
       photo: "https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg",
+      cartItems: [] as ICartItem[],
     };
     console.log(newUser);
     users.push(newUser);
@@ -90,7 +89,7 @@ export default webpackMockServer.add((app) => {
   });
 
   app.post("/api/saveUser/", (req, res) => {
-    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto } = req.body;
+    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto, usercartItems } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
         return {
@@ -100,6 +99,7 @@ export default webpackMockServer.add((app) => {
           phone: userPhone,
           adress: userAdress,
           photo: userPhoto,
+          cartItems: usercartItems,
         };
       }
       return user;
@@ -172,25 +172,25 @@ export default webpackMockServer.add((app) => {
       }, 500);
     }
   );
-  app.post("/api/addOrder/", (req, res) => {
-    console.log(req.body);
+  app.post("/api/addCartItem/", (req, res) => {
     const { order, login } = req.body;
     users.forEach((user) => {
       if (user.login === login) {
-        user.orders.push(order);
+        user.cartItems.push(order);
       }
     });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
     res.json("COOL!!!");
   });
-  app.post("/api/updateOrder/", (req, res) => {
+  app.post("/api/updateCartItem/", (req, res) => {
     const { orderName, login, amount } = req.body;
     users.forEach((user) => {
       if (user.login === login) {
-        user.orders.forEach((order) => {
+        user.cartItems.forEach((order) => {
           if (order.name === orderName) {
             // eslint-disable-next-line no-param-reassign
-            order.price += Number((order.price / order.amount).toFixed(2));
+            order.price = parseFloat((order.price + order.price / order.amount).toFixed(2));
+            console.log(order.price);
             // eslint-disable-next-line no-param-reassign
             order.amount++;
           }
@@ -206,19 +206,32 @@ export default webpackMockServer.add((app) => {
     const { orderName, login } = req.body;
     users.forEach((user) => {
       if (user.login === login) {
-        user.orders.filter((order) => order.name !== orderName);
+        user.cartItems.filter((order) => order.name !== orderName);
       }
       return user;
     });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
     res.json("COOL!!!");
   });
-  app.get("/ali/getOrders/", (req, res) => {
+  app.get("/api/getCartItems/", (req, res) => {
     const { login } = req.query;
     let resultArr;
     users.forEach((user) => {
-      if (user.login === login) resultArr = user.orders;
+      if (user.login === login) resultArr = user.cartItems;
     });
     res.status(201).json(resultArr);
+  });
+  app.post("/api/updateCartItems/", (req, res) => {
+    console.log(req.body);
+    const { cartItems, login } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        // eslint-disable-next-line no-param-reassign
+        user.cartItems = cartItems;
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.status(201);
   });
 });
