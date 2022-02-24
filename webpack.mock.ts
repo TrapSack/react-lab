@@ -165,7 +165,7 @@ export default webpackMockServer.add((app) => {
       });
       setTimeout(() => {
         res.json(resultArr);
-      }, 10000);
+      }, 3000);
     }
   );
 });

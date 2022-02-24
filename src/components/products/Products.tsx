@@ -19,13 +19,13 @@ export default function Products() {
   return (
     <div className="products">
       <SearchField />
-      <React.Suspense fallback={<Loader />}>
-        <div className="products__main">
+      <div className="products__main">
+        <React.Suspense fallback={<Loader />}>
           <SortField />
           {/* {loaderState ? <Loader /> : <GamesContainer />} */}
           <GamesContainer />
-        </div>
-      </React.Suspense>
+        </React.Suspense>
+      </div>
     </div>
   );
 }
