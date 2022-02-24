@@ -1,3 +1,5 @@
+import { ICartItem } from "./cartItemsTypes";
+
 export interface IUserState {
   login: string;
   isAuth: boolean;
@@ -68,6 +70,6 @@ export interface IRegisterAction {
     phone: string;
     adress: string;
     photo: string | ArrayBuffer | null;
-    orders: IOrder[];
+    cardItems: ICartItem[];
   };
 }

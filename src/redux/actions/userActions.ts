@@ -1,7 +1,9 @@
 import axios from "axios";
 import { IChangeNotificationAction } from "../types/notificationTypes";
+import { IGetCartItemsAction } from "../types/cartItemsTypes";
 import { IActionTypes, IErrorAction, ILoginAction, ILogoutAction } from "../types/types";
 import changeNotification from "./notificationActions";
+import { getcardItems } from "./cartItemsActions";
 
 export function logOut(): ILogoutAction {
   return {
@@ -10,7 +12,9 @@ export function logOut(): ILogoutAction {
 }
 
 export function asyncLogIn(login: string, password: string) {
-  return async (dispatch: (arg0: IChangeNotificationAction | ILoginAction | IErrorAction) => void) => {
+  return async (
+    dispatch: (arg0: IChangeNotificationAction | ILoginAction | IErrorAction | IGetCartItemsAction) => void
+  ) => {
     try {
       const data = await axios.post(`api/authorizeUser/`, { userName: login, userPass: password });
       const parsedData = await data.data;
@@ -20,6 +24,7 @@ export function asyncLogIn(login: string, password: string) {
           type: IActionTypes.LOGIN,
           payload: parsedData,
         });
+        dispatch(getcardItems(login));
       }
     } catch {
       dispatch({
@@ -90,7 +95,7 @@ export function changePassword(login: string, newPassword: string) {
 }
 
 export function registerUser(login: string, password: string, phone: string, adress: string) {
-  return async (dispatch: (arg0: { type: IActionTypes; payload: unknown } | IChangeNotificationAction) => void) => {
+  return async (dispatch) => {
     const data = await axios.post("/api/postUser", {
       userName: login,
       userPass: password,
@@ -99,6 +104,7 @@ export function registerUser(login: string, password: string, phone: string, adr
     });
     const parsedData = data.data;
     console.log(parsedData);
+    dispatch(getcardItems(login));
     dispatch(changeNotification("success", "Registration successfull"));
     dispatch({
       type: IActionTypes.REGISTER,

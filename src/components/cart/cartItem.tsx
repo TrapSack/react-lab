@@ -7,7 +7,7 @@ interface ICartItemProps {
 
 export default function CartItem(props: ICartItemProps) {
   return (
-    <tr className="cart-item orders-container__row">
+    <tr className="cart-item card-items-container__row">
       <td className="cart-item__name">{props.name}</td>
       <td>
         <select name="item-platform" id="" className="cart-item__platform" defaultValue="desktop">
