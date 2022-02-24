@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
-import { IOrder } from "@/redux/types/types";
+import { IOrder } from "@/redux/types/ordersTypes";
 import fs from "fs";
 import games from "./src/api/games.json";
 import users from "./src/api/users.json";
@@ -212,5 +212,13 @@ export default webpackMockServer.add((app) => {
     });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
     res.json("COOL!!!");
+  });
+  app.get("/ali/getOrders/", (req, res) => {
+    const { login } = req.query;
+    let resultArr;
+    users.forEach((user) => {
+      if (user.login === login) resultArr = user.orders;
+    });
+    res.status(201).json(resultArr);
   });
 });

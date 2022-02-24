@@ -1,38 +1,39 @@
 import changeNotification from "@/redux/actions/notificationActions";
+import { getOrders } from "@/redux/actions/orderActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { IGame } from "@/redux/types/gamesTypes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addOrder, updateOrderAmount } from "../../helpers/orderFunctions";
 import "../elementStyles.scss";
 
 export default function GameCard(props: IGame) {
   const [descriptionShow, setDescriptionShow] = useState<string>(() => "game-card__description");
-  const [isInCart, setIsIncart] = useState<boolean>(false);
   const dispatch = useDispatch();
   const user = useSelector((state: RootReducerType) => state.user);
+  const orders = useSelector((state: RootReducerType) => state.orders);
   function setShowDescription() {
     setDescriptionShow("game-card__description active");
   }
   function setHideDescription() {
     setDescriptionShow("game-card__description");
   }
+  console.log(orders);
 
   function handleClick() {
     if (user.isAuth) {
-      if (!isInCart) {
-        addOrder(user.login, props.name, props.platforms[0], props.price);
-        setIsIncart(true);
-        dispatch(changeNotification("success", `${props.name} has been added to your cart`));
-      } else {
-        updateOrderAmount(props.name, user.login);
-        dispatch(changeNotification("success", `You have added 1 more game to ${props.name}`));
-      }
+      dispatch(changeNotification("success", `${props.name} has been added to your cart`));
+      updateOrderAmount(props.name, user.login);
+      dispatch(changeNotification("success", `You have added 1 more game to ${props.name}`));
     } else {
       dispatch(changeNotification("danger", "please, Login or register first"));
     }
   }
-
+  useEffect(() => {
+    if (user.isAuth) {
+      dispatch(getOrders(user.login));
+    }
+  }, [user.isAuth]);
   return (
     <div className="game-card" onMouseEnter={setShowDescription} onMouseLeave={setHideDescription}>
       <div className="game-card__platforms">
