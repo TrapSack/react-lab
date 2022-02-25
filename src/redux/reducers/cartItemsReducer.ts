@@ -12,6 +12,8 @@ export default function cardItemsReducer(state: ICartItem[] = initialState, acti
         if (game.name === action.payload.name) {
           if (action.payload.amount) {
             // eslint-disable-next-line no-param-reassign
+            game.price = parseFloat(((game.price / game.amount) * action.payload.amount).toFixed(2));
+            // eslint-disable-next-line no-param-reassign
             game.amount = action.payload.amount;
           } else {
             // eslint-disable-next-line no-param-reassign
@@ -24,6 +26,11 @@ export default function cardItemsReducer(state: ICartItem[] = initialState, acti
       });
     case IActionTypes.GET_CART_ITEMS:
       return action.payload;
+    case IActionTypes.REMOVE_CART_ITEM:
+      return state.filter((item) => item.name !== action.payload.name);
+    case IActionTypes.EMPTY_CART_ITEMS:
+      if (action.payload) return state;
+      return [];
     default:
       return state;
   }

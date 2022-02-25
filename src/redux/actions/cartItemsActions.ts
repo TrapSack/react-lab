@@ -1,56 +1,35 @@
 import axios from "axios";
-import { IActionTypes, ICartItem } from "../types/cartItemsTypes";
+import { Dispatch } from "redux";
+import { store } from "../store";
+import { IActionTypes, IRemoveCartItemAction } from "../types/cartItemsTypes";
+import changeNotification from "./notificationActions";
 
-export function addCartItem(name: string, platform: string, price: number, login: string) {
-  return async (
-    dispatch: (arg0: {
-      type: IActionTypes;
-      payload: { name: string; amount: number; orderDate: string; platform: string; price: number };
-    }) => void
-  ) => {
-    const today = new Date();
-    const data = await axios.post("/api/addCartItem/", {
-      login,
-      order: {
-        name,
-        amount: 1,
-        orderDate: today.toLocaleDateString("en-US"),
-        platform,
-        price,
-      },
-    });
-    dispatch({
-      type: IActionTypes.ADD_CART_ITEM,
-      payload: {
-        name,
-        amount: 1,
-        orderDate: today.toLocaleDateString("en-US"),
-        platform,
-        price,
-      },
-    });
+export function addCartItem(name: string, platform: string, price: number) {
+  const today = new Date();
+  return {
+    type: IActionTypes.ADD_CART_ITEM,
+    payload: {
+      name,
+      amount: 1,
+      orderDate: today.toLocaleDateString("en-US"),
+      platform,
+      price,
+    },
   };
 }
 
-export function updateCartItemAmount(name: string, login: string, amount?: number) {
-  return async (dispatch: (arg0: { type: IActionTypes; payload: { name: string; amount: number } }) => void) => {
-    const data = await axios.post("/api/updateCartItem/", {
-      orderName: name,
-      login,
+export function updateCartItemAmount(name: string, amount?: number) {
+  return {
+    type: IActionTypes.ADD_AMOUNT_TO_CART_ITEM,
+    payload: {
+      name,
       amount,
-    });
-    dispatch({
-      type: IActionTypes.ADD_AMOUNT_TO_CART_ITEM,
-      payload: {
-        name,
-        amount,
-      },
-    });
+    },
   };
 }
 
-export function getcardItems(login: string) {
-  return async (dispatch: (arg0: { type: IActionTypes; payload: ICartItem[] }) => void) => {
+export function getCartItems(login: string) {
+  return async (dispatch: Dispatch) => {
     const data = await axios.get("api/getCartItems/", {
       params: {
         login,
@@ -61,5 +40,38 @@ export function getcardItems(login: string) {
       type: IActionTypes.GET_CART_ITEMS,
       payload: parsedData,
     });
+  };
+}
+
+export function removeCartItem(name: string): IRemoveCartItemAction {
+  return {
+    type: IActionTypes.REMOVE_CART_ITEM,
+    payload: {
+      name,
+    },
+  };
+}
+
+export function emptyCartItems() {
+  return async (dispatch: Dispatch) => {
+    const data = await axios.post("api/buyCartItems", {
+      cartItems: store.getState().cardItems,
+      login: store.getState().user.login,
+    });
+    const { status } = data;
+    if (status === 201) {
+      dispatch(changeNotification("success", "You have successfully bought games!!"));
+      dispatch({
+        type: IActionTypes.EMPTY_CART_ITEMS,
+      });
+    } else {
+      dispatch(changeNotification("danger", "An error has occured, try again later"));
+      dispatch({
+        type: IActionTypes.EMPTY_CART_ITEMS,
+        payload: {
+          error: "An error has occured",
+        },
+      });
+    }
   };
 }

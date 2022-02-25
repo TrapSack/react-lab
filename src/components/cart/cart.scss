@@ -66,3 +66,43 @@
     }
   }
 }
+
+.order-form {
+  &__items-container {
+    border: 2px solid $brightgreen;
+    padding: 20px;
+    border-radius: 20px;
+  }
+  &__item {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  &__item-field {
+    margin: 0 10px;
+  }
+  &__submit {
+    margin-top: 10px;
+    border: 2px solid $homeContainersBackground;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    &--active {
+      background: $brightgreen;
+      &:hover {
+        background: $cardButtonBackgroundOnHover;
+        transition: 0.1s ease-in;
+      }
+    }
+    &--inactive {
+      background: $homeContainersBackground;
+      &:hover {
+        background: #525252;
+        transition: 0.1s ease-in;
+      }
+    }
+  }
+}

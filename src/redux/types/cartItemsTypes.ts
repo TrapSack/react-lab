@@ -19,9 +19,11 @@ export interface IUpdateCartItemsAmount {
 }
 
 export enum IActionTypes {
-  ADD_CART_ITEM = "USER/ADD_CART_ITEM",
-  ADD_AMOUNT_TO_CART_ITEM = "USER/ADD_AMOUNT_TO_CART_ITEM",
-  GET_CART_ITEMS = "USER/GET_CARD_ITEMS",
+  ADD_CART_ITEM = "CART_ITEM/ADD",
+  ADD_AMOUNT_TO_CART_ITEM = "CART_ITEM/ADD_AMOUNT",
+  GET_CART_ITEMS = "CART_ITEM/GET",
+  REMOVE_CART_ITEM = "CART_ITEM/REMOVE",
+  EMPTY_CART_ITEMS = "CART_ITEM/EMPTY",
 }
 
 export interface IGetCartItemsAction {
@@ -29,4 +31,23 @@ export interface IGetCartItemsAction {
   payload: ICartItem[];
 }
 
-export type OrderAction = IAddCartItemsAction | IUpdateCartItemsAmount | IGetCartItemsAction;
+export type OrderAction =
+  | IAddCartItemsAction
+  | IUpdateCartItemsAmount
+  | IGetCartItemsAction
+  | IRemoveCartItemAction
+  | IEmptyCartItemsAction;
+
+export interface IRemoveCartItemAction {
+  type: IActionTypes.REMOVE_CART_ITEM;
+  payload: {
+    name: string;
+  };
+}
+
+export interface IEmptyCartItemsAction {
+  type: IActionTypes.EMPTY_CART_ITEMS;
+  payload?: {
+    error: string;
+  };
+}

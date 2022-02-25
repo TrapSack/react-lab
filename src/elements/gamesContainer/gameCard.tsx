@@ -18,14 +18,14 @@ export default function GameCard(props: IGame) {
     setDescriptionShow("game-card__description");
   }
 
-  function handleClick() {
-    // change name
+  function handleClickToCart() {
+    // change name changed
     if (user.isAuth) {
       if (!cardItems.some((order) => order.name === props.name)) {
-        dispatch(addCartItem(props.name, props.platforms[0], props.price, user.login));
+        dispatch(addCartItem(props.name, props.platforms[0], props.price));
         dispatch(changeNotification("success", `${props.name} has been added to your cart`));
       } else {
-        dispatch(updateCartItemAmount(props.name, user.login));
+        dispatch(updateCartItemAmount(props.name));
         dispatch(changeNotification("success", `You have added 1 more game to ${props.name}`));
       }
     } else {
@@ -81,7 +81,7 @@ export default function GameCard(props: IGame) {
           alt=""
           className="game-card__stars"
         />
-        <button type="button" className="game-card__add-to-cart-btn" onClick={handleClick}>
+        <button type="button" className="game-card__add-to-cart-btn" onClick={handleClickToCart}>
           BUY
         </button>
       </div>

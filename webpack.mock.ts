@@ -2,6 +2,8 @@
 import webpackMockServer from "webpack-mock-server";
 import { ICartItem } from "@/redux/types/cartItemsTypes";
 import fs from "fs";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import express from "express";
 import games from "./src/api/games.json";
 import users from "./src/api/users.json";
 
@@ -19,6 +21,8 @@ interface IGame {
 }
 
 export default webpackMockServer.add((app) => {
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
   app.get(`/api/search/*`, (_req, res) => {
     const resultArr: IGame[] = [];
     games.forEach((game: IGame) => {
@@ -72,7 +76,6 @@ export default webpackMockServer.add((app) => {
 
   app.post("/api/postUser/", (req, res) => {
     const { userName, userPass, userPhone, userAdress } = req.body;
-    console.log(req.body);
     const newUser = {
       login: userName,
       password: userPass,
@@ -172,47 +175,6 @@ export default webpackMockServer.add((app) => {
       }, 500);
     }
   );
-  app.post("/api/addCartItem/", (req, res) => {
-    const { order, login } = req.body;
-    users.forEach((user) => {
-      if (user.login === login) {
-        user.cartItems.push(order);
-      }
-    });
-    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
-    res.json("COOL!!!");
-  });
-  app.post("/api/updateCartItem/", (req, res) => {
-    const { orderName, login, amount } = req.body;
-    users.forEach((user) => {
-      if (user.login === login) {
-        user.cartItems.forEach((order) => {
-          if (order.name === orderName) {
-            // eslint-disable-next-line no-param-reassign
-            order.price = parseFloat((order.price + order.price / order.amount).toFixed(2));
-            console.log(order.price);
-            // eslint-disable-next-line no-param-reassign
-            order.amount++;
-          }
-          return order;
-        });
-      }
-      return user;
-    });
-    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
-    res.json("COOL!!!");
-  });
-  app.post("/api/removeOrder/", (req, res) => {
-    const { orderName, login } = req.body;
-    users.forEach((user) => {
-      if (user.login === login) {
-        user.cartItems.filter((order) => order.name !== orderName);
-      }
-      return user;
-    });
-    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
-    res.json("COOL!!!");
-  });
   app.get("/api/getCartItems/", (req, res) => {
     const { login } = req.query;
     let resultArr;
@@ -222,7 +184,6 @@ export default webpackMockServer.add((app) => {
     res.status(201).json(resultArr);
   });
   app.post("/api/updateCartItems/", (req, res) => {
-    console.log(req.body);
     const { cartItems, login } = req.body;
     users.forEach((user) => {
       if (user.login === login) {
@@ -232,6 +193,18 @@ export default webpackMockServer.add((app) => {
       return user;
     });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
-    res.status(201);
+    res.status(201).end();
+  });
+  app.post("/api/buyCartItems", (req, res) => {
+    const { cartItems, login } = req.body;
+    console.log(cartItems);
+    users.forEach((user) => {
+      if (user.login === login) {
+        // eslint-disable-next-line no-param-reassign
+        user.cartItems = [];
+      }
+      return user;
+    });
+    res.status(201).json("Success");
   });
 });
