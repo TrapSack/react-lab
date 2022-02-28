@@ -96,7 +96,6 @@
   }
 }
 
-
 .game-card {
   display: flex;
   flex-direction: column;
@@ -203,5 +202,49 @@
     visibility: visible;
     opacity: 1;
     transition: visibility 0s, opacity 0.2s linear;
+  }
+}
+
+.add-edit-form {
+  display: flex;
+
+  &__cover {
+    width: 350px;
+    object-fit: cover;
+  }
+  &__option-container {
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__select {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  &__checkbox {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__btn-container {
+    margin-top: 10px;
+  }
+  &__btn {
+    margin: 0 10px;
+    height: 40px;
+    background: rgb(22, 121, 9);
+    border: none;
+    background-position: center;
+    background-size: 20px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+
+    &:hover {
+      background: $cardButtonBackgroundOnHover;
+      background-color: linear-gradient(0deg, rgba(67, 187, 52, 1) 23%, rgba(91, 172, 91, 1) 66%);
+      transition: background-color 0.2s linear;
+    }
   }
 }

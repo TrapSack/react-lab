@@ -8,6 +8,7 @@ export interface IUserState {
   adress: string;
   photo: string | ArrayBuffer | null;
   error?: string;
+  stuff: boolean;
 }
 
 export enum IActionTypes {
@@ -35,6 +36,7 @@ export interface ILoginAction {
     phone: string;
     adress: string;
     photo: string | ArrayBuffer | null;
+    stuff: boolean;
   };
 }
 
@@ -71,5 +73,6 @@ export interface IRegisterAction {
     adress: string;
     photo: string | ArrayBuffer | null;
     cardItems: ICartItem[];
+    stuff: boolean;
   };
 }
