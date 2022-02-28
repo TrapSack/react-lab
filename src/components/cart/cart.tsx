@@ -27,7 +27,7 @@ export default function Cart() {
         </button>
       </div>
       <Modal open={showModal} setIsOpen={setShowModal} title="Order details">
-        <Order setShowModal={setShowModal} />
+        <Order setShowModal={setShowModal} total={totalCost} />
       </Modal>
     </div>
   );

@@ -17,7 +17,13 @@ export default function CartItemsContainer() {
           <th>Amount</th>
           <th>Price($)</th>
         </tr>
-        {mappedcardItems}
+        {mappedcardItems.length ? (
+          mappedcardItems
+        ) : (
+          <tr>
+            <td>Nothing here yet!</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

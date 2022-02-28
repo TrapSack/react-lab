@@ -3,7 +3,7 @@ import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { Dispatch, FormEvent, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Order(props: { setShowModal: Dispatch<SetStateAction<boolean>> }) {
+export default function Order(props: { setShowModal: Dispatch<SetStateAction<boolean>>; total: number }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((state: RootReducerType) => state.cardItems);
   function handleBuySubmit(e: FormEvent) {
@@ -21,9 +21,15 @@ export default function Order(props: { setShowModal: Dispatch<SetStateAction<boo
   ));
   return (
     <form className="order-form" onSubmit={handleBuySubmit}>
-      <div className="order-form__items-container">
-        {cartItemsArray.length ? cartItemsArray : <h2>No items, put something in cart!</h2>}
-      </div>
+      {cartItemsArray.length ? (
+        <div className="order-form__items-container">
+          {cartItemsArray}
+          <span>total:{props.total}</span>
+        </div>
+      ) : (
+        <h2>No items, put something in cart!</h2>
+      )}
+
       <button type="submit" className={`order-form__submit ${buttonClass}`}>
         Buy games
       </button>
