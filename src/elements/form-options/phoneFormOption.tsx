@@ -1,0 +1,57 @@
+import { validatePhone } from "@/helpers/validators";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+
+interface IFormOptionProps {
+  value: string;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  // eslint-disable-next-line react/require-default-props
+  error?: string;
+  setError: Dispatch<SetStateAction<unknown>>;
+}
+
+export default function PhoneFormOption(props: IFormOptionProps) {
+  function checkOnEmptyInput(e: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    if (!value)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      props.setError((prev: any) => ({
+        ...prev,
+        [`${name}InputError`]: `${name[0].toUpperCase() + name.slice(1)} is required`,
+      }));
+  }
+
+  function phoneValidation(event: ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+    if (event.target.value) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      props.setError((prev: any) => ({
+        ...prev,
+        phoneInputError: validatePhone(value) || !value ? "" : "Wrong phone",
+      }));
+    }
+  }
+  return (
+    <>
+      <label htmlFor="login" className="form__option">
+        Phone
+        <input
+          type="text"
+          placeholder="phone"
+          name="phone"
+          className="form__input"
+          value={props.value}
+          onChange={(e) => {
+            checkOnEmptyInput(e);
+            props.handleChange(e);
+          }}
+          onBlur={(e) => {
+            phoneValidation(e);
+            checkOnEmptyInput(e);
+          }}
+        />
+      </label>
+      <span className="form__hint">Ex. +375441234567</span>
+      {props.error && <span className="form__input-error">{props.error}</span>}
+    </>
+  );
+}

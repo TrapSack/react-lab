@@ -13,7 +13,14 @@ export default function Profile() {
     <div className="profile">
       <div className="profile__information-container">
         <h2>{user.login}</h2>
+        <span>Desctiprion</span>
         <p className="profile__description">{user.description}</p>
+        <span>Phone</span>
+        <p className="profile__phone">{user.phone}</p>
+        <span>Adress</span>
+        <p className="profile__adress">{user.adress}</p>
+        <span>Photo</span>
+        <img src={user.photo.toString()} alt="" className="profile__photo" />
         <button
           className="profile__change-info-btn"
           type="button"
@@ -25,7 +32,7 @@ export default function Profile() {
         </button>
       </div>
       <Modal open={isOpen} setIsOpen={setIsOpen} title="Change info">
-        <InfoChangeForm />
+        <InfoChangeForm setIsOpen={setIsOpen} />
       </Modal>
       <PasswordChangeForm />
     </div>

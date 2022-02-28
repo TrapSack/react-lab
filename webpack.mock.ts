@@ -7,8 +7,10 @@ import users from "./src/api/users.json";
 interface IGame {
   id: string;
   name: string;
-  rating: number;
   price: number;
+  rating: number;
+  genre: string;
+  age: number;
   releaseDate: string;
   cover: string;
   description: string;
@@ -50,32 +52,45 @@ export default webpackMockServer.add((app) => {
           responseUser = {
             login: user.login,
             description: user.description,
+            phone: user.phone,
+            adress: user.adress,
+            photo: user.photo,
           };
         }
       }
       return user;
     });
-    return res.status(responseUser ? 200 : 401).json(responseUser || false);
+    return res.status(responseUser ? 200 : 403).json(responseUser || false);
   });
 
   app.post("/api/postUser/", (req, res) => {
-    const { userName, userPass } = req.body;
-    const newUser = { login: userName, password: userPass, description: "" };
+    const { userName, userPass, userPhone, userAdress } = req.body;
+    console.log(req.body);
+    const newUser = {
+      login: userName,
+      password: userPass,
+      description: "No description",
+      phone: userPhone,
+      adress: userAdress,
+      photo: "https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg",
+    };
+    console.log(newUser);
     users.push(newUser);
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
-    res.status(201).json({ login: newUser.login, description: newUser.description });
+    res.status(201).json(newUser);
   });
 
   app.post("/api/saveUser/", (req, res) => {
-    console.log(req.body);
-    const { userNamePrev, userNameNew, userDescription } = req.body;
+    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
-        console.log("set user");
         return {
           ...user,
           login: userNameNew,
           description: userDescription,
+          phone: userPhone,
+          adress: userAdress,
+          photo: userPhoto,
         };
       }
       return user;
