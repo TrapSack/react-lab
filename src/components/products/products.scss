@@ -8,6 +8,20 @@
     width: 100%;
     justify-content: center;
   }
+
+  &__add-item-btn {
+    margin-top: 30px;
+    padding: 5px 10px;
+    background: $brightgreen;
+    color: white;
+    font-weight: bold;
+    border: 2px solid $activeLinkColor;
+    border-radius: 5px;
+    &:hover {
+      transition: 0.1s ease-in;
+      background-color: $cardButtonBackgroundOnHover;
+    }
+  }
 }
 
 .sort-field {

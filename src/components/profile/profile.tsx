@@ -1,7 +1,7 @@
 import "./profile.scss";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useSelector } from "react-redux";
-import Modal from "@/elements/modal";
+import Modal from "@/elements/modals/modal";
 import { useState } from "react";
 import InfoChangeForm from "./forms/infoChangeForm";
 import PasswordChangeForm from "./forms/passwordChangeForm";

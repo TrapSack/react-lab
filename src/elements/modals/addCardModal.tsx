@@ -1,7 +1,8 @@
+/* eslint-disable react/jsx-no-bind */
 import { addGame } from "@/redux/actions/gamesActions";
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { useDispatch } from "react-redux";
-import FormOption from "./form-options/formOption";
+import FormOption from "../form-options/formOption";
 import Modal from "./modal";
 
 export default function AddCardModal(props: {
@@ -10,6 +11,7 @@ export default function AddCardModal(props: {
   title: string;
 }) {
   const dispatch = useDispatch();
+  const [error, setError] = useState("");
   const [cardData, setCardData] = useState({
     name: "",
     genre: "",
@@ -29,24 +31,35 @@ export default function AddCardModal(props: {
       cardData.name === "" ||
       cardData.platforms === [] ||
       cardData.price === 0
-    )
+    ) {
+      setError("All fields must be filled");
       return;
-    else
-      dispatch(
-        addGame(
-          cardData.name,
-          cardData.price,
-          cardData.age,
-          cardData.genre,
-          cardData.platforms,
-          cardData.image,
-          cardData.description
-        )
-      );
+    }
+    if (error) {
+      return;
+    }
+    dispatch(
+      addGame(
+        cardData.name,
+        parseFloat(cardData.price.toString()),
+        cardData.age,
+        cardData.genre,
+        cardData.platforms,
+        cardData.image,
+        cardData.description
+      )
+    );
     props.setShowModal(false);
   }
   function handleChangeCardDataState(e: ChangeEvent<HTMLInputElement>) {
     const { value, name } = e.target;
+    if (name === "price") {
+      if (!/^\d+\.?\d*$/gm.test(value)) {
+        setError("Please, input correct price");
+      } else {
+        setError("");
+      }
+    }
     setCardData((prev) => ({
       ...prev,
       [name]: value,
@@ -91,7 +104,7 @@ export default function AddCardModal(props: {
           <FormOption
             type="text"
             inputName="price"
-            placeholder="Price"
+            placeholder="Price($)"
             handleChange={handleChangeCardDataState}
             value={cardData.price.toString()}
           />
@@ -149,6 +162,7 @@ export default function AddCardModal(props: {
               defaultChecked={cardData.platforms.some((platform) => platform === "xbox")}
             />
           </label>
+          {error && <span className="form__input-error">{error}</span>}
           <div className="add-edit-form__btn-container">
             <button type="submit" className="add-edit-form__btn">
               Submit

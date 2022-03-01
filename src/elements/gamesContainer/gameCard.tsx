@@ -5,7 +5,7 @@ import { IGame } from "@/redux/types/gamesTypes";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../elementStyles.scss";
-import EditModal from "../editModal";
+import EditModal from "../modals/editModal";
 
 export default function GameCard(props: IGame) {
   const [descriptionShow, setDescriptionShow] = useState<string>(() => "game-card__description");
@@ -100,7 +100,6 @@ export default function GameCard(props: IGame) {
         <div className={descriptionShow}>{props.description}</div>
       </div>
       <EditModal
-        type="edit"
         showModal={showModal}
         setShowModal={setShowModal}
         title="Edit"

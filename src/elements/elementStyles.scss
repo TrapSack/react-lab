@@ -248,3 +248,27 @@
     }
   }
 }
+
+.confirm-deletion-form {
+  display: flex;
+  justify-content: center;
+  &__button {
+    margin: 0 20px;
+    padding: 5px 15px;
+    border: 2px solid $cartInputColor;
+    &--yes {
+      background-color: $brightgreen;
+      &:hover {
+        transition: 0.1s ease-in;
+        background-color: $cardButtonBackgroundOnHover;
+      }
+    }
+    &--no {
+      background-color: #e05959;
+      &:hover {
+        transition: 0.1s ease-in;
+        background-color: #e67272;
+      }
+    }
+  }
+}
