@@ -7,12 +7,15 @@ import gamesReducer from "./gamesReducer";
 import notificationReducer from "./notificationReducer";
 import orderReducer from "./cartItemsReducer";
 import userReducer from "./userReducer";
+import filterReducer from "./filterReducer";
+import { IFilterState } from "../types/filterTypes";
 
 export const rootReducer = combineReducers({
   user: userReducer,
   games: gamesReducer,
   notification: notificationReducer,
   cardItems: orderReducer,
+  filter: filterReducer,
 });
 
 export type RootReducerType = {
@@ -20,4 +23,5 @@ export type RootReducerType = {
   games: IGame[];
   notification: INotificationState;
   cardItems: ICartItem[];
+  filter: IFilterState;
 };

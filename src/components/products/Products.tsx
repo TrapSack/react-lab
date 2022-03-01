@@ -14,7 +14,7 @@ export default function Products() {
     <>
       <div className="products">
         <SearchField />
-        {user.isAuth && (
+        {user.stuff && (
           <button
             className="products__add-item-btn"
             onClick={() => {

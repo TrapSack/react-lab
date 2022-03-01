@@ -233,4 +233,16 @@ export default webpackMockServer.add((app) => {
     });
     res.status(201).json("Success");
   });
+  app.get("/api/filter", (req, res) => {
+    const filter = {
+      genre: [] as string[],
+      age: [] as number[],
+    };
+    games.forEach((game) => {
+      if (!filter.genre.includes(game.genre)) filter.genre.push(game.genre);
+      if (!filter.age.includes(game.age)) filter.age.push(game.age);
+      return game;
+    });
+    res.json(filter);
+  });
 });
