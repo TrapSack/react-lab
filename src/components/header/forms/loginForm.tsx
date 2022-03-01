@@ -59,6 +59,7 @@ export default function loginForm(props: IFormProps) {
         value={tempUser.login}
         handleChange={handleChange}
         handleBlur={checkOnEmptyInput}
+        // error={error}
       />
       <FormOption
         type="password"

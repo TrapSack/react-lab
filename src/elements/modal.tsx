@@ -9,7 +9,7 @@ interface IModalProps {
   title?: string;
 }
 
-const portalDiv = document.getElementById("portal")!;
+const portalDiv = document.getElementById("portal");
 
 export default function Modal(props: IModalProps) {
   return ReactDOM.createPortal(

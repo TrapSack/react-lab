@@ -42,17 +42,14 @@ module.exports = {
     "react/react-in-jsx-scope": 0,
     "react/jsx-props-no-spreading": 0,
     "react/jsx-curly-newline": 0, // it conflicts with prettier
-    "react/jsx-no-bind":[false],
     "react/jsx-wrap-multilines": ["error", { arrow: true, return: true, declaration: true }],
     "react/function-component-definition": [2, { namedComponents: "function-declaration" }],
 
-    "prettier/prettier": [true,{
-      "ignoreDOMComponents":true,
-      "allowBind":true,
-    }],
+    "prettier/prettier": ["error"],
 
     "no-shadow": "off",
     "no-use-before-define": "off",
+    "no-param-reassign": 0,
     "require-await": "error",
     "spaced-comment": ["error", "always"],
     "unused-imports/no-unused-imports": "error",

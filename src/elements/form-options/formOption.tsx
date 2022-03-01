@@ -3,7 +3,7 @@ import { ChangeEvent } from "react";
 interface IFormOptionProps {
   value: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (event: ChangeEvent<HTMLInputElement>) => void;
   inputName: string;
   type: string;
   placeholder: string;
@@ -31,3 +31,8 @@ export default function FormOption(props: IFormOptionProps) {
     </>
   );
 }
+
+FormOption.defaultProps = {
+  error: "",
+  hint: "",
+};

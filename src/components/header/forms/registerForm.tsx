@@ -66,7 +66,7 @@ export default function RegisterForm() {
         setError={setError}
       />
       <ConfirmPasswordFormOption
-        value={tempUser.confirmPassword!}
+        value={tempUser.confirmPassword}
         handleChange={handleChange}
         error={error.confirmPasswordInputError}
         setError={setError}
