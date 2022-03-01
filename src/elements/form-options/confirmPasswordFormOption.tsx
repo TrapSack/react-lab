@@ -3,7 +3,6 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 interface IFormOptionProps {
   value: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  // eslint-disable-next-line react/require-default-props
   error?: string;
   passwordToConfirm: string;
   setError: Dispatch<
@@ -55,3 +54,7 @@ export default function ConfirmPasswordFormOption(props: IFormOptionProps) {
     </>
   );
 }
+
+ConfirmPasswordFormOption.defaultProps = {
+  error: "",
+};
