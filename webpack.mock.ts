@@ -59,10 +59,8 @@ export default webpackMockServer.add((app) => {
     const { item } = req.body;
     const resultGames = games.map((game) => {
       if (game.id === item.id) {
-        console.log("I will return item");
         return item;
       }
-      console.log(`I will work for ${game.name}`);
       return game;
     });
     fs.writeFileSync("./src/api/games.json", JSON.stringify(resultGames));

@@ -12,7 +12,7 @@ export default function Home() {
     <div className="home">
       <SearchField topProducts />
       <Platforms />
-      <GamesContainer />
+      <GamesContainer home={true} />
     </div>
   );
 }

@@ -35,7 +35,7 @@ export default function AddCardModal(props: {
       dispatch(
         addGame(
           cardData.name,
-          parseInt(cardData.price, 10),
+          cardData.price,
           cardData.age,
           cardData.genre,
           cardData.platforms,

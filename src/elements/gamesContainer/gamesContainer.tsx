@@ -7,8 +7,9 @@ import Loader from "../loader";
 
 const GameCard = lazy(() => import("@/elements/gamesContainer/gameCard"));
 
-export default function GamesContainer(): JSX.Element {
-  const games = useSelector((state:RootReducerType)=> state.games)
+export default function GamesContainer(props: { home: boolean }): JSX.Element {
+  const games = useSelector((state: RootReducerType) => state.games);
+  const gameContainerClass = `games-container${props.home ? "--home" : ""}`;
   const gameComponentArray = games.map((game) => (
     <GameCard
       key={game.id}
@@ -26,7 +27,7 @@ export default function GamesContainer(): JSX.Element {
   ));
   return (
     <React.Suspense fallback={<Loader />}>
-      <div className="games-container">{gameComponentArray}</div>
+      <div className={gameContainerClass}>{gameComponentArray}</div>
     </React.Suspense>
   );
 }

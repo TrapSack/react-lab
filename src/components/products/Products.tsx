@@ -26,7 +26,7 @@ export default function Products() {
         )}
         <div className="products__main">
           <SortField />
-          <GamesContainer />
+          <GamesContainer home={false} />
         </div>
       </div>
       <AddCardModal setShowModal={setShowModal} showModal={showModal} title="Add new game" />
