@@ -8,6 +8,7 @@ import Platforms from "./platformsContainer/platforms";
 export default function Home() {
   const dispatch = useDispatch();
   dispatch(getTopProducts());
+  console.log("render");
   return (
     <div className="home">
       <SearchField topProducts />
