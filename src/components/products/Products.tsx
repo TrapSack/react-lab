@@ -1,15 +1,15 @@
-// import GamesContainer from "@/elements/gamesContainer/gamesContainer";
-// import useLoader from "@/helpers/useLoader";
-// import { RootReducerType } from "@/redux/reducers/rootReducer";
-// import { useSelector } from "react-redux";
 import SearchField from "@/elements/searchField";
-import GamesContainer from "@/elements/gamesContainer/gamesContainer";
+// import React, { lazy } from "react";
+// import "./products.scss";
 // import Loader from "@/elements/loader";
-// import { lazy } from "react";
-import "./products.scss";
+// import useLoader from "@/helpers/useLoader";
+// import { useSelector } from "react-redux";
+// import { RootReducerType } from "@/redux/reducers/rootReducer";
+import GamesContainer from "@/elements/gamesContainer/gamesContainer";
 import SortField from "./sortField";
 
 // const GamesContainer = lazy(() => import("@/elements/gamesContainer/gamesContainer"));
+// const SortField = lazy(() => import("./sortField"));
 
 export default function Products() {
   // const games = useSelector((state: RootReducerType) => state.games);
@@ -18,9 +18,8 @@ export default function Products() {
     <div className="products">
       <SearchField />
       <div className="products__main">
-        <SortField />
-        {/* {loaderState ? <Loader /> : <GamesContainer />} */}
         {/* <React.Suspense fallback={<Loader />}> */}
+        <SortField />
         <GamesContainer />
         {/* </React.Suspense> */}
       </div>

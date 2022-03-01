@@ -172,7 +172,7 @@ export default webpackMockServer.add((app) => {
       });
       setTimeout(() => {
         res.json(resultArr);
-      }, 500);
+      }, 3000);
     }
   );
   app.get("/api/getCartItems/", (req, res) => {

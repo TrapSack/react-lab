@@ -4,7 +4,6 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 interface IFormOptionProps {
   value: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  // eslint-disable-next-line react/require-default-props
   error?: string;
   setError: Dispatch<
     SetStateAction<{
@@ -61,3 +60,7 @@ export default function LoginFormOption(props: IFormOptionProps) {
     </>
   );
 }
+
+LoginFormOption.defaultProps = {
+  error: "",
+};
