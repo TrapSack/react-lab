@@ -69,7 +69,6 @@ export default function loginForm(props: IFormProps) {
         error={error}
         handleBlur={checkOnEmptyInput}
       />
-      {/* {error} */}
       <button type="submit" className="form__submit">
         Login
       </button>

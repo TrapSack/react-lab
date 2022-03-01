@@ -10,7 +10,6 @@ const initialState = {
   stuff: true,
 };
 
-// eslint-disable-next-line
 export default function userReducer(state: IUserState = initialState, action: UserAction): IUserState {
   switch (action.type) {
     case IActionTypes.LOGIN:

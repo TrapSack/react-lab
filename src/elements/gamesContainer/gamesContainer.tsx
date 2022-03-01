@@ -1,8 +1,6 @@
 import React, { lazy } from "react";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useSelector } from "react-redux";
-// import NoMatchesParagraph from "../noMatchesParagraph";
-// import GameCard from "./gameCard";
 import Loader from "../loader";
 
 const GameCard = lazy(() => import("@/elements/gamesContainer/gameCard"));

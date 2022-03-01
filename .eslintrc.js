@@ -46,7 +46,10 @@ module.exports = {
     "react/jsx-wrap-multilines": ["error", { arrow: true, return: true, declaration: true }],
     "react/function-component-definition": [2, { namedComponents: "function-declaration" }],
 
-    "prettier/prettier": ["error"],
+    "prettier/prettier": [true,{
+      "ignoreDOMComponents":true,
+      "allowBind":true,
+    }],
 
     "no-shadow": "off",
     "no-use-before-define": "off",

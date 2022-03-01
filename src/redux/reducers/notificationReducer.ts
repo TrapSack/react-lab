@@ -5,7 +5,6 @@ const initialState: INotificationState = {
   type: "",
 };
 
-// eslint-disable-next-line default-param-last
 export default function notificationReducer(state: INotificationState = initialState, action: INotificationAction) {
   switch (action.type) {
     case NotificationTypes.CHANGE:
