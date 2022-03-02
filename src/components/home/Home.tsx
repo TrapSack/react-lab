@@ -1,55 +1,18 @@
 import "./home.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
-import { ChangeEvent, useEffect, useState } from "react";
-import { getTopProducts, searchGame } from "@/redux/actions/gamesActions";
-import Loader from "../../elements/loader";
-import debounce from "../../helpers/useDebounce";
+import SearchField from "@/elements/searchField";
+import GamesContainer from "@/elements/gamesContainer/gamesContainer";
+import { useDispatch } from "react-redux";
+import { getTopProducts } from "@/redux/actions/gamesActions";
 import Platforms from "./platformsContainer/platforms";
-import GamesContainer from "./gamesContainer/gamesContainer";
 
 export default function Home() {
-  const [searchState, setSearchState] = useState<string>("");
-  const [showLoader, setShowLoader] = useState<boolean>(false);
-  const gamesArr = useSelector((state: RootReducerType) => state.games.games);
   const dispatch = useDispatch();
-
-  function doSearchToApi() {
-    if (!searchState) {
-      dispatch(getTopProducts());
-      setShowLoader(false);
-    } else {
-      dispatch(searchGame(searchState));
-      setShowLoader(false);
-    }
-  }
-  function toggleChange(e: ChangeEvent<HTMLInputElement>) {
-    setShowLoader(true);
-    setSearchState(e.target.value);
-  }
-
-  const debouncedSearch = debounce(doSearchToApi, 300);
-
-  // useEffect(() => {
-  //   dispatch(getTopProducts());
-  // }, []);
-  useEffect(() => {
-    debouncedSearch();
-  }, [searchState]);
-
+  dispatch(getTopProducts());
   return (
     <div className="home">
-      <input
-        type="text"
-        name="search-game"
-        className="home__game-search"
-        placeholder="Search..."
-        onChange={toggleChange}
-        value={searchState}
-      />
-      {showLoader && <Loader />}
+      <SearchField topProducts />
       <Platforms />
-      {!showLoader && <GamesContainer gamesArr={gamesArr} />}
+      <GamesContainer />
     </div>
   );
 }

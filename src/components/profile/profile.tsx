@@ -3,8 +3,8 @@ import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useSelector } from "react-redux";
 import Modal from "@/elements/modal";
 import { useState } from "react";
-import PasswordChangeForm from "./forms/passwordChangeForm";
 import InfoChangeForm from "./forms/infoChangeForm";
+import PasswordChangeForm from "./forms/passwordChangeForm";
 
 export default function Profile() {
   const [isOpen, setIsOpen] = useState(false);

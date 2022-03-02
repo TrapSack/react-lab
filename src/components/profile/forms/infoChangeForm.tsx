@@ -18,6 +18,8 @@ export default function InfoChangeForm(props: { setIsOpen: Dispatch<SetStateActi
   }));
   const [error, setError] = useState({
     loginInputError: "",
+    passwordInputError: "",
+    confirmPasswordInputError: "",
     phoneInputError: "",
     adressInputError: "",
   });

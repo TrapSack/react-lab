@@ -1,16 +1,18 @@
-import { IActionTypes, IGamesAction, IGamesState } from "../types/gamesTypes";
+import { IActionTypes, IGame, IGamesAction } from "../types/gamesTypes";
 
-const initialState: IGamesState = {
-  games: [],
-};
+const initialState: IGame[] = [];
 
 // eslint-disable-next-line default-param-last
-export default function gamesReducer(state: IGamesState = initialState, action: IGamesAction): IGamesState {
+export default function gamesReducer(state: IGame[] = initialState, action: IGamesAction): IGame[] {
   switch (action.type) {
     case IActionTypes.GET_TOP_PRODUCTS:
-      return { games: action.payload };
+      return action.payload;
     case IActionTypes.SEARCH:
-      return { games: action.payload };
+      return action.payload;
+    case IActionTypes.GET_GAMES:
+      return action.payload;
+    case IActionTypes.CLEAR_GAMES:
+      return initialState;
     default:
       return state;
   }

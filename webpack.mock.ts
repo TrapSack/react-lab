@@ -9,10 +9,11 @@ interface IGame {
   name: string;
   price: number;
   rating: number;
-  genre: string;
   age: number;
+  genre: string;
   releaseDate: string;
   cover: string;
+  platforms: Array<string>;
   description: string;
 }
 
@@ -25,7 +26,9 @@ export default webpackMockServer.add((app) => {
       }
       return game;
     });
-    res.json(resultArr);
+    setTimeout(() => {
+      res.json(resultArr);
+    }, 1000);
   });
 
   app.get(`/api/getTopProducts`, (_req, res) => {
@@ -36,7 +39,9 @@ export default webpackMockServer.add((app) => {
       if (new Date(game1.releaseDate) === new Date(game2.releaseDate)) return 0;
       return 0;
     });
+    // setTimeout(() => {
     res.json(resultArr.slice(0, 3));
+    // }, 1000);
   });
 
   app.get(`/api/getUser/*`, (_req, res) => {
@@ -113,4 +118,52 @@ export default webpackMockServer.add((app) => {
     fs.writeFileSync("./src/api/users.json", JSON.stringify(resultUsers));
     res.status(200).json(true);
   });
+  app.get(
+    "/api/getGames/",
+    (
+      // eslint-disable-next-line default-param-last
+      req: { query: { platform?: string; genre?: string; age?: string; sortBy?: string; orderBy?: string } } = {
+        query: {
+          platform: "desktop",
+          genre: "",
+          age: "",
+          sortBy: "name",
+          orderBy: "ASC",
+        },
+      },
+      res
+    ) => {
+      let resultArr = [...games];
+      const { platform, genre, age, sortBy, orderBy } = req.query;
+      if (platform) resultArr = resultArr.filter((game) => game.platforms.includes(platform.toString()));
+      if (genre) resultArr = resultArr.filter((game) => game.genre === genre);
+      if (age) resultArr = resultArr.filter((game) => game.age === Number(age));
+      resultArr.sort((game1, game2) => {
+        switch (sortBy) {
+          case "name": {
+            if (game1.name.toLowerCase() > game2.name.toLowerCase()) return orderBy === "asc" ? 1 : -1;
+            if (game1.name.toLowerCase() < game2.name.toLowerCase()) return orderBy === "asc" ? -1 : 1;
+            if (game1.name.toLowerCase() === game2.name.toLowerCase()) return 0;
+            break;
+          }
+          case "price": {
+            if (game1.price > game2.price) return orderBy === "asc" ? 1 : -1;
+            if (game1.price < game2.price) return orderBy === "asc" ? -1 : 1;
+            if (game1.price === game2.price) return 0;
+            break;
+          }
+          case "rating": {
+            if (game1.rating > game2.rating) return orderBy === "asc" ? -1 : 1;
+            if (game1.rating < game2.rating) return orderBy === "asc" ? 1 : -1;
+            if (game1.rating === game2.rating) return 0;
+            break;
+          }
+          default:
+            break;
+        }
+        return 0;
+      });
+      res.json(resultArr);
+    }
+  );
 });

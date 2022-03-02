@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { IGamesState } from "../types/gamesTypes";
+import { IGame } from "../types/gamesTypes";
 import { INotificationState } from "../types/notificationTypes";
 import { IUserState } from "../types/types";
 import gamesReducer from "./gamesReducer";
@@ -15,6 +15,6 @@ export const rootReducer = combineReducers({
 
 export type RootReducerType = {
   user: IUserState;
-  games: IGamesState;
+  games: IGame[];
   notification: INotificationState;
 };

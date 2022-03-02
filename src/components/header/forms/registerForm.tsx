@@ -1,18 +1,10 @@
 /* eslint-disable react/jsx-no-bind */
 import { useDispatch } from "react-redux";
 import { registerUser } from "@/redux/actions/userActions";
-<<<<<<< HEAD
 import ConfirmPasswordFormOption from "@/elements/form-options/confirmPasswordFormOption";
 import LoginFormOption from "@/elements/form-options/loginFormOption";
 import PasswordFormOption from "@/elements/form-options/passwordFormOption";
 import AdressFormOption from "@/elements/form-options/adressFormOption";
-=======
-
-import ConfirmPasswordFormOption from "@/elements/confirmPasswordFormOption";
-import LoginFormOption from "@/elements/loginFormOption";
-import PasswordFormOption from "@/elements/passwordFormOption";
-
->>>>>>> aa79f219de96b92b69e1b5ec2b02459b297aec35
 import { ChangeEvent, FormEvent, useState } from "react";
 import PhoneFormOption from "@/elements/form-options/phoneFormOption";
 import { ITempUser } from "../interfaces";
@@ -72,7 +64,6 @@ export default function RegisterForm() {
         handleChange={handleChange}
         error={error.passwordInputError}
         setError={setError}
-
       />
       <ConfirmPasswordFormOption
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -83,18 +74,12 @@ export default function RegisterForm() {
         passwordToConfirm={tempUser.password}
       />
       <PhoneFormOption
-        type="text"
-        inputName="phone"
-        placeholder="Phone"
         setError={setError}
         handleChange={handleChange}
         value={tempUser.phone}
         error={error.phoneInputError}
       />
       <AdressFormOption
-        type="text"
-        inputName="adress"
-        placeholder="Adress"
         setError={setError}
         handleChange={handleChange}
         value={tempUser.adress}

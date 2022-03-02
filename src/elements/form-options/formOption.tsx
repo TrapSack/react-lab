@@ -3,14 +3,11 @@ import { ChangeEvent } from "react";
 interface IFormOptionProps {
   value: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  // eslint-disable-next-line react/require-default-props
   handleBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
   inputName: string;
   type: string;
   placeholder: string;
-  // eslint-disable-next-line react/require-default-props
   error?: string;
-  // eslint-disable-next-line react/require-default-props
   hint?: string;
 }
 
@@ -34,3 +31,9 @@ export default function FormOption(props: IFormOptionProps) {
     </>
   );
 }
+
+FormOption.defaultProps = {
+  error: "",
+  hint: "",
+  handleBlur: (): null => null,
+};

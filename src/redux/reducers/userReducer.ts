@@ -2,7 +2,7 @@ import { IUserState, UserAction, IActionTypes } from "../types/types";
 
 const initialState = {
   login: "",
-  isAuth: false,
+  isAuth: true,
   description: "",
   phone: "",
   adress: "",

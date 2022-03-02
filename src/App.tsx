@@ -1,4 +1,4 @@
-import { Component, ErrorInfo } from "react";
+import React, { Component, ErrorInfo, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { connect } from "react-redux";
 import Header from "./components/header/Header";
@@ -6,10 +6,12 @@ import Footer from "./components/footer/footer";
 import { about, home, products, profile } from "./helpers/links";
 import About from "./components/about/about";
 import Home from "./components/home/Home";
-import Products from "./components/products/Products";
+// import Products from "./components/products/Products";
 import Profile from "./components/profile/profile";
 import { IUserState } from "./redux/types/types";
 import NotificationComponent from "./elements/notification";
+
+const Products = lazy(() => import("@/components/products/Products"));
 
 interface IError {
   isError: boolean;
@@ -49,8 +51,19 @@ class App extends Component<{ user: IUserState }, IState> {
         <NotificationComponent />
         <Routes>
           <Route path={home} element={<Home />} />
-          <Route path={products} element={this.props.user.isAuth ? <Products /> : <Navigate to={home} />}>
-            <Route path=":platFormId" element={<Products />} />
+          <Route
+            path={products}
+            element={
+              this.props.user.isAuth ? (
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <Products />
+                </React.Suspense>
+              ) : (
+                <Navigate to={home} />
+              )
+            }
+          >
+            <Route path=":platformId" element={<Products />} />
           </Route>
           <Route path={about} element={this.props.user.isAuth ? <About /> : <Navigate to={home} />} />
           <Route path="*" element={<Home />} />

@@ -12,8 +12,11 @@ export default function PasswordChangeForm() {
   }));
 
   const [error, setError] = useState({
+    loginInputError: "",
     passwordInputError: "",
     confirmPasswordInputError: "",
+    phoneInputError: "",
+    adressInputError: "",
   });
 
   const dispatch = useDispatch();
