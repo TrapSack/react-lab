@@ -8,6 +8,7 @@ export interface ICartItem {
   orderDate: string;
   amount: number;
   price: number;
+  cover: string;
 }
 
 export interface IUpdateCartItemsAmount {
@@ -23,6 +24,7 @@ export enum IActionTypes {
   ADD_AMOUNT_TO_CART_ITEM = "CART_ITEM/ADD_AMOUNT",
   GET_CART_ITEMS = "CART_ITEM/GET",
   REMOVE_CART_ITEM = "CART_ITEM/REMOVE",
+  BUY_CART_ITEMS = "CART_ITEM/BUY",
   EMPTY_CART_ITEMS = "CART_ITEM/EMPTY",
 }
 
@@ -36,6 +38,7 @@ export type OrderAction =
   | IUpdateCartItemsAmount
   | IGetCartItemsAction
   | IRemoveCartItemAction
+  | IBuyCartItemsAction
   | IEmptyCartItemsAction;
 
 export interface IRemoveCartItemAction {
@@ -45,9 +48,13 @@ export interface IRemoveCartItemAction {
   };
 }
 
-export interface IEmptyCartItemsAction {
-  type: IActionTypes.EMPTY_CART_ITEMS;
+export interface IBuyCartItemsAction {
+  type: IActionTypes.BUY_CART_ITEMS;
   payload?: {
     error: string;
   };
+}
+
+export interface IEmptyCartItemsAction {
+  type: IActionTypes.EMPTY_CART_ITEMS;
 }

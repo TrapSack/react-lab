@@ -1,16 +1,30 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+import { emptyCartItems } from "@/redux/actions/cartItemsActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./cartItem";
 
 export default function CartItemsContainer() {
+  const dispatch = useDispatch();
   const cardItems = useSelector((state: RootReducerType) => state.cardItems);
-  const mappedcardItems = cardItems.map((order) => (
-    <CartItem name={order.name} date={order.orderDate} amount={order.amount} price={order.price} key={order.name} />
+  const mappedcardItems = cardItems.map((item) => (
+    <CartItem
+      name={item.name}
+      date={item.orderDate}
+      amount={item.amount}
+      price={item.price}
+      key={item.name}
+      cover={item.cover}
+    />
   ));
+  function handleClearCartClick() {
+    dispatch(emptyCartItems());
+  }
   return (
     <table className="cart-items-container">
       <tbody>
         <tr className="cart-items-container__row">
+          <th />
           <th>Name</th>
           <th>Platform</th>
           <th>Order Date</th>
@@ -18,7 +32,16 @@ export default function CartItemsContainer() {
           <th>Price($)</th>
         </tr>
         {mappedcardItems.length ? (
-          mappedcardItems
+          <>
+            {mappedcardItems}
+            <tr>
+              <td className="cart-items-container__clear-cart-row">
+                <button type="button" className="cart-items-container__clear-cart-btn" onClick={handleClearCartClick}>
+                  Clear cart
+                </button>
+              </td>
+            </tr>
+          </>
         ) : (
           <tr>
             <td>Nothing here yet!</td>

@@ -28,8 +28,10 @@ export default function cardItemsReducer(state: ICartItem[] = initialState, acti
       return action.payload;
     case IActionTypes.REMOVE_CART_ITEM:
       return state.filter((item) => item.name !== action.payload.name);
-    case IActionTypes.EMPTY_CART_ITEMS:
+    case IActionTypes.BUY_CART_ITEMS:
       if (action.payload) return state;
+      return [];
+    case IActionTypes.EMPTY_CART_ITEMS:
       return [];
     default:
       return state;
