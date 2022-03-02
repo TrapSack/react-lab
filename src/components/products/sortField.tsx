@@ -14,7 +14,8 @@ export default function SortField() {
     sortBy: "name",
     orderBy: "asc",
   }));
-
+  const genres = ["shooter", "racing", "sandbox", "fighting"];
+  const ages = [6, 12, 16, 18];
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
     setSortState((prev) => ({
@@ -22,7 +23,18 @@ export default function SortField() {
       [name]: value,
     }));
   }
-
+  const genreFilterComponents = genres.map((genre) => (
+    <label htmlFor={genre} className="sort-field__option" key={genre}>
+      {`${genre[0].toUpperCase()}${genre.slice(1)}`}
+      <input type="radio" name="genre" id={genre} value={genre} onChange={handleChange} />
+    </label>
+  ));
+  const ageFilterComponents = ages.map((age) => (
+    <label htmlFor={age.toString()} className="sort-field__option" key={age}>
+      {`${age}+`}
+      <input type="radio" name="age" id={age.toString()} value={age} onChange={handleChange} />
+    </label>
+  ));
   useEffect(() => {
     dispatch(clearGames());
     dispatch(getGames(sortState.platform, sortState.genre, sortState.age, sortState.sortBy, sortState.orderBy));
@@ -45,22 +57,7 @@ export default function SortField() {
           All
           <input type="radio" name="genre" id="all-genre" value="" onChange={handleChange} defaultChecked />
         </label>
-        <label htmlFor="shooter" className="sort-field__option">
-          Shooter
-          <input type="radio" name="genre" id="shooter" value="shooter" onChange={handleChange} />
-        </label>
-        <label htmlFor="racing" className="sort-field__option">
-          Racing
-          <input type="radio" name="genre" id="racing" value="racing" onChange={handleChange} />
-        </label>
-        <label htmlFor="sandbox" className="sort-field__option">
-          Sandbox
-          <input type="radio" name="genre" id="sandbox" value="sandbox" onChange={handleChange} />
-        </label>
-        <label htmlFor="fighting" className="sort-field__option">
-          Fighting
-          <input type="radio" name="genre" id="fighting" value="fighting" onChange={handleChange} />
-        </label>
+        {genreFilterComponents}
       </div>
 
       <div className="sort-field__column">
@@ -69,22 +66,7 @@ export default function SortField() {
           All
           <input type="radio" name="age" id="all-age" value="" onChange={handleChange} defaultChecked />
         </label>
-        <label htmlFor="6" className="sort-field__option">
-          6+
-          <input type="radio" name="age" id="6" value="6" onChange={handleChange} />
-        </label>
-        <label htmlFor="12" className="sort-field__option">
-          12+
-          <input type="radio" name="age" id="12" value="12" onChange={handleChange} />
-        </label>
-        <label htmlFor="16" className="sort-field__option">
-          16+
-          <input type="radio" name="age" id="16" value="16" onChange={handleChange} />
-        </label>
-        <label htmlFor="18" className="sort-field__option">
-          18+
-          <input type="radio" name="age" id="18" value="18" onChange={handleChange} />
-        </label>
+        {ageFilterComponents}
       </div>
       <div className="sort-field__column">
         <span className="sort-field__sort-type-title">Sort by:</span>
