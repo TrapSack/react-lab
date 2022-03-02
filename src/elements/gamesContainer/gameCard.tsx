@@ -19,7 +19,6 @@ export default function GameCard(props: IGame) {
   }
 
   function handleClickToCart() {
-    // change name changed
     if (user.isAuth) {
       if (!cardItems.some((order) => order.name === props.name)) {
         dispatch(addCartItem(props.name, props.platforms[0], props.price));
