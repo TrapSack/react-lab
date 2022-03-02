@@ -46,7 +46,6 @@ class App extends Component<{ user: IUserState }, IState> {
   render() {
     if (this.state.error.isError) return <div>Error</div>;
     return (
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
       <>
         <Header />
         <NotificationComponent />

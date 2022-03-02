@@ -50,6 +50,7 @@ export default function EditModal(props: IEditModalProps) {
       setError("All fields must be filled");
       return;
     }
+    setError("");
     if (error) {
       return;
     }

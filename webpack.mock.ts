@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-expressions */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
 import { ICartItem } from "@/redux/types/cartItemsTypes";
@@ -50,7 +52,6 @@ export default webpackMockServer.add((app) => {
   });
   app.post("/api/product", (req, res) => {
     const { item } = req.body;
-    console.log(item);
     games.push(item);
     fs.writeFileSync("./src/api/games.json", JSON.stringify(games));
     res.status(201).json(item);
@@ -198,16 +199,57 @@ export default webpackMockServer.add((app) => {
       });
       setTimeout(() => {
         res.json(resultArr);
-      }, 500);
+      }, 1000);
     }
   );
-  app.get("/api/getCartItems/", (req, res) => {
+  app.get("/api/cartItems/", (req, res) => {
     const { login } = req.query;
     let resultArr;
     users.forEach((user) => {
       if (user.login === login) resultArr = user.cartItems;
     });
     res.status(201).json(resultArr);
+  });
+  app.post("/api/addCartItem", (req, res) => {
+    const { login, itemName, itemPlatform, itemPrice, itemCover } = req.body;
+    const item = {
+      name: itemName,
+      amount: 1,
+      orderDate: new Date().toLocaleDateString("en-US"),
+      platform: itemPlatform,
+      price: itemPrice,
+      cover: itemCover,
+    };
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.cartItems.push(item);
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json(item);
+  });
+  app.post("/api/updateCartItemAmount", (req, res) => {
+    const { login, itemName, amount } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.cartItems.forEach((item) => {
+          if (item.name === itemName) {
+            if (amount) {
+              item.price = parseFloat(((item.price / item.amount) * amount).toFixed(2));
+              item.amount = amount;
+            } else {
+              item.price = parseFloat((item.price + item.price / item.amount).toFixed(2));
+              item.amount++;
+            }
+          }
+          return item;
+        });
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.status(200).end();
   });
   app.post("/api/updateCartItems/", (req, res) => {
     const { cartItems, login } = req.body;
@@ -232,5 +274,27 @@ export default webpackMockServer.add((app) => {
       return user;
     });
     res.status(201).json("Success");
+  });
+  app.delete("/api/cartItem", (req, res) => {
+    const { login, name } = req.query;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.cartItems = user.cartItems.filter((item) => item.name !== name);
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.status(201).end();
+  });
+  app.post("/api/clearCart", (req, res) => {
+    const { login } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.cartItems = [];
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.status(201).end();
   });
 });

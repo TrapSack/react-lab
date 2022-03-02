@@ -1,9 +1,9 @@
-import React, { lazy } from "react";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
+import React, { lazy } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../loader";
 
-const GameCard = lazy(() => import("@/elements/gamesContainer/gameCard"));
+const GameCard = lazy(() => import("./gameCard"));
 
 export default function GamesContainer(props: { home: boolean }): JSX.Element {
   const games = useSelector((state: RootReducerType) => state.games);

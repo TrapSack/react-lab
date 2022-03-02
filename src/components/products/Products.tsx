@@ -1,6 +1,6 @@
 import SearchField from "@/elements/searchField";
-import GamesContainer from "@/elements/gamesContainer/gamesContainer";
 import "./products.scss";
+import GamesContainer from "@/elements/gamesContainer/gamesContainer";
 import { useSelector } from "react-redux";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useState } from "react";

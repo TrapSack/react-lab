@@ -4,7 +4,7 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 interface IFormOptionProps {
   value: string;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  error: string;
+  error?: string;
   setError: Dispatch<
     SetStateAction<{
       loginInputError: string;
@@ -60,3 +60,7 @@ export default function LoginFormOption(props: IFormOptionProps) {
     </>
   );
 }
+
+LoginFormOption.defaultProps = {
+  error: "",
+};

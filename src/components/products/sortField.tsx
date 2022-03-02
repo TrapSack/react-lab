@@ -2,6 +2,7 @@ import { clearGames, getGames } from "@/redux/actions/gamesActions";
 import { useState, ChangeEvent, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import "./products.scss";
 
 export default function SortField() {
   const params = useParams<{ platformId?: string; "*": string }>();

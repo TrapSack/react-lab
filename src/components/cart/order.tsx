@@ -1,4 +1,4 @@
-import { emptyCartItems } from "@/redux/actions/cartItemsActions";
+import { buyCartItems } from "@/redux/actions/cartItemsActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { Dispatch, FormEvent, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,7 @@ export default function Order(props: { setShowModal: Dispatch<SetStateAction<boo
   const cartItems = useSelector((state: RootReducerType) => state.cardItems);
   function handleBuySubmit(e: FormEvent) {
     e.preventDefault();
-    if (cartItems.length) dispatch(emptyCartItems());
+    if (cartItems.length) dispatch(buyCartItems());
     props.setShowModal(false);
   }
   const buttonClass = `order-form__submit--${cartItems.length ? "active" : "inactive"}`;

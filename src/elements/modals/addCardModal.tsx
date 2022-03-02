@@ -15,7 +15,7 @@ export default function AddCardModal(props: {
   const [cardData, setCardData] = useState({
     name: "",
     genre: "",
-    price: 0,
+    price: "0",
     image: "",
     description: "",
     age: 6,
@@ -29,12 +29,14 @@ export default function AddCardModal(props: {
       cardData.genre === "" ||
       cardData.image === "" ||
       cardData.name === "" ||
-      cardData.platforms === [] ||
-      cardData.price === 0
+      cardData.platforms.length === 0 ||
+      cardData.price === "0"
     ) {
+      console.log(cardData);
       setError("All fields must be filled");
       return;
     }
+    setError("");
     if (error) {
       return;
     }
