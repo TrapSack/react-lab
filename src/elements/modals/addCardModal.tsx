@@ -15,7 +15,7 @@ export default function AddCardModal(props: {
   const [cardData, setCardData] = useState({
     name: "",
     genre: "",
-    price: 0,
+    price: "0",
     image: "",
     description: "",
     age: 6,
@@ -25,19 +25,23 @@ export default function AddCardModal(props: {
     e.preventDefault();
     if (
       cardData.age === 0 ||
+      !cardData.age.toString().trim() ||
       cardData.description === "" ||
+      !cardData.description.trim() ||
       cardData.genre === "" ||
+      !cardData.genre.trim() ||
       cardData.image === "" ||
+      !cardData.image.trim() ||
       cardData.name === "" ||
-      cardData.platforms === [] ||
-      cardData.price === 0
+      !cardData.name.trim() ||
+      cardData.platforms.length === 0 ||
+      cardData.price === "0" ||
+      !cardData.price.trim()
     ) {
       setError("All fields must be filled");
       return;
     }
-    if (error) {
-      return;
-    }
+    setError("");
     dispatch(
       addGame(
         cardData.name,

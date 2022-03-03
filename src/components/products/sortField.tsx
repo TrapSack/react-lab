@@ -1,9 +1,10 @@
 import getFilter from "@/redux/actions/filterActions";
 import { clearGames, getGames } from "@/redux/actions/gamesActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import "./products.scss";
 
 export default function SortField() {
   const params = useParams<{ platformId?: string; "*": string }>();
@@ -16,7 +17,6 @@ export default function SortField() {
     sortBy: "name",
     orderBy: "asc",
   }));
-
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
     setSortState((prev) => ({
@@ -24,18 +24,26 @@ export default function SortField() {
       [name]: value,
     }));
   }
-  const genreFilterComponents = filter.genre.map((genre) => (
-    <label htmlFor={genre} className="sort-field__option">
-      {`${genre[0].toUpperCase()}${genre.slice(1)}`}
-      <input type="radio" name="genre" id={genre} value={genre} onChange={handleChange} />
-    </label>
-  ));
-  const ageFilterComponents = filter.age.map((age) => (
-    <label htmlFor={age.toString()} className="sort-field__option">
-      {`${age}+`}
-      <input type="radio" name="age" id={age.toString()} value={age} onChange={handleChange} />
-    </label>
-  ));
+  const genreFilterComponents = useMemo(
+    () =>
+      filter.genre.map((genre) => (
+        <label htmlFor={genre} className="sort-field__option" key={genre}>
+          {`${genre[0].toUpperCase()}${genre.slice(1)}`}
+          <input type="radio" name="genre" id={genre} value={genre} onChange={handleChange} />
+        </label>
+      )),
+    [filter.genre]
+  );
+  const ageFilterComponents = useMemo(
+    () =>
+      filter.age.map((age) => (
+        <label htmlFor={age.toString()} className="sort-field__option" key={age.toString()}>
+          {`${age}+`}
+          <input type="radio" name="age" id={age.toString()} value={age} onChange={handleChange} />
+        </label>
+      )),
+    [filter.age]
+  );
   useEffect(() => {
     dispatch(clearGames());
     dispatch(getGames(sortState.platform, sortState.genre, sortState.age, sortState.sortBy, sortState.orderBy));

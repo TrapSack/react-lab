@@ -15,7 +15,7 @@ export default function PlatformLink(props: IPlatformLinkProps) {
   const dispatch = useDispatch();
   const user = useSelector((state: RootReducerType) => state.user);
   function checkAuth() {
-    if (!user.isAuth) dispatch(changeNotification("danger", "Please,login or register first!"));
+    if (!user.isAuth) dispatch(changeNotification("danger", "Please, login or register first"));
   }
   return (
     <Link to={`${products}/${props.link}`} className="platform-link" id={props.link} onClick={checkAuth}>

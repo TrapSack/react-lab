@@ -8,6 +8,7 @@ interface ICartItemProps {
   date: string;
   price: number;
   amount: number;
+  cover: string;
 }
 
 export default function CartItem(props: ICartItemProps) {
@@ -34,6 +35,7 @@ export default function CartItem(props: ICartItemProps) {
   }, [amount]);
   return (
     <tr className="cart-item card-items-container__row">
+      <img src={props.cover} alt="" width="40" />
       <td className="cart-item__name">{props.name}</td>
       <td>
         <select name="item-platform" id="" className="cart-item__platform" defaultValue="desktop">

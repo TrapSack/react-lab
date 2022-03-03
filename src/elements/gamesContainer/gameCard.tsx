@@ -25,10 +25,9 @@ export default function GameCard(props: IGame) {
   }
 
   function handleClickToCart() {
-    // change name changed
     if (user.isAuth) {
       if (!cardItems.some((order) => order.name === props.name)) {
-        dispatch(addCartItem(props.name, props.platforms[0], props.price));
+        dispatch(addCartItem(props.name, props.platforms[0], props.price, props.cover));
         dispatch(changeNotification("success", `${props.name} has been added to your cart`));
       } else {
         dispatch(updateCartItemAmount(props.name));
@@ -80,7 +79,7 @@ export default function GameCard(props: IGame) {
         <img src={props.cover} alt={props.name} className="game-card__cover" />
         <div className="game-card__info">
           <span className="game-card__title">{props.name}</span>
-          <span className="game-card__price">Price {props.price}$</span>
+          <span className="game-card__price">Price {props.price.toFixed(2)}$</span>
         </div>
         <div className="game-card__rating">
           <img
