@@ -8,6 +8,7 @@ import AdressFormOption from "@/elements/form-options/adressFormOption";
 import { ChangeEvent, FormEvent, useState } from "react";
 import PhoneFormOption from "@/elements/form-options/phoneFormOption";
 import { ITempUser } from "../interfaces";
+import header from "../header.module.scss";
 
 export default function RegisterForm() {
   const [error, setError] = useState({
@@ -52,7 +53,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="form form--register">
+    <form onSubmit={handleSubmit} className={`${header.form} ${header["form--register"]}`}>
       <LoginFormOption
         value={tempUser.login}
         handleChange={handleChange}
@@ -84,7 +85,7 @@ export default function RegisterForm() {
         value={tempUser.adress}
         error={error.adressInputError}
       />
-      <button type="submit" className="form__submit">
+      <button type="submit" className={header.form__submit}>
         Register
       </button>
     </form>

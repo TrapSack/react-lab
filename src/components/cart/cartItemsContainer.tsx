@@ -3,6 +3,7 @@ import { emptyCartItems } from "@/redux/actions/cartItemsActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import cart from "./cart.module.scss";
 import CartItem from "./cartItem";
 
 export default function CartItemsContainer() {
@@ -26,9 +27,9 @@ export default function CartItemsContainer() {
     dispatch(emptyCartItems());
   }
   return (
-    <table className="cart-items-container">
+    <table className={cart["cart-items-container"]}>
       <tbody>
-        <tr className="cart-items-container__row">
+        <tr className={cart["cart-items-container__row"]}>
           <th />
           <th>Name</th>
           <th>Platform</th>
@@ -40,8 +41,12 @@ export default function CartItemsContainer() {
           <>
             {mappedcardItems}
             <tr>
-              <td className="cart-items-container__clear-cart-row">
-                <button type="button" className="cart-items-container__clear-cart-btn" onClick={handleClearCartClick}>
+              <td className={cart["cart-items-container__clear-cart-row"]}>
+                <button
+                  type="button"
+                  className={cart["cart-items-container__clear-cart-btn"]}
+                  onClick={handleClearCartClick}
+                >
                   Clear cart
                 </button>
               </td>

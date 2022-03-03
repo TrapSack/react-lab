@@ -1,8 +1,9 @@
 import PlatformLink from "./platformLink";
+import home from "../home.module.scss";
 
 export default function Platforms() {
   return (
-    <div className="home__platforms">
+    <div className={home.home__platforms}>
       <PlatformLink
         cover="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1280px-PlayStation_logo.svg.png"
         title="Playstation 5"

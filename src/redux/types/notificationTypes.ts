@@ -3,7 +3,7 @@ export interface INotificationState {
   text: string;
 }
 
-export enum NotificationTypes {
+export const enum NotificationTypes {
   CHANGE = "NOTIFICATION/change",
 }
 

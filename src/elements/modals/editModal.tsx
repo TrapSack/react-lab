@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import FormOption from "../form-options/formOption";
 import ConfirmDeletionModal from "./confirmDeletionModal";
 import Modal from "./modal";
+import elementStyles from "../elementStyles.module.scss";
 
 interface IEditModalProps {
   showModal: boolean;
@@ -125,9 +126,9 @@ export default function EditModal(props: IEditModalProps) {
   return (
     <>
       <Modal open={props.showModal} setIsOpen={props.setShowModal} title={props.title}>
-        <form className="add-edit-form" onSubmit={handleSubmitChangeCard}>
-          <img src={cardData.image} alt="" className="add-edit-form__cover" />
-          <div className="add-edit-form__option-container">
+        <form className={elementStyles["add-edit-form"]} onSubmit={handleSubmitChangeCard}>
+          <img src={cardData.image} alt="" className={elementStyles["add-edit-form__cover"]} />
+          <div className={elementStyles["add-edit-form__option-container"]}>
             <FormOption
               type="text"
               inputName="name"
@@ -163,9 +164,9 @@ export default function EditModal(props: IEditModalProps) {
               handleChange={handleChangeCardDataState}
               value={cardData.description}
             />
-            <label htmlFor="age" className="add-edit-form__select">
+            <label htmlFor={elementStyles.age} className={elementStyles["add-edit-form__select"]}>
               Age
-              <select name="age" id="age" defaultValue={props.age} onChange={handleCartAgeChange}>
+              <select name="age" id={elementStyles.age} defaultValue={props.age} onChange={handleCartAgeChange}>
                 <option value="6">6+</option>
                 <option value="12">12+</option>
                 <option value="16">16+</option>
@@ -173,42 +174,42 @@ export default function EditModal(props: IEditModalProps) {
               </select>
             </label>
             <span>Platform</span>
-            <label htmlFor="Desktop" className="add-edit-form__checkbox">
+            <label htmlFor={elementStyles.Desktop} className={elementStyles["add-edit-form__checkbox"]}>
               Desktop
               <input
                 type="checkbox"
-                id="Desktop"
+                id={elementStyles.Desktop}
                 name="desktop"
                 defaultChecked={cardData.platforms.some((platform) => platform === "desktop")}
                 onChange={handleCardPlatformsChange}
               />
             </label>
-            <label htmlFor="PS5" className="add-edit-form__checkbox">
+            <label htmlFor={elementStyles.PS5} className={elementStyles["add-edit-form__checkbox"]}>
               PS5
               <input
                 type="checkbox"
-                id="PS5"
+                id={elementStyles.PS5}
                 name="playstation"
                 onChange={handleCardPlatformsChange}
                 defaultChecked={cardData.platforms.some((platform) => platform === "playstation")}
               />
             </label>
-            <label htmlFor="Xbox" className="add-edit-form__checkbox">
+            <label htmlFor={elementStyles.Xbox} className={elementStyles["add-edit-form__checkbox"]}>
               Xbox
               <input
                 type="checkbox"
-                id="Xbox"
+                id={elementStyles.Xbox}
                 name="xbox"
                 onChange={handleCardPlatformsChange}
                 defaultChecked={cardData.platforms.some((platform) => platform === "xbox")}
               />
             </label>
-            {error && <span className="form__input-error">{error}</span>}
-            <div className="add-edit-form__btn-container">
-              <button type="submit" className="add-edit-form__btn">
+            {error && <span className={elementStyles["form__input-error"]}>{error}</span>}
+            <div className={elementStyles["add-edit-form__btn-container"]}>
+              <button type="submit" className={elementStyles["add-edit-form__btn"]}>
                 Submit
               </button>
-              <button type="button" className="add-edit-form__btn" onClick={handleRemoveCardClick}>
+              <button type="button" className={elementStyles["add-edit-form__btn"]} onClick={handleRemoveCardClick}>
                 Delete card
               </button>
             </div>

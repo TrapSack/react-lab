@@ -6,6 +6,7 @@ import { saveProfile } from "@/redux/actions/userActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import profile from "../profile.module.scss";
 
 export default function InfoChangeForm(props: { setIsOpen: Dispatch<SetStateAction<boolean>> }) {
   const user = useSelector((state: RootReducerType) => state.user);
@@ -52,7 +53,7 @@ export default function InfoChangeForm(props: { setIsOpen: Dispatch<SetStateActi
     props.setIsOpen(false);
   }
   return (
-    <form className="profile__info-change-form" onSubmit={handleSubmit}>
+    <form className={profile["profile__info-change-form"]} onSubmit={handleSubmit}>
       <LoginFormOption
         value={userData.login}
         // eslint-disable-next-line react/jsx-no-bind
@@ -100,7 +101,7 @@ export default function InfoChangeForm(props: { setIsOpen: Dispatch<SetStateActi
         }}
         name="photo"
       />
-      <button className="profile__info-change-submit" type="submit">
+      <button className={profile["profile__info-change-submit"]} type="submit">
         Change credetials
       </button>
     </form>

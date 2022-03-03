@@ -19,7 +19,7 @@ export interface IUpdateCartItemsAmount {
   };
 }
 
-export enum IActionTypes {
+export const enum IActionTypes {
   ADD_CART_ITEM = "CART_ITEM/ADD",
   ADD_AMOUNT_TO_CART_ITEM = "CART_ITEM/ADD_AMOUNT",
   GET_CART_ITEMS = "CART_ITEM/GET",

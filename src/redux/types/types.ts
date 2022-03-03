@@ -11,7 +11,7 @@ export interface IUserState {
   stuff: boolean;
 }
 
-export enum IActionTypes {
+export const enum IActionTypes {
   LOGIN = "USER/LOGIN",
   REGISTER = "USER/REGISTER",
   LOGOUT = "USER/LOGOUT",

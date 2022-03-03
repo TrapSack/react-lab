@@ -2,6 +2,7 @@ import { removeCartItem, updateCartItemAmount } from "@/redux/actions/cartItemsA
 import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import debounce from "../../helpers/useDebounce";
+import cart from "./cart.module.scss";
 
 interface ICartItemProps {
   name: string;
@@ -34,22 +35,28 @@ export default function CartItem(props: ICartItemProps) {
     debouncedChangeAmount();
   }, [amount]);
   return (
-    <tr className="cart-item card-items-container__row">
+    <tr className={`${cart["cart-item"]} ${cart["card-items-container__row"]}`}>
       <img src={props.cover} alt="" width="40" />
-      <td className="cart-item__name">{props.name}</td>
+      <td className={cart["cart-item__name"]}>{props.name}</td>
       <td>
-        <select name="item-platform" id="" className="cart-item__platform" defaultValue="desktop">
+        <select name="item-platform" id="" className={cart["cart-item__platform"]} defaultValue="desktop">
           <option value="desktop">PC</option>
           <option value="playstation">PS5</option>
         </select>
       </td>
-      <td className="cart-item__order-date">{props.date}</td>
+      <td className={cart["cart-item__order-date"]}>{props.date}</td>
       <td>
-        <input type="text" name="amount" value={amount} className="cart-item__amount" onChange={handleAmountChange} />
+        <input
+          type="text"
+          name="amount"
+          value={amount}
+          className={cart["cart-item__amount"]}
+          onChange={handleAmountChange}
+        />
       </td>
-      <td className="cart-item__price">{props.price}</td>
+      <td className={cart["cart-item__price"]}>{props.price}</td>
       <td>
-        <button type="button" className="cart-item__remove" onClick={handleRemoveClick}>
+        <button type="button" className={cart["cart-item__remove"]} onClick={handleRemoveClick}>
           &times;
         </button>
       </td>

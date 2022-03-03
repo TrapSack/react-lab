@@ -11,7 +11,7 @@ export interface IGame {
   description: string;
 }
 
-export enum IActionTypes {
+export const enum IActionTypes {
   GET_TOP_PRODUCTS = "GAMES/GETTOPPRODUCTS",
   SEARCH = "GAMES/SEARCH",
   GET_GAMES = "GAMES/GET",
@@ -63,5 +63,5 @@ export interface IRemoveGame {
 
 export interface IUpdateGame {
   type: IActionTypes.UPDATE_GAME;
-  payload: IGame
+  payload: IGame;
 }

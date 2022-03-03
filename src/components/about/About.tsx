@@ -1,5 +1,5 @@
-import "./about.scss";
+import about from "./about.module.scss";
 
 export default function About() {
-  return <div className="about">About Page</div>;
+  return <div className={about.about}>About Page</div>;
 }

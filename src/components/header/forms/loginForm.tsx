@@ -5,6 +5,7 @@ import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import header from "../header.module.scss";
 
 interface IFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -51,7 +52,7 @@ export default function LoginForm(props: IFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="form form--login">
+    <form onSubmit={handleSubmit} className={`${header.form} ${header["form--login"]}`}>
       <FormOption
         type="text"
         placeholder="Login"
@@ -70,7 +71,7 @@ export default function LoginForm(props: IFormProps) {
         error={error}
         handleBlur={checkOnEmptyInput}
       />
-      <button type="submit" className="form__submit">
+      <button type="submit" className={header.form__submit}>
         Login
       </button>
     </form>

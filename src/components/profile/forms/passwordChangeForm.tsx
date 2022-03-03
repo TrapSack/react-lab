@@ -4,6 +4,7 @@ import { changePassword } from "@/redux/actions/userActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import profile from "../profile.module.scss";
 
 export default function PasswordChangeForm() {
   const [userData, setuserData] = useState(() => ({
@@ -42,7 +43,7 @@ export default function PasswordChangeForm() {
     }
   }
   return (
-    <form className="profile__password-change-form" onSubmit={handleSubmit}>
+    <form className={profile["profile__password-change-form"]} onSubmit={handleSubmit}>
       <PasswordFormOption
         // eslint-disable-next-line react/jsx-no-bind
         handleChange={handleChange}
@@ -58,7 +59,7 @@ export default function PasswordChangeForm() {
         setError={setError}
         passwordToConfirm={userData.password}
       />
-      <button type="submit" className="profile__password-change-confirm">
+      <button type="submit" className={profile["profile__password-change-confirm"]}>
         Change Password
       </button>
     </form>

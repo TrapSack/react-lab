@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import elementStyles from "../elementStyles.module.scss";
 
 interface IFormOptionProps {
   value: string;
@@ -38,13 +39,13 @@ export default function LoginFormOption(props: IFormOptionProps) {
   }
   return (
     <>
-      <label htmlFor="login" className="form__option">
+      <label htmlFor="login" className={elementStyles.form__option}>
         Login
         <input
           type="text"
           placeholder="Login"
           name="login"
-          className="form__input"
+          className={elementStyles.form__input}
           value={props.value}
           onChange={(e) => {
             checkOnEmptyInput(e);
@@ -56,7 +57,7 @@ export default function LoginFormOption(props: IFormOptionProps) {
           }}
         />
       </label>
-      {props.error && <span className="form__input-error">{props.error}</span>}
+      {props.error && <span className={elementStyles["form__input-error"]}>{props.error}</span>}
     </>
   );
 }

@@ -4,6 +4,7 @@ import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { products } from "../../../helpers/links";
+import home from "../home.module.scss";
 
 interface IPlatformLinkProps {
   cover: string;
@@ -18,9 +19,9 @@ export default function PlatformLink(props: IPlatformLinkProps) {
     if (!user.isAuth) dispatch(changeNotification("danger", "Please, login or register first"));
   }
   return (
-    <Link to={`${products}/${props.link}`} className="platform-link" id={props.link} onClick={checkAuth}>
-      <img src={props.cover} alt={props.link} className="platform-link__logo" />
-      <div className="platform-link__title">{props.title}</div>
+    <Link to={`${products}/${props.link}`} className={home["platform-link"]} id={props.link} onClick={checkAuth}>
+      <img src={props.cover} alt={props.link} className={home["platform-link__logo"]} />
+      <div className={home["platform-link__title"]}>{props.title}</div>
     </Link>
   );
 }

@@ -4,20 +4,20 @@ import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { IGame } from "@/redux/types/gamesTypes";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "../elementStyles.scss";
+import elementStyles from "../elementStyles.module.scss";
 import EditModal from "../modals/editModal";
 
 export default function GameCard(props: IGame) {
-  const [descriptionShow, setDescriptionShow] = useState<string>(() => "game-card__description");
+  const [descriptionShow, setDescriptionShow] = useState<string>(() => elementStyles["game-card__description"]);
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state: RootReducerType) => state.user);
   const cardItems = useSelector((state: RootReducerType) => state.cardItems);
   function setShowDescription() {
-    setDescriptionShow("game-card__description active");
+    setDescriptionShow(`${elementStyles["game-card__description"]} ${elementStyles.active}`);
   }
   function setHideDescription() {
-    setDescriptionShow("game-card__description");
+    setDescriptionShow(`${elementStyles["game-card__description"]}`);
   }
 
   function handleShowModalClick() {
@@ -39,15 +39,15 @@ export default function GameCard(props: IGame) {
   }
   return (
     <>
-      <div className="game-card" onMouseEnter={setShowDescription} onMouseLeave={setHideDescription}>
-        <div className="game-card__platforms">
+      <div className={elementStyles["game-card"]} onMouseEnter={setShowDescription} onMouseLeave={setHideDescription}>
+        <div className={elementStyles["game-card__platforms"]}>
           {props.platforms.map((platform) => {
             switch (platform) {
               case "playstation":
                 return (
                   <img
                     key={platform}
-                    className="game-card__platform"
+                    className={elementStyles["game-card__platform"]}
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/PlayStation_logo.svg/1280px-PlayStation_logo.svg.png"
                     alt="playstation"
                   />
@@ -56,7 +56,7 @@ export default function GameCard(props: IGame) {
                 return (
                   <img
                     key={platform}
-                    className="game-card__platform"
+                    className={elementStyles["game-card__platform"]}
                     src="https://www.freepnglogos.com/uploads/xbox-logo-black-png-7.png"
                     alt="xbox"
                   />
@@ -65,7 +65,7 @@ export default function GameCard(props: IGame) {
                 return (
                   <img
                     key={platform}
-                    className="game-card__platform"
+                    className={elementStyles["game-card__platform"]}
                     src="https://icon-library.com/images/desktop-icon-png/desktop-icon-png-23.jpg"
                     alt="desktop"
                   />
@@ -76,23 +76,27 @@ export default function GameCard(props: IGame) {
             }
           })}
         </div>
-        <img src={props.cover} alt={props.name} className="game-card__cover" />
-        <div className="game-card__info">
-          <span className="game-card__title">{props.name}</span>
-          <span className="game-card__price">Price {props.price.toFixed(2)}$</span>
+        <img src={props.cover} alt={props.name} className={elementStyles["game-card__cover"]} />
+        <div className={elementStyles["game-card__info"]}>
+          <span className={elementStyles["game-card__title"]}>{props.name}</span>
+          <span className={elementStyles["game-card__price"]}>Price {props.price.toFixed(2)}$</span>
         </div>
-        <div className="game-card__rating">
+        <div className={elementStyles["game-card__rating"]}>
           <img
             src="https://www.pngplay.com/wp-content/uploads/8/5-Stars-PNG-HD-Quality.png"
             alt=""
-            className="game-card__stars"
+            className={elementStyles["game-card__stars"]}
           />
           {user.stuff && (
-            <button type="button" className="game-card__add-to-cart-btn" onClick={handleShowModalClick}>
+            <button
+              type="button"
+              className={elementStyles["game-card__add-to-cart-btn"]}
+              onClick={handleShowModalClick}
+            >
               edit
             </button>
           )}
-          <button type="button" className="game-card__add-to-cart-btn" onClick={handleClickToCart}>
+          <button type="button" className={elementStyles["game-card__add-to-cart-btn"]} onClick={handleClickToCart}>
             BUY
           </button>
         </div>

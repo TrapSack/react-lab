@@ -2,6 +2,7 @@ import Modal from "@/elements/modals/modal";
 import { ReactNode, useState } from "react";
 import LoginForm from "../forms/loginForm";
 import RegisterForm from "../forms/registerForm";
+import header from "../header.module.scss";
 
 interface IModalConent {
   content: ReactNode;
@@ -30,10 +31,14 @@ export default function AuthorizationLinks() {
   }
   return (
     <>
-      <button type="button" className="navbar__link navbar__link--btn" onClick={setLoginModal}>
+      <button type="button" className={`${header.navbar__link} ${header["navbar__link--btn"]}`} onClick={setLoginModal}>
         Login
       </button>
-      <button type="button" className="navbar__link navbar__link--btn" onClick={setRegisterModal}>
+      <button
+        type="button"
+        className={`${header.navbar__link} ${header["navbar__link--btn"]}`}
+        onClick={setRegisterModal}
+      >
         Register
       </button>
       <Modal setIsOpen={setIsModalOpen} open={isModalOpen} title={modal.title}>

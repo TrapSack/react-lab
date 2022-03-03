@@ -2,8 +2,8 @@ import Modal from "@/elements/modals/modal";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import "./cart.scss";
 import CartItemsContainer from "./cartItemsContainer";
+import cart from "./cart.module.scss";
 import Order from "./order";
 
 export default function Cart() {
@@ -14,14 +14,14 @@ export default function Cart() {
     [cartItems]
   );
   return (
-    <div className="cart">
+    <div className={cart.cart}>
       <h2>Cart page</h2>
       <div>
         <CartItemsContainer />
-        <span className="cart__total-cost">Total cost: {totalCost}$</span>
+        <span className={cart["cart__total-cost"]}>Total cost: {totalCost}$</span>
         <button
           type="button"
-          className="cart__buy-btn"
+          className={cart["cart__buy-btn"]}
           onClick={() => {
             setShowModal(true);
           }}

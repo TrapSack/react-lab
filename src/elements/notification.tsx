@@ -1,6 +1,7 @@
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import elementStyles from "./elementStyles.module.scss";
 
 export default function NotificationComponent() {
   const notification = useSelector((state: RootReducerType) => state.notification);
@@ -13,12 +14,12 @@ export default function NotificationComponent() {
       }, 3000);
     }
   }, [notification]);
-  const classList = `notification ${
-    notification.type === "success" ? "notification--success" : "notification--danger"
+  const classList = `${elementStyles.notification} ${
+    notification.type === "success" ? elementStyles["notification--success"] : elementStyles["notification--danger"]
   }`;
   return show ? (
     <div className={classList}>
-      <p className="notification__text">{notification.text}</p>
+      <p className={elementStyles.notification__text}>{notification.text}</p>
     </div>
   ) : null;
 }

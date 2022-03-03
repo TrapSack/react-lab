@@ -2,6 +2,7 @@ import { getTopProducts, searchGame } from "@/redux/actions/gamesActions";
 import { ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 import debounce from "../helpers/useDebounce";
+import elementStyles from "./elementStyles.module.scss";
 
 // eslint-disable-next-line react/require-default-props
 export default function SearchField(props: { topProducts?: boolean }) {
@@ -22,7 +23,7 @@ export default function SearchField(props: { topProducts?: boolean }) {
     <input
       type="text"
       name="search-game"
-      className="home__game-search"
+      className={elementStyles["game-search"]}
       placeholder="Search..."
       onChange={toggleChange}
     />

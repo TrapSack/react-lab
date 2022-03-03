@@ -273,7 +273,6 @@ export default webpackMockServer.add((app) => {
     });
     res.status(201).json("Success");
   });
-<<<<<<< HEAD
   app.get("/api/filter", (req, res) => {
     const filter = {
       genre: [] as string[],
@@ -285,7 +284,7 @@ export default webpackMockServer.add((app) => {
       return game;
     });
     res.json(filter);
-=======
+  });
   app.delete("/api/cartItem", (req, res) => {
     const { login, name } = req.query;
     users.forEach((user) => {
@@ -307,6 +306,5 @@ export default webpackMockServer.add((app) => {
     });
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
     res.status(201).end();
->>>>>>> d4eb7b69e9b5dd1862a4e7c111fc2d470350e41a
   });
 });

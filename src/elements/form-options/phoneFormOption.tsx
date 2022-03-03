@@ -1,5 +1,6 @@
 import { validatePhone } from "@/helpers/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import elementStyles from "../elementStyles.module.scss";
 
 interface IFormOptionProps {
   value: string;
@@ -39,13 +40,13 @@ export default function PhoneFormOption(props: IFormOptionProps) {
   }
   return (
     <>
-      <label htmlFor="login" className="form__option">
+      <label htmlFor="login" className={elementStyles.form__option}>
         Phone
         <input
           type="text"
-          placeholder="phone"
+          placeholder="Phone"
           name="phone"
-          className="form__input"
+          className={elementStyles.form__input}
           value={props.value}
           onChange={(e) => {
             checkOnEmptyInput(e);
@@ -57,8 +58,8 @@ export default function PhoneFormOption(props: IFormOptionProps) {
           }}
         />
       </label>
-      <span className="form__hint">Ex. +375441234567</span>
-      {props.error && <span className="form__input-error">{props.error}</span>}
+      <span className={elementStyles.form__hint}>Ex. +375441234567</span>
+      {props.error && <span className={elementStyles["form__input-error"]}>{props.error}</span>}
     </>
   );
 }

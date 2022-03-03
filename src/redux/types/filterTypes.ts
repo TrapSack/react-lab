@@ -3,7 +3,7 @@ export interface IFilterState {
   age: number[];
 }
 
-export enum IActionTypes {
+export const enum IActionTypes {
   GET_FILTER = "FILTER/GET",
   ADD_GENRE = "FILTER/ADD_GENRE",
 }

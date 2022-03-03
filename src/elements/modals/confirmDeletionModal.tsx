@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import Modal from "./modal";
+import elementStyles from "../elementStyles.module.scss";
 
 interface IConfirmDeletionModalProps {
   showModal: boolean;
@@ -7,18 +8,18 @@ interface IConfirmDeletionModalProps {
   setConfirm: Dispatch<SetStateAction<boolean>>;
   game: string;
 }
-
+console.log(elementStyles);
 export default function ConfirmDeletionModal(props: IConfirmDeletionModalProps) {
   return (
     <Modal open={props.showModal} setIsOpen={props.setShowModal} title={`Are you sure want to delete ${props.game}`}>
-      <div className="confirm-deletion-form">
+      <div className={elementStyles["confirm-deletion-form"]}>
         <button
           onClick={() => {
             props.setShowModal(false);
             props.setConfirm(true);
           }}
           type="button"
-          className="confirm-deletion-form__button confirm-deletion-form__button--yes"
+          className={`${elementStyles["confirm-deletion-form__button"]} ${["confirm-deletion-form__button--yes"]}`}
         >
           Yes
         </button>
@@ -28,7 +29,7 @@ export default function ConfirmDeletionModal(props: IConfirmDeletionModalProps) 
             props.setShowModal(false);
             props.setConfirm(false);
           }}
-          className="confirm-deletion-form__button confirm-deletion-form__button--no"
+          className={`${elementStyles["confirm-deletion-form__button"]} ${["confirm-deletion-form__button--no"]}`}
         >
           No
         </button>

@@ -1,22 +1,22 @@
 import SearchField from "@/elements/searchField";
-import "./products.scss";
 import GamesContainer from "@/elements/gamesContainer/gamesContainer";
 import { useSelector } from "react-redux";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useState } from "react";
 import AddCardModal from "@/elements/modals/addCardModal";
 import SortField from "./sortField";
+import products from "./products.module.scss";
 
 export default function Products() {
   const user = useSelector((state: RootReducerType) => state.user);
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <div className="products">
+      <div className={products.products}>
         <SearchField />
         {user.stuff && (
           <button
-            className="products__add-item-btn"
+            className={products["products__add-item-btn"]}
             onClick={() => {
               setShowModal(true);
             }}
@@ -25,7 +25,7 @@ export default function Products() {
             Add product
           </button>
         )}
-        <div className="products__main">
+        <div className={products.products__main}>
           <SortField />
           <GamesContainer home={false} />
         </div>

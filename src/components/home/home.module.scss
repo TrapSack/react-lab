@@ -3,18 +3,6 @@
   flex-direction: column;
   align-items: center;
 
-  &__game-search {
-    margin-top: 100px;
-    height: 50px;
-    padding: 5px;
-    width: 60%;
-    font-size: 20px;
-    background: rgb(34, 34, 34);
-    color: $footerTextColor;
-    border: 2px solid rgb(131, 131, 131);
-    border-radius: 20px;
-  }
-
 
   &__platforms {
     display: flex;
