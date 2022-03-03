@@ -1,6 +1,11 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-unused-expressions */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import webpackMockServer from "webpack-mock-server";
+import { ICartItem } from "@/redux/types/cartItemsTypes";
 import fs from "fs";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import express from "express";
 import games from "./src/api/games.json";
 import users from "./src/api/users.json";
 
@@ -18,6 +23,8 @@ interface IGame {
 }
 
 export default webpackMockServer.add((app) => {
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
   app.get(`/api/search/*`, (_req, res) => {
     const resultArr: IGame[] = [];
     games.forEach((game: IGame) => {
@@ -60,6 +67,7 @@ export default webpackMockServer.add((app) => {
             phone: user.phone,
             adress: user.adress,
             photo: user.photo,
+            cartItems: user.cartItems,
           };
         }
       }
@@ -70,7 +78,6 @@ export default webpackMockServer.add((app) => {
 
   app.post("/api/postUser/", (req, res) => {
     const { userName, userPass, userPhone, userAdress } = req.body;
-    console.log(req.body);
     const newUser = {
       login: userName,
       password: userPass,
@@ -78,6 +85,7 @@ export default webpackMockServer.add((app) => {
       phone: userPhone,
       adress: userAdress,
       photo: "https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg",
+      cartItems: [] as ICartItem[],
     };
     console.log(newUser);
     users.push(newUser);
@@ -86,7 +94,7 @@ export default webpackMockServer.add((app) => {
   });
 
   app.post("/api/saveUser/", (req, res) => {
-    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto } = req.body;
+    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto, usercartItems } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
         return {
@@ -96,6 +104,7 @@ export default webpackMockServer.add((app) => {
           phone: userPhone,
           adress: userAdress,
           photo: userPhoto,
+          cartItems: usercartItems,
         };
       }
       return user;
@@ -166,4 +175,99 @@ export default webpackMockServer.add((app) => {
       res.json(resultArr);
     }
   );
+  app.get("/api/cartItems/", (req, res) => {
+    const { login } = req.query;
+    let resultArr;
+    users.forEach((user) => {
+      if (user.login === login) resultArr = user.cartItems;
+    });
+    res.status(201).json(resultArr);
+  });
+  app.post("/api/addCartItem", (req, res) => {
+    const { login, itemName, itemPlatform, itemPrice, itemCover } = req.body;
+    const item = {
+      name: itemName,
+      amount: 1,
+      orderDate: new Date().toLocaleDateString("en-US"),
+      platform: itemPlatform,
+      price: itemPrice,
+      cover: itemCover,
+    };
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.cartItems.push(item);
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.json(item);
+  });
+  app.post("/api/updateCartItemAmount", (req, res) => {
+    const { login, itemName, amount } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.cartItems.forEach((item) => {
+          if (item.name === itemName) {
+            if (amount) {
+              item.price = parseFloat(((item.price / item.amount) * amount).toFixed(2));
+              item.amount = amount;
+            } else {
+              item.price = parseFloat((item.price + item.price / item.amount).toFixed(2));
+              item.amount++;
+            }
+          }
+          return item;
+        });
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.status(200).end();
+  });
+  app.post("/api/updateCartItems/", (req, res) => {
+    const { cartItems, login } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        // eslint-disable-next-line no-param-reassign
+        user.cartItems = cartItems;
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.status(201).end();
+  });
+  app.post("/api/buyCartItems", (req, res) => {
+    const { cartItems, login } = req.body;
+    console.log(cartItems);
+    users.forEach((user) => {
+      if (user.login === login) {
+        // eslint-disable-next-line no-param-reassign
+        user.cartItems = [];
+      }
+      return user;
+    });
+    res.status(201).json("Success");
+  });
+  app.delete("/api/cartItem", (req, res) => {
+    const { login, name } = req.query;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.cartItems = user.cartItems.filter((item) => item.name !== name);
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.status(201).end();
+  });
+  app.post("/api/clearCart", (req, res) => {
+    const { login } = req.body;
+    users.forEach((user) => {
+      if (user.login === login) {
+        user.cartItems = [];
+      }
+      return user;
+    });
+    fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
+    res.status(201).end();
+  });
 });

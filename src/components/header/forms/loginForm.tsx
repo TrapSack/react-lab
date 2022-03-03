@@ -11,7 +11,7 @@ interface IFormProps {
   redirectPath?: string;
 }
 // move to one component
-export default function loginForm(props: IFormProps) {
+export default function LoginForm(props: IFormProps) {
   const [tempUser, setTempUser] = useState(() => ({
     login: "",
     password: "",
@@ -76,3 +76,7 @@ export default function loginForm(props: IFormProps) {
     </form>
   );
 }
+
+LoginForm.defaultProps = {
+  redirectPath: "",
+};

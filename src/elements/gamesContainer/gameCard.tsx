@@ -1,10 +1,16 @@
+import changeNotification from "@/redux/actions/notificationActions";
+import { addCartItem, updateCartItemAmount } from "@/redux/actions/cartItemsActions";
+import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { IGame } from "@/redux/types/gamesTypes";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "../elementStyles.scss";
 
 export default function GameCard(props: IGame) {
   const [descriptionShow, setDescriptionShow] = useState<string>(() => "game-card__description");
-
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootReducerType) => state.user);
+  const cardItems = useSelector((state: RootReducerType) => state.cardItems);
   function setShowDescription() {
     setDescriptionShow("game-card__description active");
   }
@@ -12,6 +18,19 @@ export default function GameCard(props: IGame) {
     setDescriptionShow("game-card__description");
   }
 
+  function handleClickToCart() {
+    if (user.isAuth) {
+      if (!cardItems.some((order) => order.name === props.name)) {
+        dispatch(addCartItem(props.name, props.platforms[0], props.price, props.cover));
+        dispatch(changeNotification("success", `${props.name} has been added to your cart`));
+      } else {
+        dispatch(updateCartItemAmount(props.name));
+        dispatch(changeNotification("success", `You have added 1 more game to ${props.name}`));
+      }
+    } else {
+      dispatch(changeNotification("danger", "please, Login or register first"));
+    }
+  }
   return (
     <div className="game-card" onMouseEnter={setShowDescription} onMouseLeave={setHideDescription}>
       <div className="game-card__platforms">
@@ -61,7 +80,7 @@ export default function GameCard(props: IGame) {
           alt=""
           className="game-card__stars"
         />
-        <button type="button" className="game-card__add-to-cart-btn">
+        <button type="button" className="game-card__add-to-cart-btn" onClick={handleClickToCart}>
           BUY
         </button>
       </div>

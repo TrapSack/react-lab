@@ -1,20 +1,24 @@
 import axios from "axios";
-import { IChangeNotificationAction } from "../types/notificationTypes";
-import { IActionTypes, IErrorAction, ILoginAction, ILogoutAction } from "../types/types";
+import { Dispatch } from "redux";
+import { IActionTypes, ILogoutAction } from "../types/types";
 import changeNotification from "./notificationActions";
+import { getCartItems } from "./cartItemsActions";
+import { store } from "../store";
 
 export function logOut(): ILogoutAction {
+  axios.post("/api/updateCartItems/", { cartItems: store.getState().cardItems, login: store.getState().user.login });
   return {
     type: IActionTypes.LOGOUT,
   };
 }
 
 export function asyncLogIn(login: string, password: string) {
-  return async (dispatch: (arg0: IChangeNotificationAction | ILoginAction | IErrorAction) => void) => {
+  return async (dispatch: Dispatch) => {
     try {
       const data = await axios.post(`api/authorizeUser/`, { userName: login, userPass: password });
       const parsedData = await data.data;
       if (parsedData) {
+        dispatch(getCartItems(login));
         dispatch(changeNotification("success", "You successfully logged in"));
         dispatch({
           type: IActionTypes.LOGIN,
@@ -38,22 +42,8 @@ export function saveProfile(
   userAdress: string,
   userPhoto: string | ArrayBuffer | null
 ) {
-  return async (
-    dispatch: (
-      arg0:
-        | {
-            type: IActionTypes;
-            payload: {
-              login: string;
-              description: string;
-              phone: string;
-              adress: string;
-              photo: string | ArrayBuffer | null;
-            };
-          }
-        | IChangeNotificationAction
-    ) => void
-  ) => {
+  console.log(userPhoto);
+  return async (dispatch: Dispatch) => {
     const response = await axios.post(`/api/saveUser/`, {
       userNamePrev,
       userNameNew,
@@ -62,8 +52,10 @@ export function saveProfile(
       userAdress,
       userPhoto,
     });
+    const { status } = response;
     const parsedResponse: boolean = await response.data;
-    dispatch(changeNotification("success", "Successfully changed information"));
+    if (status === 413) dispatch(changeNotification("danger", "Your photo is too large!"));
+    else dispatch(changeNotification("success", "Successfully changed information"));
     if (parsedResponse) {
       dispatch({
         type: IActionTypes.UPDATEINFO,
@@ -80,7 +72,7 @@ export function saveProfile(
 }
 
 export function changePassword(login: string, newPassword: string) {
-  return async (dispatch: (arg0: { type: IActionTypes } | IChangeNotificationAction) => void) => {
+  return async (dispatch: Dispatch) => {
     await axios.post(`/api/changePassword/`, { userName: login, newPassword });
     dispatch(changeNotification("success", "Password has been changed"));
     dispatch({
@@ -90,7 +82,7 @@ export function changePassword(login: string, newPassword: string) {
 }
 
 export function registerUser(login: string, password: string, phone: string, adress: string) {
-  return async (dispatch: (arg0: { type: IActionTypes; payload: unknown } | IChangeNotificationAction) => void) => {
+  return async (dispatch: Dispatch) => {
     const data = await axios.post("/api/postUser", {
       userName: login,
       userPass: password,
@@ -98,7 +90,7 @@ export function registerUser(login: string, password: string, phone: string, adr
       userAdress: adress,
     });
     const parsedData = data.data;
-    console.log(parsedData);
+    dispatch(getCartItems(login));
     dispatch(changeNotification("success", "Registration successfull"));
     dispatch({
       type: IActionTypes.REGISTER,

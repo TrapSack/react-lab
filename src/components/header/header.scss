@@ -33,7 +33,9 @@
     align-items: center;
     justify-content: center;
     height: 60px;
-    width: 100px;
+    // width: 100px;
+    max-width: 100%;
+    padding: 0 15px;
     color: white;
     text-decoration: none;
     font-size: 17px;
@@ -53,11 +55,6 @@
       border: none;
     }
   }
-  &__profile-avatar {
-    background: none;
-    border-radius: 50px;
-    height: 80%;
-  }
 
   &__dropdown {
     // position: absolute;
@@ -76,6 +73,13 @@
     height: 15px;
     transition: all 0.7s ease-out;
     pointer-events: none;
+  }
+  &__cart-icon {
+    width: 25px;
+    filter: invert(1);
+  }
+  &__total-cart-items {
+    font-weight: bold;
   }
 }
 
