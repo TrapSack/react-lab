@@ -25,21 +25,23 @@ export default function AddCardModal(props: {
     e.preventDefault();
     if (
       cardData.age === 0 ||
+      !cardData.age.toString().trim() ||
       cardData.description === "" ||
+      !cardData.description.trim() ||
       cardData.genre === "" ||
+      !cardData.genre.trim() ||
       cardData.image === "" ||
+      !cardData.image.trim() ||
       cardData.name === "" ||
+      !cardData.name.trim() ||
       cardData.platforms.length === 0 ||
-      cardData.price === "0"
+      cardData.price === "0" ||
+      !cardData.price.trim()
     ) {
-      console.log(cardData);
       setError("All fields must be filled");
       return;
     }
     setError("");
-    if (error) {
-      return;
-    }
     dispatch(
       addGame(
         cardData.name,

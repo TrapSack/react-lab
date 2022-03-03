@@ -32,7 +32,7 @@ export default function ProfileLinks() {
           alt="cart"
           className="navbar__cart-icon"
         />
-        <span className="navbar__total-cart-items">{total}</span>
+        <span className="navbar__total-cart-items">{total > 0 && total}</span>
       </NavLink>
       <button type="button" className="navbar__link navbar__link--btn" onClick={handleClick}>
         LogOut

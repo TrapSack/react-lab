@@ -39,13 +39,26 @@ export default function EditModal(props: IEditModalProps) {
   function handleSubmitChangeCard(e: FormEvent) {
     e.preventDefault();
     if (
-      cardData.age === props.age &&
-      cardData.description === props.description &&
-      cardData.genre === props.genre &&
-      cardData.image === props.image &&
-      cardData.name === props.name &&
-      cardData.platforms === props.platforms &&
-      cardData.price === props.price
+      (cardData.age === props.age &&
+        cardData.description === props.description &&
+        cardData.genre === props.genre &&
+        cardData.image === props.image &&
+        cardData.name === props.name &&
+        cardData.platforms === props.platforms &&
+        cardData.price === props.price) ||
+      cardData.age === 0 ||
+      !cardData.age.toString().trim() ||
+      cardData.description === "" ||
+      !cardData.description.trim() ||
+      cardData.genre === "" ||
+      !cardData.genre.trim() ||
+      cardData.image === "" ||
+      !cardData.image.trim() ||
+      cardData.name === "" ||
+      !cardData.name.trim() ||
+      cardData.platforms.length === 0 ||
+      cardData.price === 0 ||
+      !cardData.price.toString().trim()
     ) {
       setError("All fields must be filled");
       return;
