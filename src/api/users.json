@@ -1,12 +1,1 @@
-[
-  {
-    "login": "admin",
-    "password": "admin",
-    "description": "No description",
-    "phone": "+375441234567",
-    "adress": "19 wd Kriulina Str.",
-    "photo": "https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg",
-    "cartItems": [],
-    "stuff": true
-  }
-]
+[{"login":"admin","password":"admin","description":"No description","phone":"+375441234567","adress":"19 wd Kriulina Str.","photo":"https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg","cartItems":[],"stuff":true}]

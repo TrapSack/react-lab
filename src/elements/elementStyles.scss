@@ -101,12 +101,12 @@
   flex-direction: column;
   position: relative;
   border-radius: 20px;
-  height: 380px;
-  width: 230px;
+  // height: 400px;
+  padding-bottom: 10px;
+  width: 250px;
   margin: 20px 20px;
   background: $headerColor;
   box-shadow: 0 0 30px 5px $brightgreen;
-
   &__info {
     color: white;
     display: flex;
@@ -125,7 +125,7 @@
   }
 
   &__cover {
-    height: 75%;
+    height: 310px;
     object-fit: cover;
     width: 100%;
     border-radius: 20px 20px 0 0;
@@ -178,9 +178,10 @@
     visibility: hidden;
     width: 100%;
     text-align: center;
-    height: 75%;
+    height: 310px;
     background: $cardDescriptionBackground;
     overflow-y: auto;
+    z-index: 1000;
     // transition-property: "display";
     &::-webkit-scrollbar {
       display: none;
