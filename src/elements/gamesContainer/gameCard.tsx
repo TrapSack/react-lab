@@ -77,6 +77,7 @@ export default function GameCard(props: IGame) {
           })}
         </div>
         <div className={elementStyles["game-card__image-description-container"]}>
+          <div className={descriptionShow}>{props.description}</div>
           <img src={props.cover} alt={props.name} className={elementStyles["game-card__cover"]} />
         </div>
         <div className={elementStyles["game-card__info"]}>
