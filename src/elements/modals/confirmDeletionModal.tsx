@@ -8,7 +8,6 @@ interface IConfirmDeletionModalProps {
   setConfirm: Dispatch<SetStateAction<boolean>>;
   game: string;
 }
-console.log(elementStyles);
 export default function ConfirmDeletionModal(props: IConfirmDeletionModalProps) {
   return (
     <Modal open={props.showModal} setIsOpen={props.setShowModal} title={`Are you sure want to delete ${props.game}`}>
@@ -19,7 +18,7 @@ export default function ConfirmDeletionModal(props: IConfirmDeletionModalProps) 
             props.setConfirm(true);
           }}
           type="button"
-          className={`${elementStyles["confirm-deletion-form__button"]} ${["confirm-deletion-form__button--yes"]}`}
+          className={`${elementStyles["confirm-deletion-form__button"]} ${elementStyles["confirm-deletion-form__button--yes"]}`}
         >
           Yes
         </button>
@@ -29,7 +28,7 @@ export default function ConfirmDeletionModal(props: IConfirmDeletionModalProps) 
             props.setShowModal(false);
             props.setConfirm(false);
           }}
-          className={`${elementStyles["confirm-deletion-form__button"]} ${["confirm-deletion-form__button--no"]}`}
+          className={`${elementStyles["confirm-deletion-form__button"]} ${elementStyles["confirm-deletion-form__button--no"]}`}
         >
           No
         </button>

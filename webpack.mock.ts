@@ -251,7 +251,6 @@ export default webpackMockServer.add((app) => {
     const { cartItems, login } = req.body;
     users.forEach((user) => {
       if (user.login === login) {
-        // eslint-disable-next-line no-param-reassign
         user.cartItems = cartItems;
       }
       return user;
@@ -264,7 +263,6 @@ export default webpackMockServer.add((app) => {
     console.log(cartItems);
     users.forEach((user) => {
       if (user.login === login) {
-        // eslint-disable-next-line no-param-reassign
         user.cartItems = [];
       }
       return user;
@@ -277,7 +275,7 @@ export default webpackMockServer.add((app) => {
       age: [] as number[],
     };
     games.forEach((game) => {
-      if (!filter.genre.includes(game.genre)) filter.genre.push(game.genre);
+      if (!filter.genre.includes(game.genre.toLowerCase())) filter.genre.push(game.genre.toLowerCase());
       if (!filter.age.includes(game.age)) filter.age.push(game.age);
       return game;
     });
