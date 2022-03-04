@@ -1,9 +1,9 @@
-import getFilter from "@/redux/actions/filterActions";
-import { clearGames, getGames } from "@/redux/actions/gamesActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useState, ChangeEvent, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import getFilter from "../../redux/actions/filterActions";
+import { clearGames, getGames } from "../../redux/actions/gamesActions";
+import { RootReducerType } from "../../redux/reducers/rootReducer";
 import products from "./products.module.scss";
 
 export default function SortField() {

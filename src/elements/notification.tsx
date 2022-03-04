@@ -1,7 +1,7 @@
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import elementStyles from "./elementStyles.module.scss";
+import { RootReducerType } from "../redux/reducers/rootReducer";
 
 export default function NotificationComponent() {
   const notification = useSelector((state: RootReducerType) => state.notification);

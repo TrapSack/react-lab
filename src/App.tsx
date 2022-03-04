@@ -12,7 +12,7 @@ import { IUserState } from "./redux/types/types";
 import NotificationComponent from "./elements/notification";
 // import Cart from "./components/cart/cart";
 
-const Products = lazy(() => import("@/components/products/Products"));
+const Products = lazy(() => import("./components/products/Products"));
 const About = lazy(() => import("./components/about/About"));
 const Profile = lazy(() => import("./components/profile/profile"));
 const Cart = lazy(() => import("./components/cart/cart"));

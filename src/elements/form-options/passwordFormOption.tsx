@@ -1,6 +1,6 @@
-import { valiDatePassword } from "@/components/header/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import elementStyles from "../elementStyles.module.scss";
+import { valiDatePassword } from "../../components/header/validators";
 
 interface IFormOptionProps {
   value: string;

@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-bind */
-import changeNotification from "@/redux/actions/notificationActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import changeNotification from "../../../redux/actions/notificationActions";
+import { RootReducerType } from "../../../redux/reducers/rootReducer";
 import { products } from "../../../helpers/links";
 import home from "../home.module.scss";
 

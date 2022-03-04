@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-no-bind */
-import FormOption from "@/elements/form-options/formOption";
-import { asyncLogIn } from "@/redux/actions/userActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { asyncLogIn } from "../../../redux/actions/userActions";
+import { RootReducerType } from "../../../redux/reducers/rootReducer";
+import FormOption from "../../../elements/form-options/formOption";
 import header from "../header.module.scss";
+import { getCartItems } from "../../../redux/actions/cartItemsActions";
 
 interface IFormProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,6 +28,7 @@ export default function LoginForm(props: IFormProps) {
 
     if (tempUser.login && tempUser.password) {
       dispatch(asyncLogIn(tempUser.login, tempUser.password));
+      dispatch(getCartItems(tempUser.login));
     }
   }
 

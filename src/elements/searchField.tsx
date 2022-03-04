@@ -1,6 +1,6 @@
-import { getTopProducts, searchGame } from "@/redux/actions/gamesActions";
 import { ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
+import { getTopProducts, searchGame } from "../redux/actions/gamesActions";
 import debounce from "../helpers/useDebounce";
 import elementStyles from "./elementStyles.module.scss";
 

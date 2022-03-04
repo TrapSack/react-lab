@@ -1,9 +1,9 @@
-import { cart, home, profile } from "@/helpers/links";
-import { logOut } from "@/redux/actions/userActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
-import { IUserState } from "@/redux/types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { cart, home, profile } from "../../../helpers/links";
+import { logOut } from "../../../redux/actions/userActions";
+import { RootReducerType } from "../../../redux/reducers/rootReducer";
+import { IUserState } from "../../../redux/types/types";
 import header from "../header.module.scss";
 
 export default function ProfileLinks() {

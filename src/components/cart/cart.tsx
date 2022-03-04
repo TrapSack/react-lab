@@ -1,7 +1,7 @@
-import Modal from "@/elements/modals/modal";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import Modal from "../../elements/modals/modal";
+import { RootReducerType } from "../../redux/reducers/rootReducer";
 import CartItemsContainer from "./cartItemsContainer";
 import cart from "./cart.module.scss";
 import Order from "./order";

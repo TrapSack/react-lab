@@ -1,6 +1,6 @@
-import { validateAdress } from "@/helpers/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import elementStyles from "../elementStyles.module.scss";
+import { validateAdress } from "../../helpers/validators";
 
 interface IFormOptionProps {
   value: string;

@@ -1,12 +1,13 @@
 /* eslint-disable react/jsx-no-bind */
 import { useDispatch } from "react-redux";
-import { registerUser } from "@/redux/actions/userActions";
-import ConfirmPasswordFormOption from "@/elements/form-options/confirmPasswordFormOption";
-import LoginFormOption from "@/elements/form-options/loginFormOption";
-import PasswordFormOption from "@/elements/form-options/passwordFormOption";
-import AdressFormOption from "@/elements/form-options/adressFormOption";
 import { ChangeEvent, FormEvent, useState } from "react";
-import PhoneFormOption from "@/elements/form-options/phoneFormOption";
+import { registerUser } from "../../../redux/actions/userActions";
+import ConfirmPasswordFormOption from "../../../elements/form-options/confirmPasswordFormOption";
+import LoginFormOption from "../../../elements/form-options/loginFormOption";
+import PasswordFormOption from "../../../elements/form-options/passwordFormOption";
+import PhoneFormOption from "../../../elements/form-options/phoneFormOption";
+import AdressFormOption from "../../../elements/form-options/adressFormOption";
+import { getCartItems } from "../../../redux/actions/cartItemsActions";
 import { ITempUser } from "../interfaces";
 import header from "../header.module.scss";
 
@@ -32,6 +33,7 @@ export default function RegisterForm() {
     const hasNoErrors = Object.values(error).every((err) => err === "");
     if (hasNoErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
       dispatch(registerUser(tempUser.login, tempUser.password, tempUser.phone, tempUser.adress));
+      dispatch(getCartItems(tempUser.login));
     }
     setError((prev) => ({
       loginInputError: tempUser.login ? prev.loginInputError : "Login is required",

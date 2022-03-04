@@ -1,6 +1,6 @@
-import Modal from "@/elements/modals/modal";
 import { ReactNode, useState } from "react";
 import LoginForm from "../forms/loginForm";
+import Modal from "../../../elements/modals/modal";
 import RegisterForm from "../forms/registerForm";
 import header from "../header.module.scss";
 

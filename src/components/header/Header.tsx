@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { IUserState } from "@/redux/types/types";
+import { IUserState } from "../../redux/types/types";
 import header from "./header.module.scss";
 import AuthorizationLinks from "./navbar/authorizationLinks";
 import NavLinks from "./navbar/navbar";

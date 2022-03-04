@@ -1,6 +1,6 @@
-import { validatePhone } from "@/helpers/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import elementStyles from "../elementStyles.module.scss";
+import { validatePhone } from "../../helpers/validators";
 
 interface IFormOptionProps {
   value: string;

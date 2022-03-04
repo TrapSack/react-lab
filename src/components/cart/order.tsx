@@ -1,7 +1,7 @@
-import { buyCartItems } from "@/redux/actions/cartItemsActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { Dispatch, FormEvent, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { buyCartItems } from "../../redux/actions/cartItemsActions";
+import { RootReducerType } from "../../redux/reducers/rootReducer";
 import cart from "./cart.module.scss";
 
 export default function Order(props: { setShowModal: Dispatch<SetStateAction<boolean>>; total: number }) {

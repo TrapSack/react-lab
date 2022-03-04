@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-no-bind */
-import Modal from "@/elements/modals/modal";
-import { IUserState } from "@/redux/types/types";
 import { BaseSyntheticEvent, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { products, about, home } from "../../../helpers/links";
+import { IUserState } from "../../../redux/types/types";
+import Modal from "../../../elements/modals/modal";
 import LoginForm from "../forms/loginForm";
 import header from "../header.module.scss";
 
