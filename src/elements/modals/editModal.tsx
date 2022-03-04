@@ -64,10 +64,12 @@ export default function EditModal(props: IEditModalProps) {
       setError("All fields must be filled");
       return;
     }
-    setError("");
-    if (error) {
+    if (!/^\d+\.?\d*$/gm.test(cardData.price.toString())) {
+      setError("Please, input correct price");
       return;
     }
+    setError("");
+
     dispatch(
       updateGame(
         props.id,

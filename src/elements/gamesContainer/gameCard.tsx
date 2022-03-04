@@ -76,7 +76,9 @@ export default function GameCard(props: IGame) {
             }
           })}
         </div>
-        <img src={props.cover} alt={props.name} className={elementStyles["game-card__cover"]} />
+        <div className={elementStyles["game-card__image-description-container"]}>
+          <img src={props.cover} alt={props.name} className={elementStyles["game-card__cover"]} />
+        </div>
         <div className={elementStyles["game-card__info"]}>
           <span className={elementStyles["game-card__title"]}>{props.name}</span>
           <span className={elementStyles["game-card__price"]}>Price {props.price.toFixed(2)}$</span>
@@ -100,7 +102,6 @@ export default function GameCard(props: IGame) {
             BUY
           </button>
         </div>
-        <div className={descriptionShow}>{props.description}</div>
       </div>
       <EditModal
         showModal={showModal}

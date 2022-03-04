@@ -13,7 +13,7 @@ export default function AddCardModal(props: {
 }) {
   const dispatch = useDispatch();
   const [error, setError] = useState("");
-  const [cardData, setCardData] = useState({
+  const [cardData, setCardData] = useState(() => ({
     name: "",
     genre: "",
     price: "0",
@@ -21,7 +21,7 @@ export default function AddCardModal(props: {
     description: "",
     age: 6,
     platforms: [],
-  });
+  }));
   function handleSubmitChangeCard(e: FormEvent) {
     e.preventDefault();
     if (
@@ -42,7 +42,12 @@ export default function AddCardModal(props: {
       setError("All fields must be filled");
       return;
     }
+    if (!/^\d+\.?\d*$/gm.test(cardData.price)) {
+      setError("Please, input correct price");
+      return;
+    }
     setError("");
+
     dispatch(
       addGame(
         cardData.name,
@@ -54,6 +59,15 @@ export default function AddCardModal(props: {
         cardData.description
       )
     );
+    setCardData({
+      name: "",
+      genre: "",
+      price: "0",
+      image: "",
+      description: "",
+      age: 6,
+      platforms: [],
+    });
     props.setShowModal(false);
   }
   function handleChangeCardDataState(e: ChangeEvent<HTMLInputElement>) {

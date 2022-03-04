@@ -33,9 +33,7 @@ export default webpackMockServer.add((app) => {
       }
       return game;
     });
-    setTimeout(() => {
-      res.json(resultArr);
-    }, 1000);
+    res.json(resultArr);
   });
 
   app.get(`/api/getTopProducts`, (_req, res) => {

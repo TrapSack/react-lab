@@ -2,7 +2,7 @@ import React, { Component, ErrorInfo, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { connect } from "react-redux";
 import Header from "./components/header/Header";
-import Footer from "./components/footer/footer";
+import Footer from "./components/footer/Footer";
 import { about, cart, home, products, profile } from "./helpers/links";
 // import About from "./components/about/about";
 import Home from "./components/home/Home";
@@ -13,7 +13,7 @@ import NotificationComponent from "./elements/notification";
 // import Cart from "./components/cart/cart";
 
 const Products = lazy(() => import("@/components/products/Products"));
-const About = lazy(() => import("./components/about/about"));
+const About = lazy(() => import("./components/about/About"));
 const Profile = lazy(() => import("./components/profile/profile"));
 const Cart = lazy(() => import("./components/cart/cart"));
 
