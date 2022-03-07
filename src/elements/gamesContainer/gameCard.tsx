@@ -113,7 +113,7 @@ export default function GameCard(props: IGame) {
         genre={props.genre}
         image={props.cover}
         platforms={props.platforms}
-        price={props.price}
+        price={props.price.toString()}
       />
     </>
   );

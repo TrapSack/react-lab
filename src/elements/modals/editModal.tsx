@@ -14,7 +14,7 @@ interface IEditModalProps {
   name: string;
   genre: string;
   rating: number;
-  price: number;
+  price: string;
   image: string;
   description: string;
   releaseDate: string;
@@ -46,24 +46,24 @@ export default function EditModal(props: IEditModalProps) {
         cardData.name === props.name &&
         cardData.platforms === props.platforms &&
         cardData.price === props.price) ||
-      cardData.age === 0 ||
+      !cardData.age ||
       !cardData.age.toString().trim() ||
-      cardData.description === "" ||
+      !cardData.description ||
       !cardData.description.trim() ||
-      cardData.genre === "" ||
+      !cardData.genre ||
       !cardData.genre.trim() ||
-      cardData.image === "" ||
+      !cardData.image ||
       !cardData.image.trim() ||
-      cardData.name === "" ||
+      !cardData.name ||
       !cardData.name.trim() ||
-      cardData.platforms.length === 0 ||
-      cardData.price === 0 ||
+      !cardData.platforms.length ||
+      cardData.price === "0" ||
       !cardData.price.toString().trim()
     ) {
       setError("All fields must be filled");
       return;
     }
-    if (!/^\d+\.?\d*$/gm.test(cardData.price.toString())) {
+    if (!/^\d+\.?\d*$/gm.test(cardData.price) || parseInt(parseInt(cardData.price, 10).toFixed(0), 10) === 0) {
       setError("Please, input correct price");
       return;
     }
