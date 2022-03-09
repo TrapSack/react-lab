@@ -5,13 +5,15 @@ import Loader from "../loader";
 
 const GameCard = lazy(() => import("./gameCard"));
 
-export default function GamesContainer(): JSX.Element {
-  // const [gameComponentArray, setGameComponentArray] = useState([]);
-  const gameComponentArray = useSelector((state: RootReducerType) => state.games).map((game) => (
+export default function GamesContainer(props: { home: boolean }): JSX.Element {
+  const games = useSelector((state: RootReducerType) => state.games);
+  const gameContainerClass = `games-container${props.home ? "--home" : ""}`;
+  const gameComponentArray = games.map((game) => (
     <GameCard
       key={game.id}
       id={game.id}
       name={game.name}
+      genre={game.genre}
       rating={game.rating}
       price={game.price}
       cover={game.cover}
@@ -21,10 +23,9 @@ export default function GamesContainer(): JSX.Element {
       age={game.age}
     />
   ));
-  // return <div className="games-container">{gameComponentArray.length ? gameComponentArray : null}</div>;
   return (
-    <div className="games-container">
-      <React.Suspense fallback={<Loader />}>{gameComponentArray}</React.Suspense>
-    </div>
+    <React.Suspense fallback={<Loader />}>
+      <div className={gameContainerClass}>{gameComponentArray}</div>
+    </React.Suspense>
   );
 }

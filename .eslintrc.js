@@ -49,6 +49,7 @@ module.exports = {
 
     "no-shadow": "off",
     "no-use-before-define": "off",
+    "no-param-reassign": 0,
     "require-await": "error",
     "spaced-comment": ["error", "always"],
     "unused-imports/no-unused-imports": "error",

@@ -13,7 +13,7 @@ export default function SearchField(props: { topProducts?: boolean }) {
       dispatch(searchGame(search));
     }
   }
-  const debouncedSearch = debounce(doSearchToApi, 500);
+  const debouncedSearch = debounce(doSearchToApi, 300);
 
   function toggleChange(e: ChangeEvent<HTMLInputElement>) {
     debouncedSearch(e.target.value);
@@ -25,7 +25,6 @@ export default function SearchField(props: { topProducts?: boolean }) {
       className="home__game-search"
       placeholder="Search..."
       onChange={toggleChange}
-      // value={searchState}
     />
   );
 }

@@ -59,6 +59,7 @@ export default function LoginForm(props: IFormProps) {
         value={tempUser.login}
         handleChange={handleChange}
         handleBlur={checkOnEmptyInput}
+        // error={error}
       />
       <FormOption
         type="password"
@@ -69,7 +70,6 @@ export default function LoginForm(props: IFormProps) {
         error={error}
         handleBlur={checkOnEmptyInput}
       />
-      {/* {error} */}
       <button type="submit" className="form__submit">
         Login
       </button>

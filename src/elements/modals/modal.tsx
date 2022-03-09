@@ -9,8 +9,7 @@ interface IModalProps {
   title?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const portalDiv = document.getElementById("portal")!;
+const portalDiv = document.getElementById("portal");
 
 export default function Modal(props: IModalProps) {
   return ReactDOM.createPortal(

@@ -66,8 +66,7 @@ export default function RegisterForm() {
         setError={setError}
       />
       <ConfirmPasswordFormOption
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        value={tempUser.confirmPassword!}
+        value={tempUser.confirmPassword}
         handleChange={handleChange}
         error={error.confirmPasswordInputError}
         setError={setError}

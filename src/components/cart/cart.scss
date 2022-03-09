@@ -47,9 +47,9 @@
     color: white;
     font-weight: bold;
     cursor: pointer;
-    background: $brightgreen;
+    background: #b93d3d;
     &:hover {
-      background: $cardButtonBackgroundOnHover;
+      background: #e67676;
       transition: 0.1s ease-in;
     }
   }

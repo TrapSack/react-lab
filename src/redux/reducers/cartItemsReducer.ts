@@ -11,14 +11,10 @@ export default function cardItemsReducer(state: ICartItem[] = initialState, acti
       return state.map((game) => {
         if (game.name === action.payload.name) {
           if (action.payload.amount) {
-            // eslint-disable-next-line no-param-reassign
             game.price = parseFloat(((game.price / game.amount) * action.payload.amount).toFixed(2));
-            // eslint-disable-next-line no-param-reassign
             game.amount = action.payload.amount;
           } else {
-            // eslint-disable-next-line no-param-reassign
             game.price = parseFloat((game.price + game.price / game.amount).toFixed(2));
-            // eslint-disable-next-line no-param-reassign
             game.amount++;
           }
         }

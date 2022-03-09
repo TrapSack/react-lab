@@ -3,6 +3,7 @@ export interface IGame {
   name: string;
   rating: number;
   price: number;
+  genre: string;
   releaseDate: string;
   cover: string;
   age: number;
@@ -15,6 +16,9 @@ export enum IActionTypes {
   SEARCH = "GAMES/SEARCH",
   GET_GAMES = "GAMES/GET",
   CLEAR_GAMES = "GAMES/CLEAR",
+  ADD_GAME = "GAMES/ADD",
+  REMOVE_GAME = "GAMES/REMOVE",
+  UPDATE_GAME = "GAMES/UPDATE",
 }
 
 export interface IGetTopProductsAction {
@@ -32,8 +36,32 @@ export interface IGetGames {
   payload: IGame[];
 }
 
-export type IGamesAction = IGetTopProductsAction | ISearchGame | IGetGames | IClearGames;
+export type IGamesAction =
+  | IGetTopProductsAction
+  | ISearchGame
+  | IGetGames
+  | IClearGames
+  | IAddGame
+  | IRemoveGame
+  | IUpdateGame;
 
 export interface IClearGames {
   type: IActionTypes.CLEAR_GAMES;
+}
+
+export interface IAddGame {
+  type: IActionTypes.ADD_GAME;
+  payload: IGame;
+}
+
+export interface IRemoveGame {
+  type: IActionTypes.REMOVE_GAME;
+  payload: {
+    id: string;
+  };
+}
+
+export interface IUpdateGame {
+  type: IActionTypes.UPDATE_GAME;
+  payload: IGame
 }

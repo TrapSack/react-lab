@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import Modal from "@/elements/modal";
+import Modal from "@/elements/modals/modal";
 import { IUserState } from "@/redux/types/types";
 import { BaseSyntheticEvent, useState } from "react";
 import { useSelector } from "react-redux";

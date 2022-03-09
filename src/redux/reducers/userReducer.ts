@@ -2,14 +2,15 @@ import { IUserState, UserAction, IActionTypes } from "../types/types";
 
 const initialState = {
   login: "",
-  isAuth: false,
+  isAuth: true,
   description: "",
   phone: "",
   adress: "",
   photo: "",
+  stuff: true,
 };
 
-// eslint-disable-next-line
+// eslint-disable-next-line default-param-last
 export default function userReducer(state: IUserState = initialState, action: UserAction): IUserState {
   switch (action.type) {
     case IActionTypes.LOGIN:
@@ -20,9 +21,18 @@ export default function userReducer(state: IUserState = initialState, action: Us
         phone: action.payload.phone,
         adress: action.payload.adress,
         photo: action.payload.photo,
+        stuff: action.payload.stuff,
       };
     case IActionTypes.LOGOUT:
-      return { login: "", isAuth: false, description: "", phone: "", adress: "", photo: "" };
+      return {
+        login: "",
+        isAuth: false,
+        description: "",
+        phone: "",
+        adress: "",
+        photo: "",
+        stuff: false,
+      };
     case IActionTypes.ERROR:
       return {
         login: "",
@@ -32,6 +42,7 @@ export default function userReducer(state: IUserState = initialState, action: Us
         phone: "",
         adress: "",
         photo: "",
+        stuff: false,
       };
     case IActionTypes.UPDATEINFO:
       return {
@@ -41,16 +52,10 @@ export default function userReducer(state: IUserState = initialState, action: Us
         phone: action.payload.phone,
         adress: action.payload.adress,
         photo: action.payload.photo,
+        stuff: state.stuff,
       };
     case IActionTypes.UPDATEPASSWORD:
-      return {
-        login: state.login,
-        isAuth: true,
-        description: state.description,
-        phone: state.phone,
-        adress: state.adress,
-        photo: state.photo,
-      };
+      return state;
     case IActionTypes.REGISTER:
       return {
         login: action.payload.login,
@@ -59,6 +64,7 @@ export default function userReducer(state: IUserState = initialState, action: Us
         phone: action.payload.phone,
         adress: action.payload.adress,
         photo: action.payload.photo,
+        stuff: false,
       };
     default:
       return state;

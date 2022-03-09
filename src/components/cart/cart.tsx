@@ -1,4 +1,4 @@
-import Modal from "@/elements/modal";
+import Modal from "@/elements/modals/modal";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useState } from "react";
 import { useSelector } from "react-redux";

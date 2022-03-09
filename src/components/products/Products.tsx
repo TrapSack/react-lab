@@ -1,28 +1,36 @@
 import SearchField from "@/elements/searchField";
-// import React, { lazy } from "react";
-// import "./products.scss";
-// import Loader from "@/elements/loader";
-// import useLoader from "@/helpers/useLoader";
-// import { useSelector } from "react-redux";
-// import { RootReducerType } from "@/redux/reducers/rootReducer";
+import "./products.scss";
 import GamesContainer from "@/elements/gamesContainer/gamesContainer";
+import { useSelector } from "react-redux";
+import { RootReducerType } from "@/redux/reducers/rootReducer";
+import { useState } from "react";
+import AddCardModal from "@/elements/modals/addCardModal";
 import SortField from "./sortField";
 
-// const GamesContainer = lazy(() => import("@/elements/gamesContainer/gamesContainer"));
-// const SortField = lazy(() => import("./sortField"));
-
 export default function Products() {
-  // const games = useSelector((state: RootReducerType) => state.games);
-  // const loaderState = useLoader(!!games.length);
+  const user = useSelector((state: RootReducerType) => state.user);
+  const [showModal, setShowModal] = useState(false);
   return (
-    <div className="products">
-      <SearchField />
-      <div className="products__main">
-        {/* <React.Suspense fallback={<Loader />}> */}
-        <SortField />
-        <GamesContainer />
-        {/* </React.Suspense> */}
+    <>
+      <div className="products">
+        <SearchField />
+        {user.isAuth && (
+          <button
+            className="products__add-item-btn"
+            onClick={() => {
+              setShowModal(true);
+            }}
+            type="button"
+          >
+            Add product
+          </button>
+        )}
+        <div className="products__main">
+          <SortField />
+          <GamesContainer home={false} />
+        </div>
       </div>
-    </div>
+      <AddCardModal setShowModal={setShowModal} showModal={showModal} title="Add new game" />
+    </>
   );
 }

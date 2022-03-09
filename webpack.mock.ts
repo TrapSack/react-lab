@@ -33,9 +33,7 @@ export default webpackMockServer.add((app) => {
       }
       return game;
     });
-    setTimeout(() => {
-      res.json(resultArr);
-    }, 1000);
+    res.json(resultArr);
   });
 
   app.get(`/api/getTopProducts`, (_req, res) => {
@@ -49,6 +47,29 @@ export default webpackMockServer.add((app) => {
     // setTimeout(() => {
     res.json(resultArr.slice(0, 3));
     // }, 1000);
+  });
+  app.post("/api/product", (req, res) => {
+    const { item } = req.body;
+    games.push(item);
+    fs.writeFileSync("./src/api/games.json", JSON.stringify(games));
+    res.status(201).json(item);
+  });
+  app.put("/api/product", (req, res) => {
+    const { item } = req.body;
+    const resultGames = games.map((game) => {
+      if (game.id === item.id) {
+        return item;
+      }
+      return game;
+    });
+    fs.writeFileSync("./src/api/games.json", JSON.stringify(resultGames));
+    res.status(201).end();
+  });
+  app.delete("/api/product", (req, res) => {
+    const { id } = req.query;
+    const resArr = games.filter((game) => game.id !== id);
+    fs.writeFileSync("./src/api/games.json", JSON.stringify(resArr));
+    res.status(201).end();
   });
 
   app.get(`/api/getUser/*`, (_req, res) => {
@@ -68,6 +89,7 @@ export default webpackMockServer.add((app) => {
             adress: user.adress,
             photo: user.photo,
             cartItems: user.cartItems,
+            stuff: user.stuff,
           };
         }
       }
@@ -86,6 +108,7 @@ export default webpackMockServer.add((app) => {
       adress: userAdress,
       photo: "https://gp2dzm.ru/wp-content/uploads/2018/11/no-photo-male.jpg",
       cartItems: [] as ICartItem[],
+      stuff: false,
     };
     console.log(newUser);
     users.push(newUser);
