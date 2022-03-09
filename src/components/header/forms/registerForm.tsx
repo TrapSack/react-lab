@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import { useDispatch } from "react-redux";
 import { registerUser } from "@/redux/actions/userActions";
+import { getCartItems } from "@/redux/actions/cartItemsActions";
 import ConfirmPasswordFormOption from "@/elements/form-options/confirmPasswordFormOption";
 import LoginFormOption from "@/elements/form-options/loginFormOption";
 import PasswordFormOption from "@/elements/form-options/passwordFormOption";
@@ -32,6 +33,7 @@ export default function RegisterForm() {
     const hasNoErrors = Object.values(error).every((err) => err === "");
     if (hasNoErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
       dispatch(registerUser(tempUser.login, tempUser.password, tempUser.phone, tempUser.adress));
+      dispatch(getCartItems(tempUser.login));
     }
     setError((prev) => ({
       loginInputError: tempUser.login ? prev.loginInputError : "Login is required",

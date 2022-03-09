@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import FormOption from "@/elements/form-options/formOption";
+import { getCartItems } from "@/redux/actions/cartItemsActions";
 import { asyncLogIn } from "@/redux/actions/userActions";
 import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
@@ -27,6 +28,7 @@ export default function LoginForm(props: IFormProps) {
 
     if (tempUser.login && tempUser.password) {
       dispatch(asyncLogIn(tempUser.login, tempUser.password));
+      dispatch(getCartItems(tempUser.login));
     }
   }
 

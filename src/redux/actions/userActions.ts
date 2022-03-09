@@ -2,7 +2,6 @@ import axios from "axios";
 import { Dispatch } from "redux";
 import { IActionTypes, ILogoutAction } from "../types/types";
 import changeNotification from "./notificationActions";
-import { getCartItems } from "./cartItemsActions";
 import { store } from "../store";
 
 export function logOut(): ILogoutAction {
@@ -18,7 +17,6 @@ export function asyncLogIn(login: string, password: string) {
       const data = await axios.post(`api/authorizeUser/`, { userName: login, userPass: password });
       const parsedData = await data.data;
       if (parsedData) {
-        dispatch(getCartItems(login));
         dispatch(changeNotification("success", "You successfully logged in"));
         dispatch({
           type: IActionTypes.LOGIN,
@@ -90,7 +88,7 @@ export function registerUser(login: string, password: string, phone: string, adr
       userAdress: adress,
     });
     const parsedData = data.data;
-    dispatch(getCartItems(login));
+
     dispatch(changeNotification("success", "Registration successfull"));
     dispatch({
       type: IActionTypes.REGISTER,

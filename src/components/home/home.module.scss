@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
 
-
   &__platforms {
     display: flex;
     align-items: center;
@@ -13,7 +12,7 @@
     background: $homeContainersBackground;
   }
 }
-.games-container--home{
+.games-container--home {
   display: flex;
   justify-content: center;
   width: auto;
@@ -50,4 +49,6 @@
   }
 }
 
-
+.home__top-products-container {
+  display: flex;
+}

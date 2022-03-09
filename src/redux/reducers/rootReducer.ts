@@ -9,6 +9,7 @@ import orderReducer from "./cartItemsReducer";
 import userReducer from "./userReducer";
 import filterReducer from "./filterReducer";
 import { IFilterState } from "../types/filterTypes";
+import topProductsReducer from "./topProductsReducer";
 
 export const rootReducer = combineReducers({
   user: userReducer,
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
   notification: notificationReducer,
   cardItems: orderReducer,
   filter: filterReducer,
+  topProducts: topProductsReducer,
 });
 
 export type RootReducerType = {
@@ -24,4 +26,5 @@ export type RootReducerType = {
   notification: INotificationState;
   cardItems: ICartItem[];
   filter: IFilterState;
+  topProducts: IGame[];
 };
