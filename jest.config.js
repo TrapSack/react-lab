@@ -1,7 +1,6 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-  preset: "ts-jest",
-  testEnvironment: "node",
+  preset: "jest-puppeteer",
   modulePaths: ["<rootDir>/src/"],
   // moduleNameMapper: {
   //   "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
@@ -9,9 +8,12 @@ module.exports = {
   //   "\\.(css|scss)$": "<rootDir>/test/jest/__mocks__/styleMock.js",
   // },
   transform: {
-    "^.+\\.ts?$": "ts-jest",
+    "^.+.(ts|tsx)$": "ts-jest",
     "^.+\\.(js|jsx)$": "babel-jest",
     "^.+\\.js$": "babel-jest",
     ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
   },
+  globalSetup: "jest-environment-puppeteer/setup",
+  globalTeardown: "jest-environment-puppeteer/teardown",
+  testEnvironment: "jest-environment-puppeteer",
 };
