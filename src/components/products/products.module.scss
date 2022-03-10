@@ -7,6 +7,10 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    @media screen and(max-width:800px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &__add-item-btn {
@@ -54,5 +58,7 @@
   margin-right: 30px;
   background-color: $homeContainersBackground;
   border-radius: 40px;
+  @media screen and(max-width:800px) {
+      margin: 20px 0;
+    }
 }
-

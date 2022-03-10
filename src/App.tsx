@@ -1,16 +1,13 @@
 import React, { Component, ErrorInfo, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import { about, cart, home, products, profile } from "./helpers/links";
-// import About from "./components/about/about";
 import Home from "./components/home/Home";
-// import Products from "./components/products/Products";
-// import Profile from "./components/profile/profile";
 import { IUserState } from "./redux/types/types";
 import NotificationComponent from "./elements/notification";
-// import Cart from "./components/cart/cart";
+import { getTopProducts } from "./redux/actions/topProductsActions";
 
 const Products = lazy(() => import("./components/products/Products"));
 const About = lazy(() => import("./components/about/About"));
@@ -24,13 +21,23 @@ interface IState {
   error: IError;
 }
 
-class App extends Component<{ user: IUserState }, IState> {
-  constructor(props: { user: IUserState }) {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface IProps extends PropsFromRedux {
+  user: IUserState;
+}
+
+class App extends Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
     this.state = {
       error: { isError: false },
     };
     this.setState = this.setState.bind(this);
+  }
+
+  componentDidMount(): void {
+    this.props.getProducts();
   }
 
   static getDerivedStateFromError() {
@@ -119,4 +126,10 @@ function mapStateToProps(state: { user: IUserState }) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  getProducts: () => getTopProducts(),
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(App);

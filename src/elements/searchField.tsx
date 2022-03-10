@@ -1,17 +1,20 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
-import { getTopProducts, searchGame } from "../redux/actions/gamesActions";
+import { searchGame } from "../redux/actions/gamesActions";
 import debounce from "../helpers/useDebounce";
 import elementStyles from "./elementStyles.module.scss";
 
-// eslint-disable-next-line react/require-default-props
-export default function SearchField(props: { topProducts?: boolean }) {
+export default function SearchField(props: {
+  topProducts?: boolean;
+  setShowTopProducts?: Dispatch<SetStateAction<boolean>>;
+}) {
   const dispatch = useDispatch();
   function doSearchToApi(search: string) {
     if (!search && props.topProducts) {
-      dispatch(getTopProducts());
+      props.setShowTopProducts(true);
     } else {
       dispatch(searchGame(search));
+      props.setShowTopProducts(false);
     }
   }
   const debouncedSearch = debounce(doSearchToApi, 300);
@@ -29,3 +32,8 @@ export default function SearchField(props: { topProducts?: boolean }) {
     />
   );
 }
+
+SearchField.defaultProps = {
+  topProducts: false,
+  setShowTopProducts: (): null => null,
+};

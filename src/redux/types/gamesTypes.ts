@@ -12,18 +12,12 @@ export interface IGame {
 }
 
 export const enum IActionTypes {
-  GET_TOP_PRODUCTS = "GAMES/GETTOPPRODUCTS",
   SEARCH = "GAMES/SEARCH",
   GET_GAMES = "GAMES/GET",
   CLEAR_GAMES = "GAMES/CLEAR",
   ADD_GAME = "GAMES/ADD",
   REMOVE_GAME = "GAMES/REMOVE",
   UPDATE_GAME = "GAMES/UPDATE",
-}
-
-export interface IGetTopProductsAction {
-  type: IActionTypes.GET_TOP_PRODUCTS;
-  payload: IGame[];
 }
 
 export interface ISearchGame {
@@ -36,14 +30,7 @@ export interface IGetGames {
   payload: IGame[];
 }
 
-export type IGamesAction =
-  | IGetTopProductsAction
-  | ISearchGame
-  | IGetGames
-  | IClearGames
-  | IAddGame
-  | IRemoveGame
-  | IUpdateGame;
+export type IGamesAction = ISearchGame | IGetGames | IClearGames | IAddGame | IRemoveGame | IUpdateGame;
 
 export interface IClearGames {
   type: IActionTypes.CLEAR_GAMES;

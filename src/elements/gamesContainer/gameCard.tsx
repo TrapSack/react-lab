@@ -39,7 +39,12 @@ export default function GameCard(props: IGame) {
   }
   return (
     <>
-      <div className={elementStyles["game-card"]} onMouseEnter={setShowDescription} onMouseLeave={setHideDescription}>
+      <div
+        className={elementStyles["game-card"]}
+        onMouseEnter={setShowDescription}
+        id={props.id}
+        onMouseLeave={setHideDescription}
+      >
         <div className={elementStyles["game-card__platforms"]}>
           {props.platforms.map((platform) => {
             switch (platform) {

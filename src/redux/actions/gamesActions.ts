@@ -4,23 +4,12 @@ import { nanoid } from "nanoid";
 import { Dispatch } from "redux";
 import { IActionTypes, IClearGames, IGame, IRemoveGame, IUpdateGame } from "../types/gamesTypes";
 
-export function getTopProducts() {
-  return async (dispatch: (arg0: { type: IActionTypes; payload: IGame[] }) => void) => {
-    const data = await axios.get("api/GetTopProducts");
-    const parsedData = await data.data;
-    dispatch({
-      type: IActionTypes.GET_TOP_PRODUCTS,
-      payload: parsedData,
-    });
-  };
-}
-
 export function searchGame(name: string) {
   return async (dispatch: (arg0: { type: IActionTypes; payload: IGame[] }) => void) => {
     const data = await axios.get(`api/search/${name}`);
     const parsedData = await data.data;
     dispatch({
-      type: IActionTypes.GET_TOP_PRODUCTS,
+      type: IActionTypes.SEARCH,
       payload: parsedData,
     });
   };

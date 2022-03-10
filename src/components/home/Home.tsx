@@ -1,18 +1,17 @@
-import { useDispatch } from "react-redux";
-import { getTopProducts } from "../../redux/actions/gamesActions";
+import { useState } from "react";
 import SearchField from "../../elements/searchField";
+import GamesContainer from "../../elements/gamesContainer/gamesContainer";
 import Platforms from "./platformsContainer/platforms";
 import home from "./home.module.scss";
-import GamesContainer from "../../elements/gamesContainer/gamesContainer";
+import TopGamesContainer from "./topGamesContainer";
 
 export default function Home() {
-  const dispatch = useDispatch();
-  dispatch(getTopProducts());
+  const [showTopProducts, setShowTopProducts] = useState(true);
   return (
     <div className={home.home}>
-      <SearchField topProducts />
+      <SearchField topProducts setShowTopProducts={setShowTopProducts} />
       <Platforms />
-      <GamesContainer home />
+      {showTopProducts ? <TopGamesContainer /> : <GamesContainer home />}
     </div>
   );
 }
