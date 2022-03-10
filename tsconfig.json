@@ -21,7 +21,10 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": false,
+    "strictNullChecks":false
   },
   "exclude": ["node_modules", "dist", "build", ".vscode"]
 }

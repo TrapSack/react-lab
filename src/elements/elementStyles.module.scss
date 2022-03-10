@@ -1,0 +1,352 @@
+.no-matches-element {
+  font-size: 27px;
+  color: rgb(190, 190, 190);
+  padding: 20px;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  font-size: 22px;
+  color: white;
+  margin-top: 30px;
+  font-weight: bold;
+
+  &__image {
+    height: 60px;
+  }
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  background-color: $headerColor;
+  padding: 30px;
+  color: white;
+  border-radius: 20px;
+  border: 3px solid $hoverLinkColor;
+  font-size: 20px;
+  &__title-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  &__close-btn {
+    margin-top: -30px;
+    margin-right: -10px;
+    font-size: 35px;
+    cursor: pointer;
+    color: white;
+    border: none;
+    background: none;
+    &:hover {
+      color: $hoverLinkColor;
+    }
+  }
+  &__title {
+    font-size: 28px;
+  }
+}
+
+.modal-overlay {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.info-modal {
+  background-color: #6986d4;
+  transition: all 0.5s ease-in;
+  padding: 50px 80px;
+  border-radius: 10px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.notification {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  z-index: 1000;
+  color: white;
+  font-weight: 600;
+  height: 40px;
+  text-align: center;
+  margin-top: 60px;
+  &--success {
+    background: $cardButtonBackgroundOnHover;
+  }
+  &--danger {
+    background: red;
+  }
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 20px;
+  // height: 400px;
+  padding-bottom: 10px;
+  width: 250px;
+  margin: 20px 20px;
+  background: $headerColor;
+  box-shadow: 0 0 30px 5px $brightgreen;
+  &__info {
+    color: white;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    font-size: 18px;
+  }
+
+  &__title,
+  &__price {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    width: 50%;
+    margin-top: 10px;
+  }
+
+  &__cover {
+    height: 310px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 15%;
+  }
+
+  &__stars {
+    height: 40px;
+  }
+
+  &__add-to-cart-btn {
+    height: 40px;
+    width: 40px;
+    background: rgb(22, 121, 9);
+    background: rgb(67, 187, 52),
+      url("https://uxwing.com/wp-content/themes/uxwing/download/19-e-commerce-currency-shopping/shopping-cart.png")
+        no-repeat;
+    border: none;
+    background-position: center;
+    background-size: 20px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+
+    &:hover {
+      background: $cardButtonBackgroundOnHover;
+      background-color: linear-gradient(0deg, rgba(67, 187, 52, 1) 23%, rgba(91, 172, 91, 1) 66%);
+      transition: background-color 0.2s linear;
+    }
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: $footerTextColor;
+    border-radius: 20px 20px 0 0;
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    width: 100%;
+    text-align: center;
+    height: 310px;
+    background: $cardDescriptionBackground;
+    overflow-y: auto;
+    z-index: 1000;
+    // transition-property: "display";
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &__platforms {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    padding: 5px;
+    background: $activeLinkColor;
+    border-radius: 30px;
+  }
+  &__platform {
+    margin: 0 5px;
+    width: 20px;
+  }
+  .active {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.2s linear;
+  }
+}
+
+.add-edit-form {
+  display: flex;
+
+  &__cover {
+    width: 350px;
+    object-fit: cover;
+  }
+  &__option-container {
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__select {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  &__checkbox {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__btn-container {
+    margin-top: 10px;
+  }
+  &__btn {
+    margin: 0 10px;
+    height: 40px;
+    background: rgb(22, 121, 9);
+    border: none;
+    background-position: center;
+    background-size: 20px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+
+    &:hover {
+      background: $cardButtonBackgroundOnHover;
+      background-color: linear-gradient(0deg, rgba(67, 187, 52, 1) 23%, rgba(91, 172, 91, 1) 66%);
+      transition: background-color 0.2s linear;
+    }
+  }
+}
+
+.confirm-deletion-form {
+  display: flex;
+  justify-content: center;
+  &__button {
+    margin: 0 20px;
+    padding: 5px 15px;
+    border: 2px solid $cartInputColor;
+    &--yes {
+      background-color: $brightgreen;
+      &:hover {
+        transition: 0.1s ease-in;
+        background-color: $cardButtonBackgroundOnHover;
+      }
+    }
+    &--no {
+      background-color: #e05959;
+      &:hover {
+        transition: 0.1s ease-in;
+        background-color: #e67272;
+      }
+    }
+  }
+}
+
+.games-container {
+  min-width: 60%;
+  margin: 80px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  // align-items: center;
+  justify-content: flex-start;
+  max-width: 1100px;
+  border-radius: 70px;
+  background-color: $homeContainersBackground;
+  &--home {
+    display: flex;
+  }
+}
+
+.game-search {
+  margin-top: 100px;
+  height: 50px;
+  padding: 5px;
+  width: 60%;
+  font-size: 20px;
+  background: rgb(34, 34, 34);
+  color: $footerTextColor;
+  border: 2px solid rgb(131, 131, 131);
+  border-radius: 20px;
+}
+
+.form {
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+
+  &__input {
+    float: right;
+    padding: 7px 15px;
+    margin-left: 10px;
+    background-color: $homeContainersBackground;
+    border: 2px solid $footerTextColor;
+    color: white;
+    border-radius: 10px;
+    &:focus {
+      outline: none;
+    }
+  }
+  &__submit {
+    width: 40%;
+    margin-top: 30px;
+    transform: translate(70%, 0);
+    font-size: 20px;
+    color: white;
+    background: rgb(20, 20, 20);
+    border: 2px solid $brightgreen;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      background: $brightgreen;
+      transition: 0.1s ease-in;
+    }
+  }
+  &__option {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    justify-content: space-between;
+  }
+  &__input-error {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(153, 43, 43);
+  }
+  &__hint {
+    font-size: 14px;
+  }
+}

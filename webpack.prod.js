@@ -4,6 +4,7 @@ const { merge } = require("webpack-merge");
 const CompressionPlugin = require("compression-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const webpackMockServer = require("webpack-mock-server");
 const common = require("./webpack.common");
 
 module.exports = (env, argv) => {
@@ -21,6 +22,9 @@ module.exports = (env, argv) => {
       assetFilter: function assetFilter(assetFilename) {
         return !/(\.map$)|(fonts)|(images)/.test(assetFilename); // ignore these files from perfomance-hints
       },
+    },
+    devServer: {
+      before: webpackMockServer.use,
     },
     optimization: {
       minimizer: [

@@ -1,0 +1,54 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__platforms {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    border-radius: 50px;
+    min-height: 500px;
+    background: $homeContainersBackground;
+  }
+}
+.games-container--home {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+
+.platform-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+  background-color: $headerColor;
+  width: 350px;
+  border-radius: 30px;
+  text-decoration: none;
+  border: 2px solid $purple;
+  margin: 0 20px;
+
+  &__logo {
+    height: 55%;
+    /* stylelint-disable-next-line scss/no-global-function-names */
+    filter: invert(1);
+  }
+
+  &__title {
+    margin-top: 50px;
+    color: white;
+    font-size: 23px;
+  }
+
+  &:hover {
+    background-color: $hoverLinkColor;
+    transition: background-color 0.1s linear;
+  }
+}
+
+.home__top-products-container {
+  display: flex;
+}
