@@ -25,24 +25,25 @@ export default function AddCardModal(props: {
   function handleSubmitChangeCard(e: FormEvent) {
     e.preventDefault();
     if (
-      cardData.age === 0 ||
+      !cardData.age ||
       !cardData.age.toString().trim() ||
-      cardData.description === "" ||
+      !cardData.description ||
       !cardData.description.trim() ||
-      cardData.genre === "" ||
+      !cardData.genre ||
       !cardData.genre.trim() ||
-      cardData.image === "" ||
+      !cardData.image ||
       !cardData.image.trim() ||
-      cardData.name === "" ||
+      !cardData.name ||
       !cardData.name.trim() ||
-      cardData.platforms.length === 0 ||
-      cardData.price === "0" ||
+      !cardData.platforms.length ||
+      !cardData.price ||
       !cardData.price.trim()
     ) {
       setError("All fields must be filled");
       return;
     }
-    if (!/^\d+\.?\d*$/gm.test(cardData.price)) {
+
+    if (!/^\d+\.?\d*$/gm.test(cardData.price) || parseInt(parseInt(cardData.price, 10).toFixed(0), 10) === 0) {
       setError("Please, input correct price");
       return;
     }
