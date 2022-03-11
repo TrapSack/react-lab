@@ -31,13 +31,19 @@ export default function AuthorizationLinks() {
   }
   return (
     <>
-      <button type="button" className={`${header.navbar__link} ${header["navbar__link--btn"]}`} onClick={setLoginModal}>
+      <button
+        type="button"
+        className={`${header.navbar__link} ${header["navbar__link--btn"]}`}
+        id="login"
+        onClick={setLoginModal}
+      >
         Login
       </button>
       <button
         type="button"
         className={`${header.navbar__link} ${header["navbar__link--btn"]}`}
         onClick={setRegisterModal}
+        id="register"
       >
         Register
       </button>

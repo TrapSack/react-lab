@@ -39,7 +39,12 @@ export default function ProfileLinks() {
         />
         <span className={header["navbar__total-cart-items"]}>{total > 0 && total}</span>
       </NavLink>
-      <button type="button" className={`${header.navbar__link} ${header["navbar__link--btn"]}`} onClick={handleClick}>
+      <button
+        type="button"
+        className={`${header.navbar__link} ${header["navbar__link--btn"]}`}
+        onClick={handleClick}
+        id="logout"
+      >
         LogOut
       </button>
     </>
