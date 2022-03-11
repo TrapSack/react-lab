@@ -4,14 +4,14 @@ import Modal from "../../../elements/modals/modal";
 import RegisterForm from "../forms/registerForm";
 import header from "../header.module.scss";
 
-interface IModalConent {
+interface IModalContent {
   content: ReactNode;
   title: string;
 }
 
 export default function AuthorizationLinks() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [modal, setModal] = useState<IModalConent>({
+  const [modal, setModal] = useState<IModalContent>({
     content: <LoginForm setIsOpen={setIsModalOpen} />,
     title: "Login",
   });

@@ -40,4 +40,3 @@ describe("e2e products page test", () => {
     expect(length).toBe(3);
   });
 });
-

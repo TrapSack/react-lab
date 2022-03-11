@@ -34,7 +34,7 @@
     background: $homeContainersBackground;
     border-radius: 20px;
     @media screen and (max-width: 800px) {
-      margin-top: 20px;
+      margin: 20px 0;
       width: 80%;
     }
   }
@@ -58,10 +58,11 @@
       transition: 0.2s ease-in;
       background-color: $lightPurple;
     }
-    
+
   }
   &__password-change-confirm {
     margin-top: 20px;
+
   }
   &__change-info-btn {
     width: 150px;
