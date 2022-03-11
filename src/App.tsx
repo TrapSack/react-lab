@@ -6,7 +6,6 @@ import Footer from "./components/footer/Footer";
 import { about, cart, home, products, profile } from "./helpers/links";
 import Home from "./components/home/Home";
 import { IUserState } from "./redux/types/types";
-import NotificationComponent from "./elements/notification";
 import { getTopProducts } from "./redux/actions/topProductsActions";
 
 const Products = lazy(() => import("./components/products/Products"));
@@ -58,7 +57,6 @@ class App extends Component<IProps, IState> {
     return (
       <>
         <Header />
-        <NotificationComponent />
         <Routes>
           <Route path={home} element={<Home />} />
           <Route

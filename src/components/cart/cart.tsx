@@ -16,7 +16,7 @@ export default function Cart() {
   return (
     <div className={cart.cart}>
       <h2>Cart page</h2>
-      <div>
+      <div className={cart["cart__main-info-container"]}>
         <CartItemsContainer />
         <span className={cart["cart__total-cost"]}>Total cost: {totalCost}$</span>
         <button
