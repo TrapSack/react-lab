@@ -1,6 +1,6 @@
-import { valiDatePassword } from "@/components/header/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import elementStyles from "../elementStyles.module.scss";
+import { valiDatePassword } from "../../components/header/validators";
 
 interface IFormOptionProps {
   value: string;
@@ -44,6 +44,7 @@ export default function PasswordFormOption(props: IFormOptionProps) {
           name="password"
           className={elementStyles.form__input}
           value={props.value}
+          style={{ color: "white" }}
           onChange={(e) => {
             passwordValidation(e);
             checkOnEmptyInput(e);

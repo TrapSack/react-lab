@@ -1,6 +1,6 @@
-import { searchGame } from "@/redux/actions/gamesActions";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
+import { searchGame } from "../redux/actions/gamesActions";
 import debounce from "../helpers/useDebounce";
 import elementStyles from "./elementStyles.module.scss";
 

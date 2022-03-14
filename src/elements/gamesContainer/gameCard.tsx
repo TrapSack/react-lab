@@ -1,11 +1,11 @@
-import changeNotification from "@/redux/actions/notificationActions";
-import { addCartItem, updateCartItemAmount } from "@/redux/actions/cartItemsActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
-import { IGame } from "@/redux/types/gamesTypes";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import elementStyles from "../elementStyles.module.scss";
 import EditModal from "../modals/editModal";
+import { addCartItem, updateCartItemAmount } from "../../redux/actions/cartItemsActions";
+import { RootReducerType } from "../../redux/reducers/rootReducer";
+import { IGame } from "../../redux/types/gamesTypes";
+import changeNotification from "../../redux/actions/notificationActions";
 
 export default function GameCard(props: IGame) {
   const [descriptionShow, setDescriptionShow] = useState<string>(() => elementStyles["game-card__description"]);
@@ -39,7 +39,12 @@ export default function GameCard(props: IGame) {
   }
   return (
     <>
-      <div className={elementStyles["game-card"]} onMouseEnter={setShowDescription} onMouseLeave={setHideDescription}>
+      <div
+        className={elementStyles["game-card"]}
+        onMouseEnter={setShowDescription}
+        id={props.id}
+        onMouseLeave={setHideDescription}
+      >
         <div className={elementStyles["game-card__platforms"]}>
           {props.platforms.map((platform) => {
             switch (platform) {

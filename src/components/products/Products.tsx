@@ -1,9 +1,9 @@
-import SearchField from "@/elements/searchField";
-import GamesContainer from "@/elements/gamesContainer/gamesContainer";
 import { useSelector } from "react-redux";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useState } from "react";
-import AddCardModal from "@/elements/modals/addCardModal";
+import SearchField from "../../elements/searchField";
+import GamesContainer from "../../elements/gamesContainer/gamesContainer";
+import { RootReducerType } from "../../redux/reducers/rootReducer";
+import AddCardModal from "../../elements/modals/addCardModal";
 import SortField from "./sortField";
 import products from "./products.module.scss";
 

@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-bind */
-import { removeGame, updateGame } from "@/redux/actions/gamesActions";
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormOption from "../form-options/formOption";
+import { removeGame, updateGame } from "../../redux/actions/gamesActions";
 import ConfirmDeletionModal from "./confirmDeletionModal";
 import Modal from "./modal";
 import elementStyles from "../elementStyles.module.scss";

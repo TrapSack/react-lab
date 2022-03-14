@@ -1,8 +1,8 @@
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import React, { lazy, useMemo } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../loader";
 import elementStyles from "../elementStyles.module.scss";
+import { RootReducerType } from "../../redux/reducers/rootReducer";
 
 const GameCard = lazy(() => import("./gameCard"));
 

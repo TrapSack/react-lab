@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SearchField from "@/elements/searchField";
-import GamesContainer from "@/elements/gamesContainer/gamesContainer";
+import SearchField from "../../elements/searchField";
+import GamesContainer from "../../elements/gamesContainer/gamesContainer";
 import Platforms from "./platformsContainer/platforms";
 import home from "./home.module.scss";
 import TopGamesContainer from "./topGamesContainer";

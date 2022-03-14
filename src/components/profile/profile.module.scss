@@ -6,6 +6,10 @@
   color: white;
   min-height: 85%;
   width: 100%;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+  }
   &__information-container {
     // height: 200px;
     display: flex;
@@ -15,6 +19,10 @@
     background: $homeContainersBackground;
     border-radius: 20px;
     margin-right: 200px;
+    @media screen and (max-width: 800px) {
+      margin: 0;
+      width: 80%;
+    }
   }
   &__password-change-form {
     display: flex;
@@ -25,6 +33,10 @@
     padding: 20px;
     background: $homeContainersBackground;
     border-radius: 20px;
+    @media screen and (max-width: 800px) {
+      margin: 20px 0;
+      width: 80%;
+    }
   }
   &__password-change-submit-message {
     color: $brightgreen;
@@ -46,9 +58,11 @@
       transition: 0.2s ease-in;
       background-color: $lightPurple;
     }
+
   }
   &__password-change-confirm {
     margin-top: 20px;
+
   }
   &__change-info-btn {
     width: 150px;

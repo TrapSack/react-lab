@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import { emptyCartItems } from "@/redux/actions/cartItemsActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { emptyCartItems } from "../../redux/actions/cartItemsActions";
 import cart from "./cart.module.scss";
 import CartItem from "./cartItem";
+import { RootReducerType } from "../../redux/reducers/rootReducer";
 
 export default function CartItemsContainer() {
   const dispatch = useDispatch();

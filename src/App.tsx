@@ -6,10 +6,9 @@ import Footer from "./components/footer/Footer";
 import { about, cart, home, products, profile } from "./helpers/links";
 import Home from "./components/home/Home";
 import { IUserState } from "./redux/types/types";
-import NotificationComponent from "./elements/notification";
 import { getTopProducts } from "./redux/actions/topProductsActions";
 
-const Products = lazy(() => import("@/components/products/Products"));
+const Products = lazy(() => import("./components/products/Products"));
 const About = lazy(() => import("./components/about/About"));
 const Profile = lazy(() => import("./components/profile/profile"));
 const Cart = lazy(() => import("./components/cart/cart"));
@@ -58,7 +57,6 @@ class App extends Component<IProps, IState> {
     return (
       <>
         <Header />
-        <NotificationComponent />
         <Routes>
           <Route path={home} element={<Home />} />
           <Route
@@ -87,7 +85,6 @@ class App extends Component<IProps, IState> {
               )
             }
           />
-          <Route path="*" element={<Home />} />
           <Route
             path={profile}
             element={
@@ -112,6 +109,7 @@ class App extends Component<IProps, IState> {
               )
             }
           />
+          <Route path="*" element={<Navigate to={home} />} />
         </Routes>
         <Footer />
       </>

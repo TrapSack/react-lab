@@ -1,9 +1,9 @@
-import { cart, home, profile } from "@/helpers/links";
-import { logOut } from "@/redux/actions/userActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
-import { IUserState } from "@/redux/types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { cart, home, profile } from "../../../helpers/links";
+import { logOut } from "../../../redux/actions/userActions";
+import { RootReducerType } from "../../../redux/reducers/rootReducer";
+import { IUserState } from "../../../redux/types/types";
 import header from "../header.module.scss";
 
 export default function ProfileLinks() {
@@ -39,7 +39,12 @@ export default function ProfileLinks() {
         />
         <span className={header["navbar__total-cart-items"]}>{total > 0 && total}</span>
       </NavLink>
-      <button type="button" className={`${header.navbar__link} ${header["navbar__link--btn"]}`} onClick={handleClick}>
+      <button
+        type="button"
+        className={`${header.navbar__link} ${header["navbar__link--btn"]}`}
+        onClick={handleClick}
+        id="logout"
+      >
         LogOut
       </button>
     </>

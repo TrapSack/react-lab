@@ -23,6 +23,7 @@ export default function FormOption(props: IFormOptionProps) {
           name={props.inputName}
           className={elementStyles.form__input}
           value={props.value}
+          style={{ color: "white" }}
           onChange={props.handleChange}
           onBlur={props.handleBlur}
         />

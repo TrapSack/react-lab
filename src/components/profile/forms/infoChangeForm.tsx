@@ -1,11 +1,11 @@
-import AdressFormOption from "@/elements/form-options/adressFormOption";
-import FormOption from "@/elements/form-options/formOption";
-import LoginFormOption from "@/elements/form-options/loginFormOption";
-import PhoneFormOption from "@/elements/form-options/phoneFormOption";
-import { saveProfile } from "@/redux/actions/userActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AdressFormOption from "../../../elements/form-options/adressFormOption";
+import { RootReducerType } from "../../../redux/reducers/rootReducer";
+import FormOption from "../../../elements/form-options/formOption";
+import LoginFormOption from "../../../elements/form-options/loginFormOption";
+import PhoneFormOption from "../../../elements/form-options/phoneFormOption";
+import { saveProfile } from "../../../redux/actions/userActions";
 import profile from "../profile.module.scss";
 
 export default function InfoChangeForm(props: { setIsOpen: Dispatch<SetStateAction<boolean>> }) {

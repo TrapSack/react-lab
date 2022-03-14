@@ -80,7 +80,7 @@ export function changePassword(login: string, newPassword: string) {
 }
 
 export function registerUser(login: string, password: string, phone: string, adress: string) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: typeof store.dispatch) => {
     const data = await axios.post("/api/postUser", {
       userName: login,
       userPass: password,
@@ -88,7 +88,6 @@ export function registerUser(login: string, password: string, phone: string, adr
       userAdress: adress,
     });
     const parsedData = data.data;
-
     dispatch(changeNotification("success", "Registration successfull"));
     dispatch({
       type: IActionTypes.REGISTER,

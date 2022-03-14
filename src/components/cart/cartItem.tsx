@@ -1,7 +1,7 @@
-import { removeCartItem, updateCartItemAmount } from "@/redux/actions/cartItemsActions";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import debounce from "../../helpers/useDebounce";
+import { removeCartItem, updateCartItemAmount } from "../../redux/actions/cartItemsActions";
 import cart from "./cart.module.scss";
 
 interface ICartItemProps {

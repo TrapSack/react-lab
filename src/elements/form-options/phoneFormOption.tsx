@@ -1,6 +1,6 @@
-import { validatePhone } from "@/helpers/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import elementStyles from "../elementStyles.module.scss";
+import { validatePhone } from "../../helpers/validators";
 
 interface IFormOptionProps {
   value: string;
@@ -48,6 +48,7 @@ export default function PhoneFormOption(props: IFormOptionProps) {
           name="phone"
           className={elementStyles.form__input}
           value={props.value}
+          style={{ color: "white" }}
           onChange={(e) => {
             checkOnEmptyInput(e);
             props.handleChange(e);

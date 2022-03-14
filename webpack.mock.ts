@@ -168,7 +168,7 @@ export default webpackMockServer.add((app) => {
       let resultArr = [...games];
       const { platform, genre, age, sortBy, orderBy } = req.query;
       if (platform) resultArr = resultArr.filter((game) => game.platforms.includes(platform.toString()));
-      if (genre) resultArr = resultArr.filter((game) => game.genre === genre);
+      if (genre) resultArr = resultArr.filter((game) => game.genre.toLowerCase() === genre.toLowerCase());
       if (age) resultArr = resultArr.filter((game) => game.age === Number(age));
       resultArr.sort((game1, game2) => {
         switch (sortBy) {

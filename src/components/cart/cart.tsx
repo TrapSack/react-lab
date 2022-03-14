@@ -1,7 +1,7 @@
-import Modal from "@/elements/modals/modal";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import Modal from "../../elements/modals/modal";
+import { RootReducerType } from "../../redux/reducers/rootReducer";
 import CartItemsContainer from "./cartItemsContainer";
 import cart from "./cart.module.scss";
 import Order from "./order";
@@ -16,7 +16,7 @@ export default function Cart() {
   return (
     <div className={cart.cart}>
       <h2>Cart page</h2>
-      <div>
+      <div className={cart["cart__main-info-container"]}>
         <CartItemsContainer />
         <span className={cart["cart__total-cost"]}>Total cost: {totalCost}$</span>
         <button

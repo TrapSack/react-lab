@@ -1,9 +1,9 @@
-import ConfirmPasswordFormOption from "@/elements/form-options/confirmPasswordFormOption";
-import PasswordFormOption from "@/elements/form-options/passwordFormOption";
-import { changePassword } from "@/redux/actions/userActions";
-import { RootReducerType } from "@/redux/reducers/rootReducer";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RootReducerType } from "../../../redux/reducers/rootReducer";
+import { changePassword } from "../../../redux/actions/userActions";
+import ConfirmPasswordFormOption from "../../../elements/form-options/confirmPasswordFormOption";
+import PasswordFormOption from "../../../elements/form-options/passwordFormOption";
 import profile from "../profile.module.scss";
 
 export default function PasswordChangeForm() {

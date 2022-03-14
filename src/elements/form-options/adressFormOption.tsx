@@ -1,6 +1,6 @@
-import { validateAdress } from "@/helpers/validators";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import elementStyles from "../elementStyles.module.scss";
+import { validateAdress } from "../../helpers/validators";
 
 interface IFormOptionProps {
   value: string;
@@ -46,6 +46,7 @@ export default function AdressFormOption(props: IFormOptionProps) {
           type="text"
           placeholder="Adress"
           name="adress"
+          style={{ color: "white" }}
           className={elementStyles.form__input}
           value={props.value}
           onChange={(e) => {

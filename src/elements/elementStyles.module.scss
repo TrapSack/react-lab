@@ -25,7 +25,7 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  z-index: 1000;
+  z-index: 2001;
   transform: translate(-50%, -50%);
   background-color: $headerColor;
   padding: 30px;
@@ -54,6 +54,10 @@
   &__title {
     font-size: 28px;
   }
+  @media screen and(max-width:800px) {
+    width: 70%;
+    // margin-top: 90px;
+  }
 }
 
 .modal-overlay {
@@ -62,7 +66,7 @@
   right: 0;
   left: 0;
   position: fixed;
-  z-index: 1000;
+  z-index: 2000;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -82,7 +86,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  z-index: 1000;
+  z-index: 5000;
   color: white;
   font-weight: 600;
   height: 40px;
@@ -107,12 +111,18 @@
   margin: 20px 20px;
   background: $headerColor;
   box-shadow: 0 0 30px 5px $brightgreen;
+  @media screen and (max-width: 800px) {
+    width: 200px;
+  }
   &__info {
     color: white;
     display: flex;
     width: 100%;
     justify-content: space-around;
     font-size: 18px;
+    @media screen and (max-width: 800px) {
+      font-size: 14px;
+    }
   }
 
   &__title,
@@ -129,6 +139,9 @@
     object-fit: cover;
     width: 100%;
     border-radius: 20px 20px 0 0;
+    @media screen and (max-width: 800px) {
+      height: 270px;
+    }
   }
 
   &__rating {
@@ -156,7 +169,13 @@
     border-radius: 10px;
     color: white;
     font-weight: 500;
-
+    @media screen and (max-width: 800px) {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      width: 30px;
+      font-size: 10px;
+    }
     &:hover {
       background: $cardButtonBackgroundOnHover;
       background-color: linear-gradient(0deg, rgba(67, 187, 52, 1) 23%, rgba(91, 172, 91, 1) 66%);
@@ -213,15 +232,25 @@
 
 .add-edit-form {
   display: flex;
-
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
   &__cover {
     width: 350px;
     object-fit: cover;
+    @media screen and (max-width: 800px) {
+      width: 50%;
+    }
   }
   &__option-container {
     margin-left: 100px;
     display: flex;
     flex-direction: column;
+    @media screen and (max-width: 800px) {
+      margin: 0;
+      align-items: flex-start;
+      flex-direction: column;
+    }
   }
   &__select {
     display: flex;
@@ -280,18 +309,24 @@
 }
 
 .games-container {
-  min-width: 60%;
-  margin: 80px 0;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  // align-items: center;
   justify-content: flex-start;
+  min-width: 60%;
+  margin: 80px 0;
+  // align-items: center;
   max-width: 1100px;
   border-radius: 70px;
   background-color: $homeContainersBackground;
   &--home {
     display: flex;
+    @media screen and (max-width: 800px) {
+      flex-direction: column;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
   }
 }
 
@@ -305,6 +340,12 @@
   color: $footerTextColor;
   border: 2px solid rgb(131, 131, 131);
   border-radius: 20px;
+  @media screen and(max-width:800px) {
+    height: 25px;
+    border-radius: 10px;
+    margin-top: 100px;
+    font-size: 16px;
+  }
 }
 
 .form {
@@ -318,10 +359,17 @@
     margin-left: 10px;
     background-color: $homeContainersBackground;
     border: 2px solid $footerTextColor;
-    color: white;
     border-radius: 10px;
     &:focus {
       outline: none;
+    }
+    &::placeholder {
+      color: rgb(143, 143, 143);
+      font-weight: 500;
+    }
+    @media screen and(max-width:800px) {
+      width: 50%;
+      color: $footerBackgroundColor;
     }
   }
   &__submit {
@@ -344,6 +392,9 @@
     align-items: center;
     margin: 5px 0;
     justify-content: space-between;
+    @media screen and (max-width: 800px) {
+      width: 100%;
+    }
   }
   &__input-error {
     width: 100%;
