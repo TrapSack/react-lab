@@ -40,7 +40,7 @@
   text-decoration: none;
   border: 2px solid $purple;
   margin: 0 20px;
-
+  -webkit-transition: background 0.2s;
   &__logo {
     height: 55%;
     /* stylelint-disable-next-line scss/no-global-function-names */
@@ -64,7 +64,7 @@
 
   &:hover {
     background-color: $hoverLinkColor;
-    transition: background-color 0.1s linear;
+    -webkit-transition: background 0.2s;
   }
   @media screen and(max-width:800px) {
     width: 90%;
