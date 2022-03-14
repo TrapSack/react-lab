@@ -46,6 +46,7 @@ export default function AdressFormOption(props: IFormOptionProps) {
           type="text"
           placeholder="Adress"
           name="adress"
+          style={{ color: "white" }}
           className={elementStyles.form__input}
           value={props.value}
           onChange={(e) => {

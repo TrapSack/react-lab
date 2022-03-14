@@ -46,6 +46,7 @@ export default function LoginFormOption(props: IFormOptionProps) {
           placeholder="Login"
           name="login"
           className={elementStyles.form__input}
+          style={{ color: "white" }}
           value={props.value}
           onChange={(e) => {
             checkOnEmptyInput(e);

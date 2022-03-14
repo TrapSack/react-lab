@@ -85,7 +85,6 @@ class App extends Component<IProps, IState> {
               )
             }
           />
-          <Route path="*" element={<Home />} />
           <Route
             path={profile}
             element={
@@ -110,6 +109,7 @@ class App extends Component<IProps, IState> {
               )
             }
           />
+          <Route path="*" element={<Navigate to={home} />} />
         </Routes>
         <Footer />
       </>

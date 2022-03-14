@@ -41,6 +41,7 @@ export default function ConfirmPasswordFormOption(props: IFormOptionProps) {
           placeholder="Confirm password"
           name="confirmPassword"
           className={elementStyles.form__input}
+          style={{ color: "white" }}
           value={props.value}
           onChange={(e) => {
             confirmPasswordValidation(e);

@@ -48,6 +48,7 @@ export default function PhoneFormOption(props: IFormOptionProps) {
           name="phone"
           className={elementStyles.form__input}
           value={props.value}
+          style={{ color: "white" }}
           onChange={(e) => {
             checkOnEmptyInput(e);
             props.handleChange(e);

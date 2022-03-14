@@ -44,6 +44,7 @@ export default function PasswordFormOption(props: IFormOptionProps) {
           name="password"
           className={elementStyles.form__input}
           value={props.value}
+          style={{ color: "white" }}
           onChange={(e) => {
             passwordValidation(e);
             checkOnEmptyInput(e);
