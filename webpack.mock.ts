@@ -117,7 +117,7 @@ export default webpackMockServer.add((app) => {
   });
 
   app.post("/api/saveUser/", (req, res) => {
-    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto, usercartItems } = req.body;
+    const { userNamePrev, userNameNew, userDescription, userPhone, userAdress, userPhoto, userCartItems } = req.body;
     const resultUsers = users.map((user) => {
       if (user.login === userNamePrev) {
         return {
@@ -127,7 +127,7 @@ export default webpackMockServer.add((app) => {
           phone: userPhone,
           adress: userAdress,
           photo: userPhoto,
-          cartItems: usercartItems,
+          cartItems: userCartItems,
         };
       }
       return user;

@@ -40,7 +40,6 @@ export function saveProfile(
   userAdress: string,
   userPhoto: string | ArrayBuffer | null
 ) {
-  console.log(userPhoto);
   return async (dispatch: Dispatch) => {
     const response = await axios.post(`/api/saveUser/`, {
       userNamePrev,
@@ -49,6 +48,7 @@ export function saveProfile(
       userPhone,
       userAdress,
       userPhoto,
+      userCartItems: store.getState().cardItems,
     });
     const { status } = response;
     const parsedResponse: boolean = await response.data;
