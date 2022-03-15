@@ -118,7 +118,6 @@ class App extends Component<IProps, IState> {
 }
 
 function mapStateToProps(state: { user: IUserState }) {
-  // console.log(state.user);
   return {
     user: state.user,
   };

@@ -110,7 +110,6 @@ export default webpackMockServer.add((app) => {
       cartItems: [] as ICartItem[],
       stuff: false,
     };
-    console.log(newUser);
     users.push(newUser);
     fs.writeFileSync("./src/api/users.json", JSON.stringify(users));
     res.status(201).json(newUser);
@@ -260,7 +259,6 @@ export default webpackMockServer.add((app) => {
   });
   app.post("/api/buyCartItems", (req, res) => {
     const { cartItems, login } = req.body;
-    console.log(cartItems);
     users.forEach((user) => {
       if (user.login === login) {
         user.cartItems = [];

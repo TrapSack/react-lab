@@ -57,7 +57,6 @@ export function addGame(
       },
     });
     const parsedData = await data.data;
-    console.log(parsedData);
     dispatch({
       type: IActionTypes.ADD_GAME,
       payload: parsedData,
