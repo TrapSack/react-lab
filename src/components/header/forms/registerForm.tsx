@@ -31,7 +31,14 @@ export default function RegisterForm() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const hasNoErrors = Object.values(error).every((err) => err === "");
-    if (hasNoErrors && tempUser.login && tempUser.password && tempUser.confirmPassword) {
+    if (
+      hasNoErrors &&
+      tempUser.login &&
+      tempUser.password &&
+      tempUser.confirmPassword &&
+      tempUser.adress &&
+      tempUser.phone
+    ) {
       dispatch(registerUser(tempUser.login, tempUser.password, tempUser.phone, tempUser.adress));
       dispatch(getCartItems(tempUser.login));
     }
@@ -53,7 +60,6 @@ export default function RegisterForm() {
       [name]: value,
     }));
   }
-
   return (
     <form onSubmit={handleSubmit} className={`${header.form} ${header["form--register"]}`}>
       <LoginFormOption
